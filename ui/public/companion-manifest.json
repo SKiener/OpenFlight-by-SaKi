@@ -1,0 +1,20 @@
+{
+  "name": "OpenFlight Companion",
+  "short_name": "OpenFlight",
+  "description": "Live shot values and slow-motion replays from your OpenFlight launch monitor.",
+  "id": "/companion",
+  "start_url": "/companion",
+  "scope": "/companion",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/openflight-icon-black.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

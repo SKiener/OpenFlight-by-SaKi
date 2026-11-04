@@ -1,0 +1,115 @@
+// OpenFlight Log Shipping Configuration for Grafana Alloy
+//
+// Ships session logs (JSONL) to Grafana Cloud Loki for analysis.
+//
+// Setup:
+//   1. Install Alloy: sudo ./scripts/setup_alloy.sh
+//   2. Fill in /etc/alloy/credentials.env with your Grafana Cloud credentials
+//   3. Alloy starts automatically with start-kiosk.sh
+//
+// Environment variables required:
+//   LOKI_URL     - Grafana Cloud Loki push endpoint
+//   LOKI_USER    - Grafana Cloud instance ID
+//   LOKI_API_KEY - API key with logs:write scope
+
+// =============================================================================
+// Log File Discovery
+// =============================================================================
+
+// Watch for new session log files
+// The path is set by setup_alloy.sh based on the actual user's home directory.
+// Default: ~/openflight_sessions/session_*.jsonl
+local.file_match "openflight_logs" {
+  path_targets = [{"__path__" = "/home/coleman/openflight_sessions/session_*.jsonl"}]
+  sync_period  = "10s"
+}
+
+// =============================================================================
+// Log Source
+// =============================================================================
+
+loki.source.file "openflight_sessions" {
+  targets    = local.file_match.openflight_logs.targets
+  forward_to = [loki.process.openflight_json.receiver]
+
+  // Start from beginning of file (ship full session history)
+  tail_from_end = false
+}
+
+// =============================================================================
+// JSONL Session Log Processing
+// =============================================================================
+
+loki.process "openflight_json" {
+  forward_to = [loki.write.grafana_cloud.receiver]
+
+  // Parse JSON to extract fields for labels and structured metadata
+  stage.json {
+    expressions = {
+      log_type     = "type",
+      mode         = "mode",
+      club         = "club",
+      shot_number  = "shot_number",
+      ball_speed   = "ball_speed_mph",
+      club_speed   = "club_speed_mph",
+      carry        = "estimated_carry_yards",
+      spin_rpm     = "spin_rpm",
+      launch_v     = "launch_angle_vertical",
+      launch_h     = "launch_angle_horizontal",
+      angle_source = "angle_source",
+      club_aoa     = "club_angle_deg",
+      club_path    = "club_path_deg",
+      spin_axis    = "spin_axis_deg",
+    }
+  }
+
+  // Add extracted values as labels for efficient querying in Loki
+  stage.labels {
+    values = {
+      log_type = "",
+      mode     = "",
+      club     = "",
+    }
+  }
+
+  // Add static identifying labels
+  stage.static_labels {
+    values = {
+      app  = "openflight",
+      host = constants.hostname,
+    }
+  }
+
+  // Use the JSON timestamp field as the log timestamp
+  stage.json {
+    expressions = {
+      timestamp = "ts",
+    }
+  }
+
+  stage.timestamp {
+    source = "timestamp"
+    format = "RFC3339"
+  }
+}
+
+// =============================================================================
+// Loki Output
+// =============================================================================
+
+loki.write "grafana_cloud" {
+  endpoint {
+    url = env("LOKI_URL")
+
+    basic_auth {
+      username = env("LOKI_USER")
+      password = env("LOKI_API_KEY")
+    }
+
+    // Retry on rate limiting
+    retry_on_http_429 = true
+  }
+
+  // Local WAL for buffering during network outages
+  external_labels = {}
+}

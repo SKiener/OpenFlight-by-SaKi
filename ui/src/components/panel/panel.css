@@ -1,0 +1,2282 @@
+/*
+ * Instrument-panel shell — design doc "Club Select Mockups", options 6a / 7a /
+ * 7b / 7c. All colour comes from the theme tokens in index.css; nothing here
+ * hard-codes a hex, so the light theme (option 5a) falls out for free.
+ *
+ * The recurring device is a hairline grid: a container painted in
+ * --color-border with 1px gaps, and cells painted in --color-surface. The "borders"
+ * are the background showing through.
+ */
+
+.panel-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  /* iOS Safari: 100vh hides the footer under the toolbar; dvh follows it. */
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  /* Containing block for the menu sheet and picker overlay. */
+  position: relative;
+  /* Header chips (Shots / Camera) set the chrome height for every screen. */
+  --panel-control-height: 32px;
+}
+
+.panel-app__main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.panel__body {
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.panel__body--empty {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.panel__empty-title {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panel__empty-detail {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}
+
+/* ---------------------------------------------------------------- header -- */
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: 14px 26px 12px;
+  flex-shrink: 0;
+  min-height: calc(var(--panel-control-height, 32px) + 14px + 12px);
+  position: relative;
+  background: var(--color-surface);
+}
+
+.panel-header__identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.panel-header__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin: -8px 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.panel-header__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-error);
+  flex-shrink: 0;
+}
+
+.panel-header__dot--connected {
+  background: var(--color-success);
+}
+
+.panel-header__dot--disconnected {
+  background: var(--color-error);
+}
+
+.panel-header__status-menu {
+  position: absolute;
+  top: calc(var(--panel-control-height, 32px) + 26px);
+  left: 20px;
+  z-index: 21;
+  min-width: 260px;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 0px;
+  border-radius: var(--radius);
+}
+
+.panel-header__status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+}
+
+.panel-header__status-label {
+  flex: 1;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.panel-header__status-value {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--color-text);
+}
+
+.panel-header__title {
+  font-weight: 700;
+  font-size: var(--font-caption);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.panel-header__divider {
+  width: 1px;
+  height: 13px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+.panel-header__subtitle {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel-header__club {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.panel-header__actions .panel-action {
+  height: var(--panel-control-height, 32px);
+  padding: 0 14px;
+  font-size: var(--font-caption);
+}
+
+.panel-header__meta {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.panel-header__meta--faint {
+  color: var(--color-text-faint);
+}
+
+/* The landscape kiosk in a•space: beside the Shots panel's two buttons the
+ * counts and the club ran into an ellipsis ("2 ERFAS…", "D…"). The header's
+ * caps lose their tracking, and the counts and the club may take a second
+ * line between words (the 44 px buttons give the row the height). */
+@media (orientation: landscape) and (min-width: 800px) {
+  .panel-header__title,
+  .panel-header__subtitle,
+  .panel-header__club,
+  .panel-header__actions .panel-action {
+    letter-spacing: 0;
+  }
+
+  /* Visible overflow keeps each one at least as wide as its longest word, so the club stays "Driver". */
+  .panel-header__subtitle,
+  .panel-header__club {
+    overflow: visible;
+    line-height: 1.15;
+    white-space: normal;
+  }
+}
+
+/* ----------------------------------------------------------------- chips -- */
+
+.panel-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  max-width: 46vw;
+  scrollbar-width: none;
+}
+
+.panel-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.panel-chip {
+  height: var(--panel-control-height, 32px);
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.panel-chip--active {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+  font-weight: 700;
+}
+
+.panel-chip:disabled {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  cursor: default;
+}
+
+/* ---------------------------------------------------------------- footer -- */
+
+.panel-footer {
+  display: flex;
+  align-items: center;
+  gap: 1.6vw;
+  padding: 8px 2.5vw;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+  background: var(--color-surface);
+}
+
+.panel-footer__menu {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.panel-footer__menu svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* Footer tabs: same hairline dividers as the header identity row.
+ * Spacing is vw-based so the cluster does not resize when footer meta appears. */
+.panel-footer__nav {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.panel-footer__tabs {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 64vw;
+  min-width: 0;
+  align-items: center;
+  gap: 1.2vw;
+  padding: 0;
+  background: transparent;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.panel-footer__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.panel-footer__tabs .nav__button {
+  flex: 0 0 auto;
+  min-width: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0 0.4vw;
+  min-height: 44px;
+  gap: 0.6vw;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+}
+
+.panel-footer__tabs .nav__button--active {
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.panel-footer__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.9vw;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.panel-footer__units {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.panel-footer__units:not(:last-child) {
+  padding-right: 0.9vw;
+  border-right: 1px solid var(--color-border);
+}
+
+.panel-footer__meta > .power-status--chrome {
+  padding-right: 0.9vw;
+  border-right: 1px solid var(--color-border);
+}
+
+.panel-footer__power {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.panel-footer__power:hover,
+.panel-footer__power:focus-visible {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.panel-footer__power svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Shutdown confirmation is app chrome, so it lives with the panel shell. */
+.shutdown-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+
+.shutdown-dialog {
+  min-width: 280px;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.shutdown-dialog p {
+  margin: 0 0 1.5rem;
+  color: var(--color-text);
+  font-size: 1.125rem;
+}
+
+.shutdown-dialog--pending {
+  min-width: 320px;
+}
+
+.shutdown-dialog__error {
+  display: block;
+  margin: -0.75rem 0 1.25rem;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+}
+
+.shutdown-dialog__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.shutdown-dialog__confirm,
+.shutdown-dialog__cancel {
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.shutdown-dialog__confirm {
+  border: 1px solid var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-accent-fg);
+  font-weight: 600;
+}
+
+.shutdown-dialog__cancel {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.panel-action {
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-accent-block);
+  border-radius: 8px;
+  background: var(--color-accent-block);
+  color: var(--color-accent-fg);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.panel-action:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.panel-action--primary {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.panel-action--secondary {
+  background: transparent;
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.panel-action--danger {
+  background: transparent;
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+/* ------------------------------------------------------------ live panel -- */
+
+.live-panel__empty {
+  gap: 12px;
+  text-align: center;
+  padding: 0 32px;
+}
+
+.live-panel__empty-title {
+  font-size: clamp(3.5rem, 16vh, 7rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+}
+
+.live-panel__empty-detail {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.4vh, 1.25rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.live-panel__body {
+  position: relative;
+  display: grid;
+  min-height: 0;
+}
+
+.shot-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  animation: shot-impact 0.65s ease-out forwards;
+}
+
+@keyframes shot-impact {
+  0% {
+    opacity: 1;
+    background: radial-gradient(circle at center, var(--color-accent) 0%, transparent 0%);
+  }
+  40% {
+    opacity: 0.9;
+    background: radial-gradient(
+      circle at center,
+      var(--color-accent) 0%,
+      color-mix(in srgb, var(--color-accent) 45%, transparent) 42%,
+      transparent 72%
+    );
+  }
+  100% {
+    opacity: 0;
+    background: radial-gradient(circle at center, var(--color-accent) 0%, transparent 78%);
+  }
+}
+
+.live-panel__ball-warning {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 0 32px;
+  background: var(--color-bg);
+}
+
+.live-panel__ball-warning-title {
+  font-weight: 700;
+  font-size: clamp(2.5rem, 12vh, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-danger);
+}
+
+.live-panel__ball-warning-detail {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.4vh, 1.25rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Hairline grid: gaps show the container through as 1px rules. */
+.live-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 1fr;
+  background: var(--color-border);
+  gap: 1px;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* All values → Ball: eleven tiles. Off the kiosk (landscape phones, a portrait
+ * tablet) the five columns stay and take a third row; its last four cells stay
+ * empty. The kiosk lays them out 4 x 3 (below). */
+.live-panel__grid--of-11 {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* The free cells of the last row stay empty: one blank cell in the tiles'
+ * colour instead of the hairline colour the grid shows through its gaps
+ * (four cells beside the eleventh tile here; the kiosk and portrait phones
+ * leave one). */
+.live-panel__grid--of-11::after {
+  content: '';
+  grid-column: span 4 / -1;
+  background: var(--color-surface);
+}
+
+/* Swing-speed sessions produce five tiles in one row; so does the club page
+ * (club speed, path, attack angle, impact point, low point) off the kiosk. */
+.live-panel__grid--of-5 {
+  grid-template-rows: 1fr;
+}
+
+/* The kiosks (800 x 400, 800 x 480, 1024 x 600; not a big phone on its side,
+ * wider than 2.1 : 1). All values → Ball 4 x 3, the free cell empty: at
+ * 1024 x 600 its shared number is about twice that of 6 x 2 (5 x 3 lies
+ * between). The club page 3 + 2: its numbers are twice those of five in a row,
+ * where "202,0 km/h" binds the width. Its impact card takes the free cell of
+ * the second row (two columns, beside the low point): the face drawn large on
+ * the left, the zone word and its caption beside it on the right. Stacked under
+ * title, word and caption in one cell the face kept about 45 px of a 184 px
+ * card at 1024 x 600; it needs the room to show where the ball met the face. */
+@media (orientation: landscape) and (min-width: 800px) and (min-height: 400px) and (max-aspect-ratio: 21/10) {
+  .live-panel__grid--of-11 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  .live-panel__grid--of-11::after {
+    grid-column: auto / -1;
+  }
+
+  .club-data__grid.live-panel__grid--of-5 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .club-data__grid .metric-card[data-metric='cd_impact'] {
+    grid-column: span 2;
+  }
+
+  /* Title across the card; the face (about 55 %) left over the rest of its
+   * height, word and caption right, centred as one block. Four classes:
+   * outranks MetricCard.css's flex column for a card with a picture. */
+  .club-data__grid .metric-card.metric-card--label-above.metric-card--graphic {
+    display: grid;
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto minmax(0, 1fr);
+    justify-items: stretch;
+    column-gap: 0.5rem;
+  }
+
+  .club-data__grid .metric-card--graphic .metric-card__label {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  /* The face fills its area (the svg keeps its shape, `meet`), not the
+   * stacked card's min(48cqb, 62cqi). */
+  .club-data__grid .metric-card--graphic .metric-card__graphic {
+    grid-column: 1;
+    grid-row: 2 / -1;
+    align-self: stretch;
+    height: auto;
+  }
+
+  .club-data__grid .metric-card--graphic .metric-card__value-row {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .club-data__grid .metric-card--graphic .metric-card__meta {
+    grid-column: 2;
+    grid-row: 4;
+  }
+}
+
+.live-panel__grid .metric-card {
+  container-type: size;
+  min-width: 0;
+  padding: 0.4rem;
+  justify-content: stretch;
+  gap: 0.5rem;
+  border-radius: 0;
+}
+
+.live-panel__grid .metric-card--label-above {
+  gap: 0.35rem;
+}
+
+.live-panel__grid .metric-card__label {
+  /* A tight slot ("SCHLÄGERTEMPO" in a 191 px kiosk tile): the 12 px floor and
+   * slim tracking. Set in Nexa the titles keep one line again (as in Arial;
+   * a•space broke them at LivePanel's soft hyphens): no wrap, line height 1
+   * (MetricCard.css). Landscape phones still let them wrap (phoneLandscape.css). */
+  font-size: var(--font-caption-tight);
+  letter-spacing: 0.03em;
+}
+
+.live-panel__grid .metric-card__label,
+.live-panel__grid .metric-card__meta,
+.live-panel__grid .metric-card__subtext {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.live-panel__grid .metric-card__subtext {
+  display: block;
+  font-size: var(--font-caption);
+  line-height: 1.15;
+  /* Slim tracking: in a•space "CALCULATED" broke before its last letter at 0.06em. */
+  letter-spacing: 0.02em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* A tile shorter than 96 px of content (800x400: about 81 px) cannot hold a
+ * caption or quality row below label and value: "±0,9° · berechnet" wraps to
+ * two lines, and even one-line captions ("Spin-korrigiert", "hoch") ran 2-10 px
+ * past the tile. Such tiles drop the whole meta row's contents rather than
+ * running past the tile, as short phone tiles do (phone.css, 64 px); the meta
+ * row keeps its place at zero height. The ≈ mark and its screen-reader label
+ * stay in the title; the Range row still shows every caption. 800x480 and
+ * larger keep them. Landscape only: phone tiles keep their one-line caption. */
+/* An 800x400 tile (81 px of content) holding a two-line title: the empty
+ * rows around title, number and caption give back most of their gap. */
+@media (orientation: landscape) and (max-height: 420px) {
+  .live-panel__grid .metric-card--label-above {
+    row-gap: 0.15rem;
+  }
+}
+
+/* All values on the 800x480 and 1024x600 kiosks: a card holds the title, the
+ * number and a caption of two lines, three for "±1.5° · calculated ·
+ * uncalibrated" or the low point's "ahead of the ball · ±2.1 cm · …". The
+ * empty rows above and below the block keep no gap: the gaps sit only between
+ * title, number and caption. Captions keep their size (15.2 px at 800, 19.5 px
+ * at 1024; a•space had taken them to 12.5 and 16 px) without tracking: at
+ * 0.04em and more the low point's caption took a fourth line. Over 440 px
+ * high only: a large phone in landscape (932x430) is wider than 800 px too
+ * and keeps its own tiles. */
+@media (orientation: landscape) and (min-width: 800px) and (min-height: 441px) {
+  .live-panel__grid .metric-card--label-above {
+    row-gap: 0;
+  }
+
+  .live-panel__grid .metric-card--label-above .metric-card__value-row {
+    margin-block: 0.35rem;
+  }
+
+  .live-panel__grid .metric-card__confidence-label {
+    letter-spacing: 0;
+  }
+}
+
+/* 800x480: the number's gaps (0.15rem, as on 800x400) and the caption's line
+ * height (1.1) give a three-line caption ("±1.5° · calculated ·
+ * uncalibrated") its room. With one-line titles the tile keeps its 0.4rem
+ * padding (a•space had taken it to 0.25rem). */
+@media (orientation: landscape) and (min-width: 800px) and (max-width: 900px) and (min-height: 441px) {
+  .live-panel__grid .metric-card--label-above .metric-card__value-row {
+    margin-block: 0.15rem;
+  }
+
+  .live-panel__grid .metric-card__confidence-label {
+    line-height: 1.1;
+  }
+}
+
+@media (orientation: landscape) {
+  @container (max-height: 96px) {
+    .live-panel__grid .metric-card__meta {
+      min-height: 0;
+    }
+
+    .live-panel__grid .metric-card__meta > * {
+      display: none;
+    }
+  }
+}
+
+.live-panel__grid .metric-card__confidence {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.live-panel__grid .metric-card__value-row {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  /* a•space digits carry wide side bearings, so the unit needs less of a gap. */
+  gap: 0.04em;
+  /* Ceiling only; useSharedFitFontSize then applies one size to every tile. */
+  font-size: clamp(2.1rem, min(10.35vw, 19.55vh, 55cqi, 55cqb), 5.75rem);
+}
+
+.live-panel__grid .metric-card__value {
+  flex-shrink: 0;
+  font-size: 1em;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  /* a•space digits have wide side bearings (0.06 em a side), but "1" has almost
+   * none on its left: -0.01em gives the number a little room in the shared fit
+   * and keeps "01" 0.02 em apart (at -0.03em it touched). */
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.live-panel__grid .metric-card__unit {
+  flex-shrink: 0;
+  font-size: max(0.75rem, 0.28em);
+}
+
+/* Class words ("Gerade", "Straight") get about half the number ceiling. */
+.live-panel__grid .metric-card--class .metric-card__value-row {
+  font-size: clamp(1.15rem, min(5.3vw, 10.35vh, 19.55cqi, 34.5cqb), 3rem);
+}
+
+/* The 800 x 400 kiosk. All values → Ball, 4 x 3: 55 px tiles hold the title
+ * and the number only (the captions drop, as above), so the number keeps to
+ * the height the title leaves it instead of the 2.1rem floor, which ran it
+ * 11 px past the tile; the tile's padding gives a little back. The club
+ * page, 3 + 2: its 97 px cards keep their captions (the low point's side of
+ * the ball is in its caption), and the number keeps to what title and a
+ * two-line caption leave it. The impact card keeps its caption too: beside
+ * the face ("berechnet · unkalibriert" under the word) it takes no room from
+ * the drawing. */
+@media (orientation: landscape) and (min-width: 800px) and (min-height: 400px) and (max-height: 420px) and (max-aspect-ratio: 21/10) {
+  .live-panel__grid--of-11 .metric-card--label-above,
+  .club-data__grid .metric-card--label-above {
+    padding-block: 0.2rem;
+    row-gap: 0;
+  }
+
+  .live-panel__grid--of-11 .metric-card__value-row {
+    font-size: clamp(1rem, min(10.35vw, 19.55vh, 55cqi, calc(100cqb - 1.1rem)), 5.75rem);
+  }
+
+  .club-data__grid .metric-card__value-row {
+    margin-block: 0.15rem;
+    font-size: clamp(1rem, min(10.35vw, 19.55vh, 55cqi, calc(100cqb - 3rem)), 5.75rem);
+  }
+
+  .club-data__grid .metric-card .metric-card__meta > .metric-card__subtext {
+    display: block;
+  }
+}
+
+/* ----------------------------------------------------------- stats panel -- */
+
+.stats-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--color-surface);
+}
+
+.stats-panel__chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 26px;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stats-panel__chip-scroll {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  overscroll-behavior: contain;
+  /* Own the gesture: global * { touch-action: manipulation } plus chip
+     buttons otherwise steal the drag. Taps still fire as clicks. */
+  touch-action: none;
+}
+
+.stats-panel__chips .panel-chip {
+  touch-action: none;
+}
+
+/* "All" stays put while the club chips scroll beside it. */
+.stats-panel__club-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Ball | Club page switch, first in the chip row and outside the scrolling
+ * strip (it never scrolls away), at the chips' own pill size. */
+.stats-panel__chips > .segmented-control {
+  width: auto;
+  flex: none;
+  padding: 0;
+  gap: 6px;
+  margin-right: 6px;
+  background: transparent;
+  border-radius: 0;
+}
+
+.stats-panel__chips > .segmented-control .segmented-control__button {
+  flex: none;
+  min-height: 0;
+  height: var(--panel-control-height, 32px);
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  touch-action: none;
+}
+
+.stats-panel__chips > .segmented-control .segmented-control__button--active {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.stats-panel > .panel__body--empty {
+  flex: 1;
+}
+
+.stats-panel__grid {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  background: var(--color-border);
+  gap: 1px;
+  border-top: 1px solid var(--color-border);
+}
+
+.stats-panel__grid--of-4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* The club page: path and attack angle side by side. Two classes, so the
+ * landscape phones' two-row rule (phoneLandscape.css) leaves it one row. */
+.stats-panel__grid.stats-panel__grid--of-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.stats-panel__grid .metric-card {
+  padding: 22px;
+  justify-content: stretch;
+  border-radius: 0;
+}
+
+.stats-panel__grid .metric-card__value {
+  font-size: clamp(2.8rem, 12.65vh, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Club page: "−3,0 ± 1,6°" is wider than a ball-page number and every tile has a
+ * caption, so its rows share one fitted size (useSharedFitFontSize) under the
+ * ball page's ceiling, kept below the tile height left after title and caption. */
+/* Title, number and caption as three rows centred together, without the two
+ * spacer rows' gaps: the number's ceiling is the tile's content height less the
+ * title (0.72rem, at least the 16 px ≈ mark), two 6 px gaps and two caption
+ * lines ("n=9 · berechnet · unkalibriert" may wrap). The
+ * kiosk's rem grows with the screen (24 px at 1024×600), so a fixed 4.5rem
+ * reserve left the numbers at the 1rem floor there. */
+.stats-panel__grid--club .metric-card {
+  container-type: size;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  row-gap: 6px;
+}
+
+.stats-panel__grid--club .metric-card__label {
+  grid-row: 1;
+}
+
+.stats-panel__grid--club .metric-card__value-row {
+  grid-row: 2;
+  font-size: clamp(
+    1.15rem,
+    min(12.65vh, calc(100cqb - max(0.8125rem, 16px) - 12px - 2.3 * 0.8125rem)),
+    4.5rem
+  );
+  min-width: 0;
+}
+
+.stats-panel__grid--club .metric-card__meta {
+  grid-row: 3;
+}
+
+.stats-panel__grid.stats-panel__grid--club .metric-card__value {
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+/* Its captions ("n=7 · berechnet") wrap like the Live grid's. */
+.stats-panel__grid--club .metric-card__meta,
+.stats-panel__grid--club .metric-card__subtext {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.stats-panel__grid--club .metric-card__subtext {
+  display: block;
+  font-size: var(--font-caption);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* A tile too short for its caption drops it, as the Live grid's short tiles do;
+ * the ≈ mark keeps "calculated" as its label. */
+@container (max-height: 96px) {
+  .stats-panel__grid--club .metric-card__meta {
+    min-height: 0;
+  }
+
+  .stats-panel__grid--club .metric-card__meta > * {
+    display: none;
+  }
+
+  .stats-panel__grid--club .metric-card__value-row {
+    font-size: clamp(1rem, min(12.65vh, calc(100cqb - max(0.8125rem, 16px) - 12px)), 4.5rem);
+  }
+}
+
+/* Short kiosks (800×400, 800×480): the 22 px padding would leave a club tile no room. */
+@media (max-height: 500px) {
+  .stats-panel__grid--club .metric-card {
+    padding-block: 6px;
+  }
+}
+
+/* --------------------------------------------------------- profiles panel -- */
+
+.profiles-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px;
+  padding: 16px 26px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.profiles-panel__card-wrap {
+  position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 132px;
+}
+
+.profiles-panel__card {
+  width: 100%;
+  min-height: 132px;
+  padding: 22px 96px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.profiles-panel__card--selected {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.profiles-panel__name {
+  font-weight: 700;
+  font-size: clamp(1.25rem, 4vh, 1.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.profiles-panel__count {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.profiles-panel__actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.profiles-panel__rename,
+.profiles-panel__remove {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text-faint);
+  font-size: 0.875rem;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.profiles-panel__rename:hover,
+.profiles-panel__rename:active {
+  color: var(--color-text);
+}
+
+.profiles-panel__remove:hover,
+.profiles-panel__remove:active {
+  color: var(--color-danger);
+}
+
+.profiles-panel__skeleton {
+  grid-column: 1 / -1;
+  min-height: 132px;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+/* ----------------------------------------------------------- shots panel -- */
+
+.panel.shots-panel {
+  background: var(--color-surface);
+}
+
+/* Every row is its own grid, so a value wider than its column widens it and
+ * shifts that row. Spin gets a little more room: one that was not measured
+ * carries ≈, and a wedge's "≈10,500" has to fit at 800 px too. */
+.shots-panel__columns,
+.shots-panel__row-main {
+  display: grid;
+  grid-template-columns: 52px 92px repeat(3, 1fr) 1.3fr 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.shots-panel__columns {
+  grid-template-columns: 52px 92px repeat(3, 1fr) 1.3fr 1fr 126px;
+  padding: 9px 26px 7px;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+  font-weight: 600;
+  /* Column heads are tight: wider than their track, they would shift the head off the rows. */
+  font-size: var(--font-caption-tight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  /* "Flugweite" carries a soft hyphen for the narrowest phones (phone.css); here it never breaks. */
+  hyphens: none;
+}
+
+.shots-panel__num {
+  text-align: right;
+}
+
+.shots-panel__rows {
+  border-top: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  /* Own the gesture: global * { touch-action: manipulation } plus row
+     buttons otherwise swallow finger-drags on the kiosk touchscreen. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.shots-panel__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 26px;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.shots-panel__row-main {
+  flex: 1;
+  min-width: 0;
+  height: 66px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.shots-panel__index {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+}
+
+.shots-panel__profile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.shots-panel__profile-name {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shots-panel__profile-club {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.shots-panel__value {
+  font-weight: 700;
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.shots-panel__value--accent {
+  color: var(--color-accent);
+}
+
+.shots-panel__actions {
+  flex-shrink: 0;
+  width: 126px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.shots-panel__replay,
+.shots-panel__delete {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 7px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.shots-panel__replay {
+  width: 44px;
+  color: var(--color-accent);
+  font-size: var(--font-caption);
+}
+
+.shots-panel__delete {
+  width: 76px;
+  padding-inline: 2px;
+  letter-spacing: 0;
+  /* Exception: "LÖSCHEN" in a 76 px button: 12 px at least, the earlier 0.5625rem where that is more. */
+  font-size: max(12px, 0.5625rem);
+}
+
+.shots-panel__delete.confirm-delete--confirming,
+.shots-panel__delete.confirm-delete--busy,
+.shots-panel__delete.confirm-delete--failed {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  line-height: 1.15;
+  text-transform: none;
+}
+
+.shots-panel__delete:hover {
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+/* The landscape kiosk (800-1024 wide). The values are Nexa Bold, whose digits
+ * are proportional ("4" 0.68em, "1" 0.37em), so a value wider than its share
+ * of the row would widen its 1fr column and shift that row: the value columns
+ * get fixed tracks, weighted by what each column needs at 800 px, the larger
+ * of its widest realistic value (built from 4s, its -0.02em tracking
+ * included: ball "244,4" 2.84em, club "144,4" 2.56, launch "24,4" 2.18, spin
+ * "≈12.444" 3.76, carry "≈244" 2.53) and its German heading at 0.75rem
+ * ("SCHLÄGER" 5.4em, "ABFLUG" 4.0, "FLUGWEITE" 5.8). Values, headings and
+ * "LÖSCHEN" keep their sizes (1.375rem, 0.75rem, 0.5625rem). The club under
+ * the profile keeps 0.1em of its tracking, so "PITCHING" stays inside the
+ * profile column; the shot column holds "SCHLAG" with the headings'
+ * tracking. Phones keep their own columns (phone.css, phoneLandscape.css). */
+@media (orientation: landscape) and (min-width: 800px) {
+  .shots-panel__row-main {
+    grid-template-columns:
+      3.4rem 4.65rem minmax(0, 75fr) minmax(0, 78fr) minmax(0, 58fr) minmax(0, 99fr)
+      minmax(0, 84fr);
+  }
+
+  .shots-panel__columns {
+    grid-template-columns:
+      3.4rem 4.65rem minmax(0, 75fr) minmax(0, 78fr) minmax(0, 58fr) minmax(0, 99fr)
+      minmax(0, 84fr) 126px;
+  }
+
+  .shots-panel__profile-club {
+    letter-spacing: 0.1em;
+  }
+}
+
+/* 800 wide: the five value columns share about 405 px and need 384 at those
+ * sizes. The headings keep no tracking (at 0.06em "SCHLAG" left its 3.1rem
+ * column and the five needed 404 px), and the columns stand 8 px apart
+ * (was 10 px). */
+@media (orientation: landscape) and (min-width: 800px) and (max-width: 900px) {
+  .shots-panel__columns,
+  .shots-panel__row-main,
+  .shots-panel__row {
+    column-gap: 8px;
+  }
+
+  .shots-panel__row-main {
+    grid-template-columns:
+      3.1rem 4.65rem minmax(0, 75fr) minmax(0, 78fr) minmax(0, 58fr) minmax(0, 99fr)
+      minmax(0, 84fr);
+  }
+
+  .shots-panel__columns {
+    grid-template-columns:
+      3.1rem 4.65rem minmax(0, 75fr) minmax(0, 78fr) minmax(0, 58fr) minmax(0, 99fr)
+      minmax(0, 84fr) 126px;
+    letter-spacing: 0;
+  }
+}
+
+/* The carry's notes as text: a touch screen never shows the carry cell's tooltip. */
+.shots-panel__carry-notes {
+  margin: 0;
+  padding: 0 26px 8px;
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}
+
+.shots-panel__club-data {
+  margin: 0;
+  padding: 0 26px 10px;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.shots-panel__club-data-mark {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.shots-panel__validation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-md);
+  padding: 0 26px 12px;
+}
+
+.shots-panel__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.shots-panel__field input,
+.shots-panel__field select {
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.shots-panel__field--notes {
+  flex: 1;
+  min-width: 160px;
+}
+
+.shots-panel__field--notes input {
+  width: 100%;
+}
+
+.shots-panel__field--diff strong {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  font-size: 1.0625rem;
+  color: var(--color-accent);
+  letter-spacing: 0;
+}
+
+/* The debug panel brings its own layout; the shell only gives it a scroll box. */
+.panel-app__debug {
+  overflow: auto;
+  padding: var(--space-sm) 26px var(--space-sm);
+}
+
+/* ---------------------------------------------------------- camera panel -- */
+
+.camera-panel__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ------------------------------------------------------------ menu sheet -- */
+
+.panel-scrim {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: var(--color-scrim);
+  cursor: pointer;
+  z-index: 20;
+}
+
+.menu-sheet {
+  position: absolute;
+  left: 20px;
+  bottom: 66px;
+  width: 320px;
+  max-height: calc(100% - 86px);
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: 0px;
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 21;
+}
+
+/* The sheet outgrows 800x400 once voice callouts are on. Own the gesture so a
+   finger drag scrolls it (useDragScroll); taps on its buttons still click. */
+.menu-sheet {
+  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.menu-sheet,
+.menu-sheet button {
+  touch-action: none;
+}
+
+/* A real touch screen (a phone) pans natively, with momentum, also from the
+   selects; the drag controller steps aside on pointercancel. */
+@media (hover: none) and (pointer: coarse) {
+  .menu-sheet,
+  .menu-sheet button {
+    touch-action: pan-y;
+  }
+}
+
+.menu-sheet__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-sheet__languages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.menu-sheet__languages button {
+  min-height: 2rem;
+  text-transform: none;
+  letter-spacing: normal;
+  touch-action: none;
+}
+
+.menu-sheet__languages button[aria-pressed='true'] {
+  background: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.menu-sheet__section-title {
+  font-weight: 700;
+  font-size: var(--font-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.menu-sheet__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.menu-sheet__chip-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.menu-sheet__chip {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  cursor: pointer;
+}
+
+.menu-sheet__chip--active {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+  font-weight: 700;
+}
+
+.menu-sheet__chip-remove {
+  width: 28px;
+  border: 1px solid var(--color-border);
+  border-left: none;
+  background: transparent;
+  color: var(--color-text-faint);
+  font-family: inherit;
+  font-size: var(--font-caption);
+  cursor: pointer;
+}
+
+.menu-sheet__chip-remove:hover {
+  color: var(--color-danger);
+}
+
+.menu-sheet__add-row {
+  display: flex;
+  gap: 6px;
+}
+
+.menu-sheet__select,
+.menu-sheet__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.8125rem;
+}
+
+.menu-sheet__select {
+  width: 100%;
+  min-height: 44px;
+  appearance: auto;
+}
+
+/* iOS Safari zooms into a focused select or field under 16px and stays zoomed.
+   1rem is at least 18px (html is clamped to >= 112.5%). */
+@media (hover: none) and (pointer: coarse) {
+  .menu-sheet__select,
+  .menu-sheet__input {
+    font-size: 1rem;
+  }
+}
+
+.menu-sheet__chip[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.menu-sheet__sublabel {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}
+
+.menu-sheet__note {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.menu-sheet__action,
+.menu-sheet__shutdown {
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: var(--font-caption);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.menu-sheet__status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 30px;
+}
+
+.menu-sheet__status-label {
+  flex: 1;
+  font-weight: 600;
+  font-size: var(--font-caption);
+  color: var(--color-text-muted);
+}
+
+.menu-sheet__status-value {
+  font-weight: 600;
+  font-size: var(--font-caption);
+  color: var(--color-text);
+}
+
+.menu-sheet__shutdown {
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+/* Start page: one row per area, the name left, a short state summary right, then a chevron.
+   Three classes deep so the range layout's 44 px menu button rule (range.css) does not win. */
+.menu-sheet__areas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-sheet .menu-sheet__areas .menu-sheet__area {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 100%;
+  min-height: 56px;
+  padding: 0.35rem 0.9rem 0.35rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-sheet__area-name {
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* A long summary wraps under itself rather than being cut. */
+.menu-sheet__area-summary {
+  min-width: 0;
+  font-size: var(--font-caption);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: right;
+  overflow-wrap: anywhere;
+  color: var(--color-text-muted);
+}
+
+.menu-sheet__area-chevron {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+/* Area page: Back and the area's name over its sections. */
+.menu-sheet__area-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.menu-sheet__back {
+  flex: none;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--font-caption);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.menu-sheet__area-title {
+  min-width: 0;
+  margin: 0;
+  font-size: 1.1667rem;
+  font-weight: 800;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.menu-sheet__area-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* A long label ("Wetter von Hand eingeben" on a 320 px phone) wraps inside its button instead of leaving it. */
+.menu-sheet__area-page .panel-action {
+  height: auto;
+  padding-block: 0.35rem;
+  white-space: normal;
+  line-height: 1.25;
+}
+
+/* -------------------------------------------------------- picker overlay -- */
+
+.picker-overlay {
+  position: absolute;
+  /* Inside the safe area (notch, home indicator); the insets are 0 on the kiosk. */
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+    env(safe-area-inset-left, 0px);
+  z-index: 30;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.picker-overlay__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 26px 12px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.picker-overlay__title {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.picker-overlay__close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1.0625rem;
+  cursor: pointer;
+}
+
+.picker-overlay__tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 14px 26px 0;
+}
+
+.picker-overlay__tabs .panel-action {
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+
+.picker-overlay__body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 26px 26px;
+}
+
+.picker-overlay__grid {
+  --picker-cols: 4;
+  --picker-rows: 3;
+  --picker-gap: 12px;
+  --picker-tile-h: min(
+    calc((100cqw - (var(--picker-cols) - 1) * var(--picker-gap)) / var(--picker-cols)),
+    calc((100cqh - (var(--picker-rows) - 1) * var(--picker-gap)) / var(--picker-rows))
+  );
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--picker-cols), minmax(0, 1fr));
+  grid-auto-rows: var(--picker-tile-h);
+  gap: var(--picker-gap);
+  align-content: start;
+  overflow: hidden;
+}
+
+.picker-overlay__option {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: inherit;
+  font-weight: 700;
+  /* The label's ceiling; useLabelFitFontSize shrinks a tab's labels together
+   * until each fits its tile. phone.css and phoneLandscape.css restore it
+   * where range.css sets the kiosk's larger one. */
+  --picker-label-max: clamp(0.875rem, calc(var(--picker-tile-h) * 0.22), 1.25rem);
+  font-size: var(--picker-label-max);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+/* Labels break between words only: never "7i" or "Counterweight" in two. */
+.picker-overlay__label {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+.picker-overlay__option--selected {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.picker-overlay--wide .picker-overlay__option {
+  --picker-label-max: clamp(0.9375rem, 2.8vh, 1.25rem);
+  letter-spacing: 0.02em;
+  padding: 0 16px;
+}
+
+/* ----------------------------------------------------- profile name modal -- */
+
+.profile-name-modal {
+  position: absolute;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+    env(safe-area-inset-left, 0px);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.profile-name-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 26px 12px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.profile-name-modal__title {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.profile-name-modal__close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1.0625rem;
+  cursor: pointer;
+}
+
+.profile-name-modal__input {
+  display: block;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: calc(100% - 36px);
+  height: 48px;
+  margin: 12px 18px 0;
+  padding: 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+
+.profile-name-modal__input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.profile-name-modal__input:focus,
+.profile-name-modal__input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-border);
+}
+
+.profile-name-modal__keyboard {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 12px 8px;
+}
+
+.profile-name-modal__key-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.profile-name-modal__key {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: clamp(0.875rem, 3.2vh, 1.25rem);
+  cursor: pointer;
+}
+
+.profile-name-modal__key--wide {
+  flex: 4;
+}
+
+.profile-name-modal__key--mod {
+  flex: 1.4;
+  font-size: clamp(0.75rem, 2.6vh, 1rem);
+  letter-spacing: 0.04em;
+}
+
+.profile-name-modal__key--active {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.profile-name-modal__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 8px 18px 18px;
+}
+
+.clear-session-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-session-modal__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  cursor: pointer;
+}
+
+.clear-session-modal__dialog {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(28rem, calc(100% - 48px));
+  max-height: calc(100% - 32px);
+  padding: 1.5rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.clear-session-modal__title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.clear-session-dialog__detail {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
+.clear-session-modal__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  margin-top: 0.25rem;
+}
+
+.clear-session-modal__actions .panel-action {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}
+
+.profile-name-modal__actions .panel-action {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------- mock simulate -- */
+
+.simulate-bubble {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  z-index: 15;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: var(--font-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 20px 0 color-mix(in srgb, var(--color-text) 30%, transparent);
+}
+
+/* ---------------------------------------------- landscape kiosk (1024x600) */
+
+@media (max-height: 640px) {
+  .panel-header {
+    padding: 10px 18px;
+    min-height: calc(var(--panel-control-height, 32px) + 10px + 10px);
+  }
+
+  .panel-header__status-menu {
+    top: calc(var(--panel-control-height, 32px) + 20px);
+    left: 18px;
+  }
+
+  .panel-footer {
+    padding: 6px 18px;
+    gap: 14px;
+  }
+
+  .live-panel__empty {
+    padding-inline: 18px;
+  }
+
+  .stats-panel__chips {
+    padding-inline: 18px;
+  }
+
+  .stats-panel__grid .metric-card {
+    padding-inline: 18px;
+  }
+
+  .shots-panel__columns,
+  .shots-panel__row,
+  .shots-panel__validation,
+  .shots-panel__carry-notes,
+  .shots-panel__club-data {
+    padding-inline: 18px;
+  }
+
+  .profiles-panel__grid {
+    padding-inline: 18px;
+    gap: 10px;
+  }
+
+  .profiles-panel__card {
+    min-height: 112px;
+    padding: 16px 96px 14px 16px;
+  }
+
+  .shots-panel__row-main {
+    height: 54px;
+  }
+
+  .menu-sheet {
+    left: 12px;
+    bottom: 58px;
+    width: 300px;
+  }
+
+  .picker-overlay__header {
+    padding: 10px 18px 8px;
+  }
+
+  .picker-overlay__tabs {
+    padding: 10px 18px 0;
+  }
+
+  .picker-overlay__body {
+    padding: 12px 18px 18px;
+  }
+
+  .picker-overlay__grid {
+    --picker-gap: 8px;
+  }
+
+  .picker-overlay__option {
+    --picker-label-max: clamp(0.8125rem, calc(var(--picker-tile-h) * 0.2), 1.0625rem);
+  }
+
+  .profile-name-modal__header {
+    padding: 10px 18px 8px;
+  }
+
+  .profile-name-modal__close {
+    width: var(--panel-control-height, 32px);
+    height: var(--panel-control-height, 32px);
+  }
+
+  .profile-name-modal__input {
+    height: 44px;
+    margin: 8px 18px 0;
+    font-size: 1.125rem;
+  }
+
+  .profile-name-modal__keyboard {
+    gap: 5px;
+    padding: 8px 10px 6px;
+  }
+
+  .profile-name-modal__key-row {
+    gap: 5px;
+  }
+
+  .profile-name-modal__actions {
+    padding: 6px 18px 12px;
+  }
+
+  .clear-session-modal__dialog {
+    width: min(28rem, calc(100% - 32px));
+    padding: 1.25rem 1rem 1rem;
+  }
+}

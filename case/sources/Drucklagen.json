@@ -1,0 +1,2721 @@
+{
+  "convention": "rigidmm; currentminXYZ0;15exactEposes + boundedcurrentFductselection",
+  "parts": [
+    {
+      "part": "03_Display_bracket_left",
+      "stem": "03_Display_bracket_left",
+      "source_sha256": "ae0cec7b6377f0c11df039ea843e64be7d55b066be36de24aa56553af8d9b74e",
+      "source_mesh": "assembly-STL/03_Display_bracket_left.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          92.5
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          -0.9063077870366499,
+          229.59604728518613
+        ],
+        [
+          0.0,
+          0.9063077870366499,
+          0.42261826174069944,
+          -23.26582558871563
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -92.5
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          0.9063077870366499,
+          -75.94548350331127
+        ],
+        [
+          -0.0,
+          -0.90630778703665,
+          0.42261826174069944,
+          217.91724829566436
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        19.55000000000001,
+        101.99999999999997,
+        9.470000000000034
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Mirror of final D03 right including print pose. Inherit local rear-pocket supports from D; no fresh slicing.",
+      "print_sha256": "5bd0d48b6fd85a16d1fb8af9e1373c54cf58598da7c4954c6df271472a67ab6c",
+      "print_stl": "print-STL/03_Display_bracket_left.stl"
+    },
+    {
+      "part": "03_Display_bracket_right",
+      "stem": "03_Display_bracket_right",
+      "source_sha256": "16442cea9e98315c820135dba0fdbb29072f2b6a56ce3b306175c76a7b1b507f",
+      "source_mesh": "assembly-STL/03_Display_bracket_right.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -72.94999999999999
+        ],
+        [
+          -0.0,
+          0.42261826174069944,
+          -0.9063077870366499,
+          229.59604728518613
+        ],
+        [
+          0.0,
+          0.9063077870366499,
+          0.42261826174069944,
+          -23.265825588715625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          72.94999999999999
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          0.9063077870366499,
+          -75.94548350331128
+        ],
+        [
+          -0.0,
+          -0.90630778703665,
+          0.42261826174069944,
+          217.91724829566436
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        19.55000000000001,
+        101.99999999999999,
+        9.470000000000038
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical final D03; retain local rear-pocket supports (D comparison approx0.20g).",
+      "print_sha256": "dff34744da3b41543881c32903c96bec4d05c64e145edd9420e00578d2430afb",
+      "print_stl": "print-STL/03_Display_bracket_right.stl"
+    },
+    {
+      "part": "04_Radar_carrier",
+      "stem": "04_Radar_carrier",
+      "source_sha256": "3d41df8eb55c1bc034978b16247b74db8512dce67ae521da88651b2940958125",
+      "source_mesh": "assembly-STL/04_Radar_carrier.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          94.0
+        ],
+        [
+          -0.0,
+          0.17364817766693033,
+          -0.984807753012208,
+          96.13648495294032
+        ],
+        [
+          0.0,
+          0.984807753012208,
+          0.17364817766693033,
+          16.26367374271391
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -94.0
+        ],
+        [
+          0.0,
+          0.17364817766693036,
+          0.9848077530122082,
+          -32.71051741366809
+        ],
+        [
+          -0.0,
+          -0.9848077530122081,
+          0.17364817766693036,
+          91.85179842140535
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        188.0,
+        84.00000368026238,
+        9.810003695056334
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "77e541ca66ee5cf3f4789706619e87938456b2db3204df2098eae66128abd0ea",
+      "print_stl": "print-STL/04_Radar_carrier.stl"
+    },
+    {
+      "part": "06_PTFE_clamp",
+      "stem": "06_PTFE_clamp",
+      "source_sha256": "58c690a024438a4124cdf55c10d32a4277cb27a9b24581968765a2341650b4a6",
+      "source_mesh": "assembly-STL/06_PTFE_clamp.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          95.6
+        ],
+        [
+          0.0,
+          -0.08715574274765817,
+          0.9961946980917455,
+          -11.299999999999992
+        ],
+        [
+          -0.0,
+          -0.9961946980917455,
+          -0.08715574274765817,
+          -0.9999999999999971
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -95.6
+        ],
+        [
+          -0.0,
+          -0.08715574274765817,
+          -0.9961946980917455,
+          -1.981054591140279
+        ],
+        [
+          0.0,
+          0.9961946980917455,
+          -0.08715574274765817,
+          11.169844345689057
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        191.2,
+        87.40000000000002,
+        7.000000000000006
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Fresh dual-port clamp sliced warning-free; no supports indicated by this study.",
+      "print_sha256": "1eaa8db5f793f6ae7d55ac9623d9888dd319a529c33f9e7dac6d39a798f55a31",
+      "print_stl": "print-STL/06_PTFE_clamp.stl"
+    },
+    {
+      "part": "11_Geekworm_retaining_cap",
+      "stem": "11_Geekworm_retaining_cap",
+      "source_sha256": "a455d460b788256d98ec3c38cebaa4d3b705d3c44eba919b344d2915feba350f",
+      "source_mesh": "assembly-STL/11_Geekworm_retaining_cap.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          66.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          -98.5
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          -66.8
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -66.0
+        ],
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          -66.8
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          98.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        132.0,
+        8.0,
+        26.200000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "ed79b7a6b15424856c08ca1d00d520dbe3b7908f5b2ba1f67365edc813ad7144",
+      "print_stl": "print-STL/11_Geekworm_retaining_cap.stl"
+    },
+    {
+      "part": "08_Grip_inner_cover",
+      "stem": "08_Grip_inner_cover",
+      "source_sha256": "2572485ad4746a5d16f9ee4dd80f90f2089fd96f9a9b7445bee2ed2c593bfa9b",
+      "source_mesh": "assembly-STL/08_Grip_inner_cover.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          88.0
+        ],
+        [
+          -0.0,
+          0.13511320473331348,
+          -0.9908301680442989,
+          234.59951398217464
+        ],
+        [
+          0.0,
+          0.9908301680442989,
+          0.13511320473331348,
+          55.12618753119193
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -88.0
+        ],
+        [
+          0.0,
+          0.1351132047333135,
+          0.9908301680442991,
+          -86.31818181818186
+        ],
+        [
+          -0.0,
+          -0.990830168044299,
+          0.13511320473331348,
+          225.00000000000003
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        176.0,
+        76.70335689314837,
+        8.00000000000005
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "1516256d2a78410fa0f007e794eac84c47f3cd6fd4c89875972bf9f898ccfc58",
+      "print_stl": "print-STL/08_Grip_inner_cover.stl"
+    },
+    {
+      "part": "07_Tripod_insert_adapter_7p5mm",
+      "stem": "07_Tripod_insert_adapter_7p5mm",
+      "source_sha256": "51c65e8159189a722a66b83e62a732dbb71bed23fc59ca13ae67157a0112c17e",
+      "source_mesh": "assembly-STL/07_Tripod_insert_adapter_7p5mm.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          19.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          78.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          9.797174393178826e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -19.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -78.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -9.797174393178826e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        32.0,
+        32.0,
+        15.000000000000002
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "a1f351fde107c893e6afe2abd300f73d65ed2e13bcf1e0a95e3e55879e0d9603",
+      "print_stl": "print-STL/07_Tripod_insert_adapter_7p5mm.stl"
+    },
+    {
+      "part": "01_Rear_shell",
+      "stem": "01_Rear_shell",
+      "source_sha256": "d1f339beb926e1fabfe1d78484908820ba696e6ef600143339e44e654c0102a5",
+      "source_mesh": "assembly-STL/01_Rear_shell.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          98.0
+        ],
+        [
+          -0.0,
+          0.0,
+          -1.0,
+          232.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          100.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -98.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -100.0
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          232.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        196.0,
+        232.0,
+        94.57937287726591
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Final two7slotgrilles: retain E rear-bed rotation/bridge90deg. Supports required for32.736mm grill bridges; actual Snug45 comparison warning-free. Automatic support amount is not a localized minimum.",
+      "print_sha256": "8f999d6c6627d526621f4de778a676a6902c324aecf27b8f9d6da351afc00530",
+      "print_stl": "print-STL/01_Rear_shell.stl",
+      "final_intake_revision": true
+    },
+    {
+      "part": "02_Front_sensor_panel",
+      "stem": "02_Front_sensor_panel",
+      "source_sha256": "2c0807f282cbef09619c81cff13c42918084bd48488dbb2b034066e5322894f3",
+      "source_mesh": "assembly-STL/02_Front_sensor_panel.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          98.0
+        ],
+        [
+          0.0,
+          -0.08715574274765817,
+          0.9961946980917455,
+          -1.0837378980596796e-15
+        ],
+        [
+          -0.0,
+          -0.9961946980917455,
+          -0.08715574274765817,
+          -1.0250642851754404e-14
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -98.0
+        ],
+        [
+          -0.0,
+          -0.08715574274765817,
+          -0.9961946980917455,
+          -1.0306090042398965e-14
+        ],
+        [
+          0.0,
+          0.9961946980917455,
+          -0.08715574274765817,
+          1.8621155678251744e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        196.0,
+        126.76816987245992,
+        13.099960279906444
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Snug45 supports required, actual supported comparison warning-free.",
+      "print_sha256": "f816e779956df01177126f6f793747ca22908c9869774259489cea8bb5d85d87",
+      "print_stl": "print-STL/02_Front_sensor_panel.stl"
+    },
+    {
+      "part": "09_Front_display_panel",
+      "stem": "09_Front_display_panel",
+      "source_sha256": "0fba257de1cdbaa43fb7a933a8b9a894dc3163e23e672737998f905812f79bf4",
+      "source_mesh": "assembly-STL/09_Front_display_panel.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          97.52003816824327
+        ],
+        [
+          0.0,
+          -0.42261826174069944,
+          0.9063077870366499,
+          -119.49536293829715
+        ],
+        [
+          -0.0,
+          -0.9063077870366499,
+          -0.42261826174069944,
+          42.915825588715656
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -97.52003816824327
+        ],
+        [
+          -0.0,
+          -0.42261826174069944,
+          -0.9063077870366499,
+          -11.605975652897426
+        ],
+        [
+          0.0,
+          0.90630778703665,
+          -0.42261826174069944,
+          126.43658955721946
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        195.04007633648655,
+        118.34156676555855,
+        16.650000000000034
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Local supports required, inherited from identical D print geometry.",
+      "print_sha256": "dd6e3896719307aa1d591d7f2179c4c7a337c658d493f26b81b33ad9ec713f50",
+      "print_stl": "print-STL/09_Front_display_panel.stl"
+    },
+    {
+      "part": "05_Camera_cradle_adjustable",
+      "stem": "05_Camera_cradle_adjustable",
+      "source_sha256": "9d360b25edc3ebd70ded8ef3a1813326708787441f36020df13d06fd01638034",
+      "source_mesh": "assembly-STL/05_Camera_cradle_adjustable.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -38.153902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          59.53181276024377
+        ],
+        [
+          0.0,
+          0.06104853953485687,
+          0.9981347984218669,
+          -89.27136396224167
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          38.153902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          0.06104853953485688,
+          -53.970887536954734
+        ],
+        [
+          0.0,
+          -0.061048539534856866,
+          0.9981347984218669,
+          92.73918509817264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.5,
+        41.49995240360368,
+        36.00000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Selected Vmin; real clip start requires support. Actual Snug45 comparison warning-free.",
+      "print_sha256": "32e6e87c5d00321a583cdbfbd17988efc1c3ab461f1d219f5ff622cac7145573",
+      "print_stl": "print-STL/05_Camera_cradle_adjustable.stl"
+    },
+    {
+      "part": "12_Camera_fixed_yoke",
+      "stem": "12_Camera_fixed_yoke",
+      "source_sha256": "8429873a57391b257e4017d2df65872a4ac700efd98978ae25808a54004b6912",
+      "source_mesh": "assembly-STL/12_Camera_fixed_yoke.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          72.60140214858075
+        ],
+        [
+          0.0,
+          -0.06104853953485688,
+          -0.998134798421867,
+          125.38036115613956
+        ],
+        [
+          -1.0,
+          -0.0,
+          -0.0,
+          85.75390200000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          85.75390200000001
+        ],
+        [
+          0.998134798421867,
+          -0.06104853953485688,
+          0.0,
+          -64.81169796378332
+        ],
+        [
+          -0.06104853953485687,
+          -0.9981347984218669,
+          -0.0,
+          129.57871107799792
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        54.56954179194066,
+        23.10894959750155,
+        15.100000000000009
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical D; inherit D pose and1.589mm bridge finding.",
+      "print_sha256": "0a39ff6bdb7091b239115a9232a7b8eb8623c0f9c96cd8324fb486610d49f7ce",
+      "print_stl": "print-STL/12_Camera_fixed_yoke.stl"
+    },
+    {
+      "part": "13_Camera_phone_reference_REMOVE_FOR_USE",
+      "stem": "13_Camera_phone_reference_REMOVE_FOR_USE",
+      "source_sha256": "641c266f0b9c18ec28c0dd49854720ba957430e1b2ba06b3a7b2e03150f7d4ad",
+      "source_mesh": "assembly-STL/13_Camera_phone_reference_REMOVE_FOR_USE.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          48.13181276024376
+        ],
+        [
+          -0.0,
+          0.06104853953485688,
+          0.998134798421867,
+          -111.2713639622417
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -27.153902000000002
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.153902000000002
+        ],
+        [
+          0.998134798421867,
+          0.06104853953485688,
+          0.0,
+          -41.24908296517859
+        ],
+        [
+          -0.06104853953485687,
+          0.9981347984218669,
+          0.0,
+          114.00219731275637
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        112.10000000000002,
+        9.999999999999986,
+        31.0
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical D; inherit D printing evidence without new slicing.",
+      "print_sha256": "25a4ff936e545c5d37e42fff3c070fbffcd9c4ce4a370f0119030dfad72ca536",
+      "print_stl": "print-STL/13_Camera_phone_reference_REMOVE_FOR_USE.stl"
+    },
+    {
+      "part": "14_Camera_cradle_LEFT",
+      "stem": "14_Camera_cradle_LEFT",
+      "source_sha256": "5be7fcd169ff2169754b0a4cdbd128451d88944c5c8faf78b20da2fd8188164c",
+      "source_mesh": "assembly-STL/14_Camera_cradle_LEFT.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          81.653902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          59.53181276024377
+        ],
+        [
+          0.0,
+          0.06104853953485687,
+          0.9981347984218669,
+          -89.27136396224167
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -81.653902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          0.06104853953485688,
+          -53.970887536954734
+        ],
+        [
+          0.0,
+          -0.061048539534856866,
+          0.9981347984218669,
+          92.73918509817264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.5,
+        41.49995240360368,
+        36.00000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Selected mirrored Vmin; separately sliced. Real clip start requires support; actual Snug45 warning-free.",
+      "print_sha256": "dc2726de1cf74bc472c0bb845a769e67d03f4db2c4cfd4eac4ffbeb060e61de5",
+      "print_stl": "print-STL/14_Camera_cradle_LEFT.stl"
+    },
+    {
+      "part": "15_Camera_fixed_yoke_LEFT",
+      "stem": "15_Camera_fixed_yoke_LEFT",
+      "source_sha256": "611b8274b8d4645f20d939041526e2ffd75de5586576d4656cbe4eb3f360c66b",
+      "source_mesh": "assembly-STL/15_Camera_fixed_yoke_LEFT.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          -0.998134798421867,
+          0.06104853953485688,
+          -18.031860356640088
+        ],
+        [
+          0.0,
+          -0.06104853953485688,
+          -0.998134798421867,
+          125.38036115613956
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          85.75390200000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -85.75390200000001
+        ],
+        [
+          -0.998134798421867,
+          -0.06104853953485688,
+          -0.0,
+          -10.34393936731099
+        ],
+        [
+          0.06104853953485687,
+          -0.9981347984218669,
+          -0.0,
+          126.24732024851359
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        54.56954179194066,
+        23.10894959750155,
+        15.100000000000009
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Exact mirror of D12 incl print pose; inherit D1.589mm bridge finding.",
+      "print_sha256": "48280033c23a1ffefa8e731caf24b906a05117bfdc4a0b455d36cc20e197507a",
+      "print_stl": "print-STL/15_Camera_fixed_yoke_LEFT.stl"
+    },
+    {
+      "part": "16_Camera_phone_reference_LEFT_REMOVE_FOR_USE",
+      "stem": "16_Camera_phone_reference_LEFT_REMOVE_FOR_USE",
+      "source_sha256": "d46394e0ae3aeec2aa682a9ef0386d70a076e5b8bd0c388497d345c9145af5db",
+      "source_mesh": "assembly-STL/16_Camera_phone_reference_LEFT_REMOVE_FOR_USE.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          -0.998134798421867,
+          0.06104853953485688,
+          63.968187239756254
+        ],
+        [
+          0.0,
+          0.06104853953485688,
+          0.998134798421867,
+          -111.2713639622417
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -27.153902000000002
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          -27.153902000000002
+        ],
+        [
+          -0.998134798421867,
+          0.06104853953485688,
+          -0.0,
+          70.64182793791272
+        ],
+        [
+          0.06104853953485687,
+          0.9981347984218669,
+          0.0,
+          107.15865603089891
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        112.10000000000002,
+        9.999999999999986,
+        31.0
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Exact mirror of D13 incl print pose; inherit D printing evidence without new slicing.",
+      "print_sha256": "ec9007c379a453546078b859f021283af31106a4c0244f8d297c4ccda27f37ed",
+      "print_stl": "print-STL/16_Camera_phone_reference_LEFT_REMOVE_FOR_USE.stl"
+    },
+    {
+      "part": "17_Noctua_airguide_lower",
+      "stem": "17_Noctua_airguide_lower",
+      "source_sha256": "2b76c1dab76165392351ea47e2711d39e124973d77bd5100e50df4e2a7f66f94",
+      "source_mesh": "assembly-STL/17_Noctua_airguide_lower.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          74.8
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          51.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          70.71000000000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          70.71000000000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -74.8
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          51.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.3,
+        28.0,
+        70.22000000000001
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Fan flange Xmax down, intake Xmin up, split side remains open. Use tested Snug45 supports; bare run has adhesion warning.",
+      "print_sha256": "14818108c3795068baf82c480840ce86e8dc4fac017fc2bed5628831c8a4dc1d",
+      "print_stl": "print-STL/17_Noctua_airguide_lower.stl",
+      "selected_pose": "FanFlangeDown",
+      "inlet_center_y_mm": -40.5,
+      "final_collector_clearance_revision": true
+    },
+    {
+      "part": "18_Noctua_airguide_upper",
+      "stem": "18_Noctua_airguide_upper",
+      "source_sha256": "6ed49c8829611188f779f8b88e6bd343430618c5db370b8f221aae9ac016244d",
+      "source_mesh": "assembly-STL/18_Noctua_airguide_upper.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          74.8
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          73.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          70.71000000000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          70.71000000000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -74.8
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          73.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.3,
+        22.0,
+        70.22000000000001
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Fan flange Xmax down, intake Xmin up, split side remains open. Use tested Snug45 supports for external overhangs despite warning-free bare run.",
+      "print_sha256": "a1602c4396f328852eafc194c94a99ad9bca49c189436bbb00ad7bd1596271d7",
+      "print_stl": "print-STL/18_Noctua_airguide_upper.stl",
+      "selected_pose": "FanFlangeDown",
+      "inlet_center_y_mm": -40.5,
+      "final_collector_clearance_revision": true
+    }
+  ],
+  "candidates": [
+    {
+      "part": "03_Display_bracket_left",
+      "stem": "03_Display_bracket_left",
+      "source_sha256": "ae0cec7b6377f0c11df039ea843e64be7d55b066be36de24aa56553af8d9b74e",
+      "source_mesh": "assembly-STL/03_Display_bracket_left.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          92.5
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          -0.9063077870366499,
+          229.59604728518613
+        ],
+        [
+          0.0,
+          0.9063077870366499,
+          0.42261826174069944,
+          -23.26582558871563
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -92.5
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          0.9063077870366499,
+          -75.94548350331127
+        ],
+        [
+          -0.0,
+          -0.90630778703665,
+          0.42261826174069944,
+          217.91724829566436
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        19.55000000000001,
+        101.99999999999997,
+        9.470000000000034
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Mirror of final D03 right including print pose. Inherit local rear-pocket supports from D; no fresh slicing.",
+      "print_sha256": "5bd0d48b6fd85a16d1fb8af9e1373c54cf58598da7c4954c6df271472a67ab6c",
+      "print_stl": "print-STL/03_Display_bracket_left.stl"
+    },
+    {
+      "part": "03_Display_bracket_right",
+      "stem": "03_Display_bracket_right",
+      "source_sha256": "16442cea9e98315c820135dba0fdbb29072f2b6a56ce3b306175c76a7b1b507f",
+      "source_mesh": "assembly-STL/03_Display_bracket_right.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -72.94999999999999
+        ],
+        [
+          -0.0,
+          0.42261826174069944,
+          -0.9063077870366499,
+          229.59604728518613
+        ],
+        [
+          0.0,
+          0.9063077870366499,
+          0.42261826174069944,
+          -23.265825588715625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          72.94999999999999
+        ],
+        [
+          0.0,
+          0.42261826174069944,
+          0.9063077870366499,
+          -75.94548350331128
+        ],
+        [
+          -0.0,
+          -0.90630778703665,
+          0.42261826174069944,
+          217.91724829566436
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        19.55000000000001,
+        101.99999999999999,
+        9.470000000000038
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical final D03; retain local rear-pocket supports (D comparison approx0.20g).",
+      "print_sha256": "dff34744da3b41543881c32903c96bec4d05c64e145edd9420e00578d2430afb",
+      "print_stl": "print-STL/03_Display_bracket_right.stl"
+    },
+    {
+      "part": "04_Radar_carrier",
+      "stem": "04_Radar_carrier",
+      "source_sha256": "3d41df8eb55c1bc034978b16247b74db8512dce67ae521da88651b2940958125",
+      "source_mesh": "assembly-STL/04_Radar_carrier.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          94.0
+        ],
+        [
+          -0.0,
+          0.17364817766693033,
+          -0.984807753012208,
+          96.13648495294032
+        ],
+        [
+          0.0,
+          0.984807753012208,
+          0.17364817766693033,
+          16.26367374271391
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -94.0
+        ],
+        [
+          0.0,
+          0.17364817766693036,
+          0.9848077530122082,
+          -32.71051741366809
+        ],
+        [
+          -0.0,
+          -0.9848077530122081,
+          0.17364817766693036,
+          91.85179842140535
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        188.0,
+        84.00000368026238,
+        9.810003695056334
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "77e541ca66ee5cf3f4789706619e87938456b2db3204df2098eae66128abd0ea",
+      "print_stl": "print-STL/04_Radar_carrier.stl"
+    },
+    {
+      "part": "06_PTFE_clamp",
+      "stem": "06_PTFE_clamp",
+      "source_sha256": "58c690a024438a4124cdf55c10d32a4277cb27a9b24581968765a2341650b4a6",
+      "source_mesh": "assembly-STL/06_PTFE_clamp.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          95.6
+        ],
+        [
+          0.0,
+          -0.08715574274765817,
+          0.9961946980917455,
+          -11.299999999999992
+        ],
+        [
+          -0.0,
+          -0.9961946980917455,
+          -0.08715574274765817,
+          -0.9999999999999971
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -95.6
+        ],
+        [
+          -0.0,
+          -0.08715574274765817,
+          -0.9961946980917455,
+          -1.981054591140279
+        ],
+        [
+          0.0,
+          0.9961946980917455,
+          -0.08715574274765817,
+          11.169844345689057
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        191.2,
+        87.40000000000002,
+        7.000000000000006
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Fresh dual-port clamp sliced warning-free; no supports indicated by this study.",
+      "print_sha256": "1eaa8db5f793f6ae7d55ac9623d9888dd319a529c33f9e7dac6d39a798f55a31",
+      "print_stl": "print-STL/06_PTFE_clamp.stl"
+    },
+    {
+      "part": "11_Geekworm_retaining_cap",
+      "stem": "11_Geekworm_retaining_cap",
+      "source_sha256": "a455d460b788256d98ec3c38cebaa4d3b705d3c44eba919b344d2915feba350f",
+      "source_mesh": "assembly-STL/11_Geekworm_retaining_cap.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          66.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          -98.5
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          -66.8
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -66.0
+        ],
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          -66.8
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          98.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        132.0,
+        8.0,
+        26.200000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "ed79b7a6b15424856c08ca1d00d520dbe3b7908f5b2ba1f67365edc813ad7144",
+      "print_stl": "print-STL/11_Geekworm_retaining_cap.stl"
+    },
+    {
+      "part": "08_Grip_inner_cover",
+      "stem": "08_Grip_inner_cover",
+      "source_sha256": "2572485ad4746a5d16f9ee4dd80f90f2089fd96f9a9b7445bee2ed2c593bfa9b",
+      "source_mesh": "assembly-STL/08_Grip_inner_cover.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          88.0
+        ],
+        [
+          -0.0,
+          0.13511320473331348,
+          -0.9908301680442989,
+          234.59951398217464
+        ],
+        [
+          0.0,
+          0.9908301680442989,
+          0.13511320473331348,
+          55.12618753119193
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -88.0
+        ],
+        [
+          0.0,
+          0.1351132047333135,
+          0.9908301680442991,
+          -86.31818181818186
+        ],
+        [
+          -0.0,
+          -0.990830168044299,
+          0.13511320473331348,
+          225.00000000000003
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        176.0,
+        76.70335689314837,
+        8.00000000000005
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "1516256d2a78410fa0f007e794eac84c47f3cd6fd4c89875972bf9f898ccfc58",
+      "print_stl": "print-STL/08_Grip_inner_cover.stl"
+    },
+    {
+      "part": "07_Tripod_insert_adapter_7p5mm",
+      "stem": "07_Tripod_insert_adapter_7p5mm",
+      "source_sha256": "51c65e8159189a722a66b83e62a732dbb71bed23fc59ca13ae67157a0112c17e",
+      "source_mesh": "assembly-STL/07_Tripod_insert_adapter_7p5mm.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          19.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          78.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          9.797174393178826e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -19.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -78.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -9.797174393178826e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        32.0,
+        32.0,
+        15.000000000000002
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Byte-identical D shape/rotation; retain previous D printing conditions, no new support-free claim.",
+      "print_sha256": "a1f351fde107c893e6afe2abd300f73d65ed2e13bcf1e0a95e3e55879e0d9603",
+      "print_stl": "print-STL/07_Tripod_insert_adapter_7p5mm.stl"
+    },
+    {
+      "part": "01_Rear_shell",
+      "stem": "01_Rear_shell",
+      "source_sha256": "d1f339beb926e1fabfe1d78484908820ba696e6ef600143339e44e654c0102a5",
+      "source_mesh": "assembly-STL/01_Rear_shell.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          98.0
+        ],
+        [
+          -0.0,
+          0.0,
+          -1.0,
+          232.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          100.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -98.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -100.0
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          232.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        196.0,
+        232.0,
+        94.57937287726591
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Final two7slotgrilles: retain E rear-bed rotation/bridge90deg. Supports required for32.736mm grill bridges; actual Snug45 comparison warning-free. Automatic support amount is not a localized minimum.",
+      "print_sha256": "8f999d6c6627d526621f4de778a676a6902c324aecf27b8f9d6da351afc00530",
+      "print_stl": "print-STL/01_Rear_shell.stl",
+      "final_intake_revision": true
+    },
+    {
+      "part": "02_Front_sensor_panel",
+      "stem": "02_Front_sensor_panel",
+      "source_sha256": "2c0807f282cbef09619c81cff13c42918084bd48488dbb2b034066e5322894f3",
+      "source_mesh": "assembly-STL/02_Front_sensor_panel.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          98.0
+        ],
+        [
+          0.0,
+          -0.08715574274765817,
+          0.9961946980917455,
+          -1.0837378980596796e-15
+        ],
+        [
+          -0.0,
+          -0.9961946980917455,
+          -0.08715574274765817,
+          -1.0250642851754404e-14
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -98.0
+        ],
+        [
+          -0.0,
+          -0.08715574274765817,
+          -0.9961946980917455,
+          -1.0306090042398965e-14
+        ],
+        [
+          0.0,
+          0.9961946980917455,
+          -0.08715574274765817,
+          1.8621155678251744e-16
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        196.0,
+        126.76816987245992,
+        13.099960279906444
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Snug45 supports required, actual supported comparison warning-free.",
+      "print_sha256": "f816e779956df01177126f6f793747ca22908c9869774259489cea8bb5d85d87",
+      "print_stl": "print-STL/02_Front_sensor_panel.stl"
+    },
+    {
+      "part": "09_Front_display_panel",
+      "stem": "09_Front_display_panel",
+      "source_sha256": "0fba257de1cdbaa43fb7a933a8b9a894dc3163e23e672737998f905812f79bf4",
+      "source_mesh": "assembly-STL/09_Front_display_panel.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          97.52003816824327
+        ],
+        [
+          0.0,
+          -0.42261826174069944,
+          0.9063077870366499,
+          -119.49536293829715
+        ],
+        [
+          -0.0,
+          -0.9063077870366499,
+          -0.42261826174069944,
+          42.915825588715656
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -97.52003816824327
+        ],
+        [
+          -0.0,
+          -0.42261826174069944,
+          -0.9063077870366499,
+          -11.605975652897426
+        ],
+        [
+          0.0,
+          0.90630778703665,
+          -0.42261826174069944,
+          126.43658955721946
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        195.04007633648655,
+        118.34156676555855,
+        16.650000000000034
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Local supports required, inherited from identical D print geometry.",
+      "print_sha256": "dd6e3896719307aa1d591d7f2179c4c7a337c658d493f26b81b33ad9ec713f50",
+      "print_stl": "print-STL/09_Front_display_panel.stl"
+    },
+    {
+      "part": "05_Camera_cradle_adjustable",
+      "stem": "05_Camera_cradle_adjustable",
+      "source_sha256": "9d360b25edc3ebd70ded8ef3a1813326708787441f36020df13d06fd01638034",
+      "source_mesh": "assembly-STL/05_Camera_cradle_adjustable.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -38.153902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          59.53181276024377
+        ],
+        [
+          0.0,
+          0.06104853953485687,
+          0.9981347984218669,
+          -89.27136396224167
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          38.153902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          0.06104853953485688,
+          -53.970887536954734
+        ],
+        [
+          0.0,
+          -0.061048539534856866,
+          0.9981347984218669,
+          92.73918509817264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.5,
+        41.49995240360368,
+        36.00000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Selected Vmin; real clip start requires support. Actual Snug45 comparison warning-free.",
+      "print_sha256": "32e6e87c5d00321a583cdbfbd17988efc1c3ab461f1d219f5ff622cac7145573",
+      "print_stl": "print-STL/05_Camera_cradle_adjustable.stl"
+    },
+    {
+      "part": "12_Camera_fixed_yoke",
+      "stem": "12_Camera_fixed_yoke",
+      "source_sha256": "8429873a57391b257e4017d2df65872a4ac700efd98978ae25808a54004b6912",
+      "source_mesh": "assembly-STL/12_Camera_fixed_yoke.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          72.60140214858075
+        ],
+        [
+          0.0,
+          -0.06104853953485688,
+          -0.998134798421867,
+          125.38036115613956
+        ],
+        [
+          -1.0,
+          -0.0,
+          -0.0,
+          85.75390200000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          85.75390200000001
+        ],
+        [
+          0.998134798421867,
+          -0.06104853953485688,
+          0.0,
+          -64.81169796378332
+        ],
+        [
+          -0.06104853953485687,
+          -0.9981347984218669,
+          -0.0,
+          129.57871107799792
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        54.56954179194066,
+        23.10894959750155,
+        15.100000000000009
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical D; inherit D pose and1.589mm bridge finding.",
+      "print_sha256": "0a39ff6bdb7091b239115a9232a7b8eb8623c0f9c96cd8324fb486610d49f7ce",
+      "print_stl": "print-STL/12_Camera_fixed_yoke.stl"
+    },
+    {
+      "part": "13_Camera_phone_reference_REMOVE_FOR_USE",
+      "stem": "13_Camera_phone_reference_REMOVE_FOR_USE",
+      "source_sha256": "641c266f0b9c18ec28c0dd49854720ba957430e1b2ba06b3a7b2e03150f7d4ad",
+      "source_mesh": "assembly-STL/13_Camera_phone_reference_REMOVE_FOR_USE.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          48.13181276024376
+        ],
+        [
+          -0.0,
+          0.06104853953485688,
+          0.998134798421867,
+          -111.2713639622417
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -27.153902000000002
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.153902000000002
+        ],
+        [
+          0.998134798421867,
+          0.06104853953485688,
+          0.0,
+          -41.24908296517859
+        ],
+        [
+          -0.06104853953485687,
+          0.9981347984218669,
+          0.0,
+          114.00219731275637
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        112.10000000000002,
+        9.999999999999986,
+        31.0
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Identical D; inherit D printing evidence without new slicing.",
+      "print_sha256": "25a4ff936e545c5d37e42fff3c070fbffcd9c4ce4a370f0119030dfad72ca536",
+      "print_stl": "print-STL/13_Camera_phone_reference_REMOVE_FOR_USE.stl"
+    },
+    {
+      "part": "14_Camera_cradle_LEFT",
+      "stem": "14_Camera_cradle_LEFT",
+      "source_sha256": "5be7fcd169ff2169754b0a4cdbd128451d88944c5c8faf78b20da2fd8188164c",
+      "source_mesh": "assembly-STL/14_Camera_cradle_LEFT.stl",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          81.653902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          -0.06104853953485688,
+          59.53181276024377
+        ],
+        [
+          0.0,
+          0.06104853953485687,
+          0.9981347984218669,
+          -89.27136396224167
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -81.653902
+        ],
+        [
+          0.0,
+          0.998134798421867,
+          0.06104853953485688,
+          -53.970887536954734
+        ],
+        [
+          0.0,
+          -0.061048539534856866,
+          0.9981347984218669,
+          92.73918509817264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.5,
+        41.49995240360368,
+        36.00000000000003
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Selected mirrored Vmin; separately sliced. Real clip start requires support; actual Snug45 warning-free.",
+      "print_sha256": "dc2726de1cf74bc472c0bb845a769e67d03f4db2c4cfd4eac4ffbeb060e61de5",
+      "print_stl": "print-STL/14_Camera_cradle_LEFT.stl"
+    },
+    {
+      "part": "15_Camera_fixed_yoke_LEFT",
+      "stem": "15_Camera_fixed_yoke_LEFT",
+      "source_sha256": "611b8274b8d4645f20d939041526e2ffd75de5586576d4656cbe4eb3f360c66b",
+      "source_mesh": "assembly-STL/15_Camera_fixed_yoke_LEFT.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          -0.998134798421867,
+          0.06104853953485688,
+          -18.031860356640088
+        ],
+        [
+          0.0,
+          -0.06104853953485688,
+          -0.998134798421867,
+          125.38036115613956
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          85.75390200000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -85.75390200000001
+        ],
+        [
+          -0.998134798421867,
+          -0.06104853953485688,
+          -0.0,
+          -10.34393936731099
+        ],
+        [
+          0.06104853953485687,
+          -0.9981347984218669,
+          -0.0,
+          126.24732024851359
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        54.56954179194066,
+        23.10894959750155,
+        15.100000000000009
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Exact mirror of D12 incl print pose; inherit D1.589mm bridge finding.",
+      "print_sha256": "48280033c23a1ffefa8e731caf24b906a05117bfdc4a0b455d36cc20e197507a",
+      "print_stl": "print-STL/15_Camera_fixed_yoke_LEFT.stl"
+    },
+    {
+      "part": "16_Camera_phone_reference_LEFT_REMOVE_FOR_USE",
+      "stem": "16_Camera_phone_reference_LEFT_REMOVE_FOR_USE",
+      "source_sha256": "d46394e0ae3aeec2aa682a9ef0386d70a076e5b8bd0c388497d345c9145af5db",
+      "source_mesh": "assembly-STL/16_Camera_phone_reference_LEFT_REMOVE_FOR_USE.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          -0.998134798421867,
+          0.06104853953485688,
+          63.968187239756254
+        ],
+        [
+          0.0,
+          0.06104853953485688,
+          0.998134798421867,
+          -111.2713639622417
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -27.153902000000002
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          -27.153902000000002
+        ],
+        [
+          -0.998134798421867,
+          0.06104853953485688,
+          -0.0,
+          70.64182793791272
+        ],
+        [
+          0.06104853953485687,
+          0.9981347984218669,
+          0.0,
+          107.15865603089891
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        112.10000000000002,
+        9.999999999999986,
+        31.0
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "exact_E_source_pose_print_reuse",
+      "fresh_slice": false,
+      "print_conditions": "Exact mirror of D13 incl print pose; inherit D printing evidence without new slicing.",
+      "print_sha256": "ec9007c379a453546078b859f021283af31106a4c0244f8d297c4ccda27f37ed",
+      "print_stl": "print-STL/16_Camera_phone_reference_LEFT_REMOVE_FOR_USE.stl"
+    },
+    {
+      "part": "17_Noctua_airguide_lower",
+      "stem": "17_Noctua_airguide_lower",
+      "source_sha256": "2b76c1dab76165392351ea47e2711d39e124973d77bd5100e50df4e2a7f66f94",
+      "source_mesh": "assembly-STL/17_Noctua_airguide_lower.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          74.8
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          51.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          70.71000000000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          70.71000000000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -74.8
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          51.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.3,
+        28.0,
+        70.22000000000001
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Fan flange Xmax down, intake Xmin up, split side remains open. Use tested Snug45 supports; bare run has adhesion warning.",
+      "print_sha256": "14818108c3795068baf82c480840ce86e8dc4fac017fc2bed5628831c8a4dc1d",
+      "print_stl": "print-STL/17_Noctua_airguide_lower.stl",
+      "selected_pose": "FanFlangeDown",
+      "inlet_center_y_mm": -40.5,
+      "final_collector_clearance_revision": true
+    },
+    {
+      "part": "18_Noctua_airguide_upper",
+      "stem": "18_Noctua_airguide_upper",
+      "source_sha256": "6ed49c8829611188f779f8b88e6bd343430618c5db370b8f221aae9ac016244d",
+      "source_mesh": "assembly-STL/18_Noctua_airguide_upper.stl",
+      "source_to_print_mm": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          74.8
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          73.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          70.71000000000001
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "print_to_source_mm": [
+        [
+          -0.0,
+          -0.0,
+          -1.0,
+          70.71000000000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -74.8
+        ],
+        [
+          -0.0,
+          -1.0,
+          -0.0,
+          73.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "size_mm": [
+        43.3,
+        22.0,
+        70.22000000000001
+      ],
+      "fresh_min_xyz_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "closed": true,
+      "actual_components": 1,
+      "classification": "fresh_F",
+      "fresh_slice": true,
+      "print_conditions": "Fan flange Xmax down, intake Xmin up, split side remains open. Use tested Snug45 supports for external overhangs despite warning-free bare run.",
+      "print_sha256": "a1602c4396f328852eafc194c94a99ad9bca49c189436bbb00ad7bd1596271d7",
+      "print_stl": "print-STL/18_Noctua_airguide_upper.stl",
+      "selected_pose": "FanFlangeDown",
+      "inlet_center_y_mm": -40.5,
+      "final_collector_clearance_revision": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# TI SDK installers — huge, login/license-gated, never commit
+ti_installers/
+# build outputs
+*.bin
+*.out
+*.obj
+*.oer4f
+*.oe674
+
+# The validated production image is intentionally versioned.
+!releases/
+!releases/*.bin

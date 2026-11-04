@@ -1,0 +1,70 @@
+/**
+ * The Align view's two marks, the resting ball and the target line (tap, move, set anew), and the
+ * picture's two views: the close-up it opens with and the whole frame. The view button names the
+ * view it switches to.
+ */
+export const targetLineEn = {
+  'camera.target': 'Target line',
+  'camera.alignSteps': 'Align steps',
+  'camera.stepBall': '1 Ball',
+  'camera.stepTarget': '2 Target',
+  'camera.markBall': 'Ball',
+  'camera.markTarget': 'Target',
+  'camera.markSet': 'set',
+  'camera.targetNone': 'not set',
+  'camera.targetRight': 'Target {angle}° right of the camera axis',
+  'camera.targetLeft': 'Target {angle}° left of the camera axis',
+  'camera.ballHint': 'Tap the ball.',
+  'camera.ballRetap': 'Tap again to move the ball mark. Then choose “{step}”.',
+  'camera.targetHint': 'Tap the target.',
+  'camera.targetRetap': 'Tap again to move the target.',
+  'camera.viewFull': 'Full picture',
+  'camera.viewCrop': 'Close-up',
+  'camera.ballReset': 'New ball',
+  'camera.targetReset': 'New target',
+  'camera.targetUnavailable': 'Tapping a target needs the lens calibration of this camera mode.',
+};
+
+export const targetLineDe: Record<keyof typeof targetLineEn, string> = {
+  'camera.target': 'Ziellinie',
+  'camera.alignSteps': 'Schritte zum Ausrichten',
+  'camera.stepBall': '1 Ball',
+  'camera.stepTarget': '2 Ziel',
+  'camera.markBall': 'Ball',
+  'camera.markTarget': 'Ziel',
+  'camera.markSet': 'gesetzt',
+  'camera.targetNone': 'nicht gesetzt',
+  'camera.targetRight': 'Ziel {angle}° rechts der Kameraachse',
+  'camera.targetLeft': 'Ziel {angle}° links der Kameraachse',
+  'camera.ballHint': 'Tippe auf den Ball.',
+  'camera.ballRetap': 'Nochmal tippen verschiebt die Ballmarke. Danach „{step}“ wählen.',
+  'camera.targetHint': 'Tippe auf das Ziel.',
+  'camera.targetRetap': 'Nochmal tippen verschiebt das Ziel.',
+  'camera.viewFull': 'Ganzes Bild',
+  'camera.viewCrop': 'Ausschnitt',
+  'camera.ballReset': 'Ball neu',
+  'camera.targetReset': 'Ziel neu',
+  'camera.targetUnavailable': 'Zum Antippen des Ziels fehlt die Objektiv-Kalibrierung für diesen Kameramodus.',
+};
+
+export const targetLineEs: Record<keyof typeof targetLineEn, string> = {
+  'camera.target': 'Línea de objetivo',
+  'camera.alignSteps': 'Pasos para alinear',
+  'camera.stepBall': '1 Bola',
+  'camera.stepTarget': '2 Objetivo',
+  'camera.markBall': 'Bola',
+  'camera.markTarget': 'Objetivo',
+  'camera.markSet': 'fijado',
+  'camera.targetNone': 'sin fijar',
+  'camera.targetRight': 'Objetivo a {angle}° a la derecha del eje de la cámara',
+  'camera.targetLeft': 'Objetivo a {angle}° a la izquierda del eje de la cámara',
+  'camera.ballHint': 'Toca la bola.',
+  'camera.ballRetap': 'Vuelve a tocar para mover la marca de la bola. Después elige «{step}».',
+  'camera.targetHint': 'Toca el objetivo.',
+  'camera.targetRetap': 'Vuelve a tocar para mover el objetivo.',
+  'camera.viewFull': 'Imagen completa',
+  'camera.viewCrop': 'Primer plano',
+  'camera.ballReset': 'Bola nueva',
+  'camera.targetReset': 'Objetivo nuevo',
+  'camera.targetUnavailable': 'Para fijar un objetivo hace falta la calibración de la lente de este modo de cámara.',
+};

@@ -1,0 +1,19 @@
+.confirm-delete:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.confirm-delete.confirm-delete--confirming,
+.confirm-delete.confirm-delete--confirming:hover,
+.confirm-delete.confirm-delete--busy,
+.confirm-delete.confirm-delete--busy:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-accent-fg);
+}
+
+.confirm-delete.confirm-delete--failed,
+.confirm-delete.confirm-delete--failed:hover {
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}

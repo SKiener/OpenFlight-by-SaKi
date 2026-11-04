@@ -1,0 +1,411 @@
+.camera-replay {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 2vh, 18px);
+  /* Clear the notch and the home indicator (viewport-fit=cover); 0 on the kiosk. */
+  padding: max(clamp(10px, 2vh, 18px), env(safe-area-inset-top, 0px))
+    max(clamp(10px, 2vh, 18px), env(safe-area-inset-right, 0px))
+    max(clamp(10px, 2vh, 18px), env(safe-area-inset-bottom, 0px))
+    max(clamp(10px, 2vh, 18px), env(safe-area-inset-left, 0px));
+  background: rgb(0 0 0 / 92%);
+}
+
+.camera-replay__dialog {
+  width: min(100%, 1024px);
+  height: min(100%, 600px);
+  display: grid;
+  grid-template-areas:
+    'header'
+    'body';
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: #050505;
+  color: var(--color-text);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 55%);
+}
+
+.camera-replay__header,
+.camera-replay__control-row,
+.camera-replay__status-actions {
+  display: flex;
+  align-items: center;
+}
+
+.camera-replay__header {
+  grid-area: header;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 68px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.camera-replay__header h2,
+.camera-replay__status h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.camera-replay__eyebrow {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--color-accent);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.camera-replay__body {
+  grid-area: body;
+  min-height: 0;
+  display: grid;
+  grid-template-areas: 'stage controls';
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 32%);
+  overflow: hidden;
+}
+
+.camera-replay__stage {
+  grid-area: stage;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 2vh, 20px) clamp(18px, 3vw, 32px);
+  overflow: hidden;
+  background: #0b0b0b;
+  /* The viewport fits the whole frame into the stage in both directions. */
+  container-type: size;
+}
+
+/* The box has the frame's own shape (--replay-aspect, from the video; 16:10
+ * until it loads) and is as large as fits the stage, so the whole sensor
+ * frame shows: nothing is cropped in portrait or landscape. */
+.camera-replay__viewport {
+  position: relative;
+  /* Content box: the aspect ratio is the picture's, the 1 px border is extra. */
+  box-sizing: content-box;
+  width: min(100% - 2px, var(--replay-max-width, 720px));
+  max-height: calc(100% - 2px);
+  aspect-ratio: var(--replay-aspect, 1.6);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #000;
+}
+
+@supports (width: 1cqh) {
+  .camera-replay__viewport {
+    width: min(100cqw - 2px, var(--replay-max-width, 720px), (100cqh - 2px) * var(--replay-aspect, 1.6));
+    max-height: none;
+  }
+}
+
+/* Absolute, so 100% resolves against the viewport box and object-fit:
+ * contain letterboxes inside it. (As a grid item its height came from the
+ * video's own size, and overflow: hidden cut the bottom of the frame.) */
+.camera-replay__video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.camera-replay__video--mirrored {
+  transform: scaleX(-1);
+}
+
+.camera-replay__controls {
+  grid-area: controls;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  /* Centred by the auto margins below: unlike justify-content: center they
+   * drop to 0 when the controls overflow, so scrolling reaches every one. */
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 16px;
+  overflow-y: auto;
+  border-left: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.camera-replay__controls > :first-child {
+  margin-top: auto;
+}
+
+.camera-replay__controls > :last-child {
+  margin-bottom: auto;
+}
+
+.camera-replay__timeline {
+  position: relative;
+  flex-shrink: 0;
+  height: 44px;
+}
+
+.camera-replay__scrubber {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.camera-replay__impact {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: var(--replay-impact-position);
+  width: 2px;
+  pointer-events: none;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgb(255 212 0 / 70%);
+}
+
+.camera-replay__control-row {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.camera-replay__playback-row {
+  display: grid;
+  gap: 10px;
+}
+
+.camera-replay__playback-row p {
+  margin: 0;
+}
+
+.camera-replay__playback-label {
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.camera-replay__rate-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.camera-replay__rate {
+  min-width: 0;
+  padding-inline: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.camera-replay__loop {
+  width: 100%;
+}
+
+.camera-replay__button {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* A solid fill: the block accent with its own text colour. --color-accent is black in sun, which
+   left Play and Retry black on black there. */
+.camera-replay__button--primary {
+  border-color: var(--color-accent-block);
+  background: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.camera-replay__button--active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.camera-replay__time {
+  margin-left: auto;
+  white-space: nowrap;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+}
+
+.camera-replay__status {
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  max-width: 520px;
+  padding: 28px;
+  text-align: center;
+}
+
+.camera-replay__status p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.camera-replay__status-actions {
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-height: 440px) {
+  .camera-replay {
+    padding: max(6px, env(safe-area-inset-top, 0px)) max(6px, env(safe-area-inset-right, 0px))
+      max(6px, env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left, 0px));
+  }
+
+  .camera-replay__header {
+    min-height: 54px;
+    padding-block: 5px;
+  }
+
+  .camera-replay__controls {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .camera-replay__stage {
+    padding: 8px 12px;
+  }
+
+  .camera-replay__viewport {
+    --replay-max-width: 620px;
+  }
+}
+
+/* On a phone the dialog keeps its own button sizes on the analysis page too:
+ * `.analysis-page button` (56 px, 0.84rem) outranks `.camera-replay__button`,
+ * so six rates in a portrait row overlapped and their labels ran out, and
+ * the taller controls shrank the picture. The phone rules below that size
+ * the buttons carry the same `.camera-replay` prefix. */
+@media (max-width: 760px) {
+  .camera-replay .camera-replay__button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 16px;
+    font-size: 0.6875rem;
+  }
+}
+
+/* Phone in portrait: the stage sits above the controls and gets the whole
+ * screen height (no 600 px cap); the controls are compacted so the frame
+ * keeps most of the width. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .camera-replay__dialog {
+    height: 100%;
+  }
+
+  .camera-replay__header {
+    min-height: 0;
+    padding: 4px 12px;
+  }
+
+  .camera-replay__body {
+    grid-template-areas:
+      'stage'
+      'controls';
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .camera-replay__stage {
+    padding: 8px;
+  }
+
+  .camera-replay__controls {
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
+  .camera-replay__playback-row {
+    gap: 6px;
+  }
+
+  /* All rates in one row. */
+  .camera-replay__rate-options {
+    grid-template-columns: none;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 4px;
+  }
+
+  .camera-replay .camera-replay__rate {
+    padding-inline: 2px;
+    font-size: 0.625rem;
+    letter-spacing: 0;
+  }
+
+  .camera-replay .camera-replay__control-row .camera-replay__button {
+    padding-inline: 10px;
+  }
+
+  .camera-replay__playback-row p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Phone in landscape (up to 760 wide): stage and controls stay side by side,
+ * so the stage keeps the full body height; the controls column is narrower
+ * and scrolls. Stacking them left the stage 0 px tall. */
+@media (max-width: 760px) and (orientation: landscape) {
+  .camera-replay__body {
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 38%);
+  }
+
+  .camera-replay__stage {
+    padding: 8px;
+  }
+
+  .camera-replay__rate-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .camera-replay .camera-replay__rate {
+    padding-inline: 4px;
+  }
+
+  .camera-replay__playback-row p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Shown over the first frame when the platform would not start the replay
+ * without a tap (iOS Low Power Mode); the kiosk never needs it. */
+.camera-replay__play-prompt {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0 / 35%);
+}
+
+.camera-replay__play-prompt-button {
+  min-width: 132px;
+  min-height: 56px;
+  font-size: 1.05rem;
+}

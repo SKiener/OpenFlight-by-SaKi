@@ -1,0 +1,236 @@
+/* Reset touch behavior */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: auto;
+  color: var(--color-accent);
+  filter: brightness(1.1);
+}
+
+.header__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.iwr-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: 0.75rem var(--space-lg);
+  border-bottom: 1px solid var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-accent-fg);
+  flex-shrink: 0;
+}
+
+.iwr-alert div {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.iwr-alert strong {
+  white-space: nowrap;
+}
+
+.iwr-alert span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-accent-fg);
+}
+
+.iwr-alert button {
+  border: 1px solid var(--color-accent-fg);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.7rem;
+  background: transparent;
+  color: var(--color-accent-fg);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .iwr-alert {
+    align-items: flex-start;
+    padding-inline: var(--space-md);
+  }
+
+  .iwr-alert div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .iwr-alert span {
+    white-space: normal;
+  }
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Live View */
+.live-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+/* Power / Shutdown */
+.power-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.power-button:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.shutdown-overlay {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.shutdown-dialog {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  min-width: 280px;
+}
+
+.shutdown-dialog p {
+  font-size: 1.125rem;
+  color: var(--color-text);
+  margin: 0 0 1.5rem;
+}
+
+.shutdown-dialog--pending {
+  min-width: 320px;
+}
+
+.shutdown-dialog__error {
+  display: block;
+  margin: -0.75rem 0 1.25rem;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+}
+
+.shutdown-dialog__buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.shutdown-dialog__confirm {
+  padding: 0.625rem 1.5rem;
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius);
+  background: var(--color-danger);
+  color: var(--color-accent-fg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.shutdown-dialog__confirm:active {
+  background: color-mix(in srgb, var(--color-danger) 80%, var(--color-text));
+}
+
+.shutdown-dialog__cancel {
+  padding: 0.625rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.shutdown-dialog__cancel:active {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+
+/* Landscape 7" screen (800x480) */
+@media (max-height: 500px) {
+  .header {
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .header__controls {
+    gap: var(--space-xs);
+  }
+
+  .header__logo {
+    height: 32px;
+  }
+
+  .main {
+    padding: var(--space-xs) var(--space-md) var(--space-md);
+  }
+
+  .power-button {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+}

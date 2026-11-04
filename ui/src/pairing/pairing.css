@@ -1,0 +1,241 @@
+html:has(.pairing-screen) {
+  font-size: 100%;
+}
+
+.pairing-screen {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: max(env(safe-area-inset-top), var(--space-lg)) max(env(safe-area-inset-right), var(--space-lg))
+    max(env(safe-area-inset-bottom), var(--space-lg)) max(env(safe-area-inset-left), var(--space-lg));
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.pairing-screen__card {
+  display: grid;
+  gap: var(--space-lg);
+  width: min(26rem, 100%);
+}
+
+.pairing-screen__card h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pairing-screen__intro {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.pairing-screen__form {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.pairing-screen__form label {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pairing-screen__input {
+  /* A text input keeps its 20-character intrinsic width (323 px here) as a
+   * grid item; on a 320 px phone that widened the page by 19 px. */
+  width: 100%;
+  min-width: 0;
+  min-height: 3.25rem;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pairing-screen__submit {
+  min-height: 3rem;
+  border: 1px solid var(--color-accent-block);
+  border-radius: var(--radius);
+  background: var(--color-accent-block);
+  color: var(--color-accent-fg);
+  font: inherit;
+  font-weight: 700;
+}
+
+.pairing-screen__submit:disabled {
+  opacity: 0.45;
+}
+
+/* Pairing in the browser next to "open in the app" (iOS): the look of .panel-action--secondary. */
+.pairing-screen__submit--secondary {
+  border-color: var(--color-accent);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.pairing-screen__message {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pairing-screen__message--alert {
+  color: var(--color-danger);
+}
+
+.pair-dialog {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pair-dialog__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+
+.pair-dialog__panel {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  width: min(46rem, calc(100% - 2rem));
+  max-height: calc(100% - 1.5rem);
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.pair-dialog__panel h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.pair-dialog__content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.pair-dialog__qr-column {
+  flex: none;
+  display: grid;
+  gap: 0.5rem;
+  width: min(14rem, 52dvh);
+}
+
+.pair-dialog__qr-column--toggle {
+  width: min(14rem, calc(52dvh - 1rem));
+}
+
+.pair-dialog__qr {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.pair-dialog__details {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.pair-dialog__code {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.pair-dialog__countdown,
+.pair-dialog__details p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.pair-dialog__wifi {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.pair-dialog__wifi-title {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pair-dialog__wifi dl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.125rem 0.75rem;
+  align-items: baseline;
+  margin: 0;
+}
+
+.pair-dialog__wifi dl > div {
+  display: contents;
+}
+
+.pair-dialog__wifi dt {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.pair-dialog__wifi dd {
+  margin: 0;
+  min-width: 0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.pair-dialog__wifi .pair-dialog__wifi-password {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.pair-dialog__notice {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.pair-dialog__notice[role='alert'] {
+  color: var(--color-danger);
+}
+
+.pair-dialog__actions {
+  display: flex;
+  gap: 0.625rem;
+}
+
+.pair-dialog__actions .panel-action {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}

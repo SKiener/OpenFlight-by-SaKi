@@ -1,0 +1,364 @@
+/* Club colours per theme: see docs/development/color-palette.md (validated on the kiosk surfaces). */
+.dispersion {
+  --dispersion-1: #3987e5;
+  --dispersion-2: #d95926;
+  --dispersion-3: #199e70;
+  --dispersion-4: #c98500;
+  --dispersion-5: #d55181;
+  --dispersion-6: #008300;
+  --dispersion-7: #9085e9;
+  --dispersion-8: #e66767;
+  --dispersion-other: var(--color-text-faint);
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+[data-theme='sun'] .dispersion {
+  --dispersion-1: #2a78d6;
+  --dispersion-2: #eb6834;
+  --dispersion-3: #1baf7a;
+  --dispersion-4: #eda100;
+  --dispersion-5: #e87ba4;
+  --dispersion-6: #008300;
+  --dispersion-7: #4a3aa7;
+  --dispersion-8: #e34948;
+}
+
+.dispersion__ranges,
+.dispersion__clubs,
+.dispersion__chip-scroll {
+  display: flex;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.dispersion__ranges .companion-button {
+  flex: 1 1 0;
+  padding: 0 var(--space-sm);
+}
+
+.dispersion__clubs {
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Drag-to-scroll owns the gesture (ui/AGENTS.md): scroller and chips opt out of native panning. */
+.dispersion__chip-scroll {
+  flex: 1;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  touch-action: none;
+}
+
+.dispersion__chip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.dispersion__clubs .companion-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-md);
+  white-space: nowrap;
+  touch-action: none;
+}
+
+.dispersion__swatch {
+  display: inline-block;
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.dispersion__notes {
+  display: grid;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.dispersion__notes p,
+.dispersion__empty {
+  margin: 0;
+}
+
+.dispersion__warning {
+  padding: var(--space-xs) var(--space-md);
+  border-left: 3px solid var(--color-warning);
+  color: var(--color-text);
+}
+
+.dispersion__empty {
+  padding: var(--space-xl) 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.dispersion__body,
+.dispersion__figure {
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+  margin: 0;
+}
+
+.dispersion-plot {
+  height: clamp(20rem, 58vh, 34rem);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.dispersion-plot svg {
+  display: block;
+  font-family: var(--font-body);
+}
+
+.dispersion-plot__grid line {
+  stroke: var(--color-border-soft);
+}
+
+.dispersion-plot__grid text,
+.dispersion-plot__target text,
+.dispersion-plot__axis {
+  fill: var(--color-text-muted);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.dispersion-plot__target line {
+  stroke: var(--color-text-muted);
+  stroke-width: 1.5;
+}
+
+.dispersion-plot__ellipse {
+  fill: currentColor;
+  fill-opacity: 0.1;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.dispersion-plot__dot {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 1.5;
+}
+
+[data-hollow='true'] .dispersion-plot__dot {
+  fill: var(--color-bg);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.dispersion-plot__hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.dispersion-plot__point:focus {
+  outline: none;
+}
+
+.dispersion-plot__point:focus-visible .dispersion-plot__hit {
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.dispersion-plot__mean path {
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.dispersion-plot__mean path.is-halo {
+  stroke: var(--color-bg);
+  stroke-width: 6;
+}
+
+.dispersion-plot__mean text {
+  fill: var(--color-text);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--color-bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.dispersion__legend {
+  display: grid;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
+.dispersion__legend ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dispersion__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.dispersion__key::before {
+  content: '';
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 50%;
+}
+
+.dispersion__key--filled::before {
+  background: var(--color-text-muted);
+}
+
+.dispersion__key--ellipse::before {
+  width: 1.25rem;
+  height: 0.75rem;
+}
+
+.dispersion__key--mean::before {
+  content: '+';
+  width: auto;
+  height: auto;
+  border: none;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dispersion-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dispersion-table caption {
+  padding-bottom: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.dispersion-table thead th {
+  padding: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  text-align: right;
+}
+
+.dispersion-table small {
+  display: block;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.dispersion-table tbody th {
+  padding: var(--space-sm) var(--space-xs) var(--space-xs);
+  border-top: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.dispersion-table tbody th .dispersion__swatch {
+  margin-right: var(--space-sm);
+}
+
+.dispersion-table__count {
+  margin-left: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.dispersion-table td {
+  padding: 0 var(--space-xs) var(--space-sm);
+  text-align: right;
+  vertical-align: top;
+}
+
+.dispersion-table td strong {
+  font-size: 1rem;
+}
+
+.dispersion-dialog {
+  width: min(40rem, 100%);
+  max-width: 100%;
+  max-height: 100%;
+  padding: max(env(safe-area-inset-top), var(--space-lg)) var(--space-lg)
+    max(env(safe-area-inset-bottom), var(--space-lg));
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dispersion-dialog[open] {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.dispersion-dialog::backdrop {
+  background: var(--color-scrim);
+}
+
+.dispersion-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.dispersion-dialog__header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.dispersion-dialog__header p,
+.dispersion-dialog__lateral {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 767px) {
+  .dispersion-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .dispersion {
+    grid-column: 1 / -1;
+  }
+
+  .dispersion__body {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .dispersion-dialog {
+    max-height: calc(100% - 2 * var(--space-xl));
+  }
+}

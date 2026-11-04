@@ -1,0 +1,251 @@
+.display-mode {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  padding: clamp(1rem, 2vw, 2rem);
+  padding: max(clamp(1rem, 2vw, 2rem), env(safe-area-inset-top, 0px))
+    max(clamp(1rem, 2vw, 2rem), env(safe-area-inset-right, 0px))
+    max(clamp(1rem, 2vw, 2rem), env(safe-area-inset-bottom, 0px))
+    max(clamp(1rem, 2vw, 2rem), env(safe-area-inset-left, 0px));
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.display-mode__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(28rem, 0.75fr);
+  gap: clamp(1rem, 2vw, 2rem);
+  min-height: calc(100vh - 9.5rem);
+  min-height: calc(100dvh - 9.5rem);
+}
+
+.display-mode__camera,
+.display-mode__shot-panel {
+  min-width: 0;
+}
+
+.display-mode__camera {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 24rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+/* contain, never cover: the whole sensor frame shows, letterboxed in the
+ * dark background when the cell has another shape. */
+.display-mode__camera-image {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  object-fit: contain;
+  background: var(--color-bg);
+}
+
+.display-mode__camera-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 24rem;
+  padding: var(--space-xl);
+  color: var(--color-text-muted);
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.display-mode__status-row {
+  position: absolute;
+  left: var(--space-lg);
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.display-mode__status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: clamp(0.8125rem, 1.1vw, 1rem);
+  font-weight: 700;
+}
+
+.display-mode__status::before {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.45rem;
+  border-radius: var(--radius);
+  background: var(--color-danger);
+}
+
+.display-mode__status--online::before {
+  background: var(--color-success);
+}
+
+.display-mode__shot-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+.display-mode__eyebrow {
+  color: var(--color-accent);
+  font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.display-mode__title {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: clamp(3rem, 5vw, 6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: capitalize;
+}
+
+.display-mode .metric-card__value {
+  font-size: clamp(3.75rem, 6.2vw, 7.2rem);
+}
+
+.display-mode .metric-card--emphasis .metric-card__value {
+  font-size: clamp(6rem, 10.6vw, 12rem);
+}
+
+.display-mode__primary-grid,
+.display-mode__metrics-grid {
+  display: grid;
+  gap: clamp(0.65rem, 1.2vw, 1rem);
+}
+
+.display-mode__primary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.display-mode__metrics-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1;
+}
+
+.display-mode__recent {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.display-mode__empty-strip,
+.display-shot-chip {
+  min-height: 4.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.display-mode__empty-strip {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 700;
+}
+
+.display-shot-chip {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2rem 0.6rem;
+  align-content: center;
+  padding: var(--space-md);
+}
+
+.display-shot-chip__number,
+.display-shot-chip__club {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.display-shot-chip__club {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.display-shot-chip__stat {
+  color: var(--color-text-muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .display-mode {
+    overflow: auto;
+  }
+
+  .display-mode__hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  /* The picture takes the frame's own shape (--camera-aspect-ratio, from
+   * the image or the capture settings), capped to the screen height so the
+   * whole frame fits on screen in landscape; the status chips sit under it
+   * instead of over the hitting zone. */
+  .display-mode__camera {
+    min-height: 0;
+  }
+
+  .display-mode__camera-image {
+    flex: none;
+    width: min(100%, (100vh - 4.5rem) * var(--camera-aspect-ratio, 1.6));
+    width: min(100%, (100dvh - 4.5rem) * var(--camera-aspect-ratio, 1.6));
+    height: auto;
+    aspect-ratio: var(--camera-aspect-ratio, 1.6);
+    margin-inline: auto;
+  }
+
+  .display-mode__camera-placeholder {
+    aspect-ratio: var(--camera-aspect-ratio, 1.6);
+    min-height: 0;
+  }
+
+  .display-mode__status-row {
+    position: static;
+    padding: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .display-mode__recent {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .display-mode__primary-grid,
+  .display-mode__metrics-grid,
+  .display-mode__recent {
+    grid-template-columns: 1fr;
+  }
+
+  .display-mode__camera-placeholder {
+    min-height: 0;
+  }
+}

@@ -1,0 +1,131 @@
+[project]
+name = "openflight"
+version = "0.2.0"
+description = "DIY golf launch monitor using OPS243-A Doppler radar"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later" }
+authors = [
+    { name = "OpenFlight Contributors" }
+]
+keywords = ["golf", "launch-monitor", "doppler", "radar", "ops243", "raspberry-pi"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    "pyserial>=3.5",
+    "numpy>=1.20.0",
+    "scipy>=1.10.0",
+    "tomli>=2.0.1; python_version < '3.11'",
+    # Camera tracking is currently disabled; keep these out of the base install.
+    # "trackers @ git+https://github.com/roboflow/trackers.git",
+    # "supervision>=0.26.0",
+    "flask>=3.1.3",
+    "flask-cors>=6.0.2",
+    "flask-socketio>=5.6.1",
+    "segno>=1.6.0",
+    # K-LD7 angle radar driver — deprecated hardware, kept for existing builds.
+    "kld7>=0.2.1",
+    "gpiozero>=2.0.1; sys_platform == 'linux'",
+    "lgpio>=0.2.2.0; sys_platform == 'linux'",
+    "smbus2>=0.5.0; sys_platform == 'linux'",
+]
+
+[project.optional-dependencies]
+ui = [
+    "flask>=3.0.0",
+    "flask-socketio>=5.3.0",
+    "flask-cors>=4.0.0",
+    "python-socketio>=5.10.0",
+    "eventlet>=0.35.0",
+]
+# Camera estimators and camera-tab preview encoding. Picamera2 is installed
+# through Raspberry Pi OS because it is coupled to the platform's libcamera.
+camera = [
+    "opencv-python-headless>=4.8.0",
+]
+# Analysis tools for I/Q capture data
+analysis = [
+    "numpy>=1.20.0",
+    "matplotlib>=3.5.0",
+    "scipy>=1.7.0",
+]
+
+[project.scripts]
+openflight-server = "openflight.server:main"
+openflight-cloud = "openflight.cloud.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jewbetcha/openflight"
+Repository = "https://github.com/jewbetcha/openflight"
+Issues = "https://github.com/jewbetcha/openflight/issues"
+Documentation = "https://github.com/jewbetcha/openflight#readme"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/openflight"]
+
+[dependency-groups]
+dev = [
+    "pylint>=3.3.9",
+    "pre-commit>=4.0.0",
+    "pytest>=9.0.3",
+    "ruff>=0.1.0",
+]
+# Documentation site. Zensical is pre-1.0, so pin the minor to keep CI and
+# local builds on the same renderer.
+docs = [
+    "zensical>=0.0.57,<0.1",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]  # Line length handled separately
+
+[tool.ruff.lint.isort]
+# Combine `from x import (a, b as c)` into one block instead of splitting the
+# aliased member into its own statement (ruff's default). Keeps single-module
+# imports as one block, e.g. `from .sim import (..., PlayerState as SimPlayerState)`.
+combine-as-imports = true
+
+[tool.pylint.main]
+py-version = "3.10"
+
+[tool.pylint.messages_control]
+disable = [
+    "too-many-instance-attributes",  # Radar and monitor classes need many attributes
+    "too-many-public-methods",       # Radar API has many commands
+    "too-many-locals",               # Distance estimation lookup table
+    "too-many-statements",           # CLI main function
+    "import-outside-toplevel",       # argparse in main() is fine
+    "broad-exception-caught",        # Generic catch in streaming loop is intentional
+    "invalid-name",                  # Allow DRIVER_TABLE, CLUB_FACTORS constants
+    "duplicate-code",                # MockLaunchMonitor duplicates interface intentionally
+]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

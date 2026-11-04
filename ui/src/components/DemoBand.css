@@ -1,0 +1,58 @@
+/* In the layout flow, under the kiosk header and atop a phone page, so it never covers a tile or the footer. */
+.demo-band {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+  padding-left: 0.85rem;
+  border: 1px solid rgba(251, 191, 36, 0.75);
+  border-radius: 1.5rem;
+  background: rgba(251, 191, 36, 0.18);
+  color: var(--color-text);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.demo-band__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.demo-band__end {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--color-warning-block);
+  color: #000000;
+  font: inherit;
+  font-weight: 800;
+}
+
+/* Offline: grey, not amber, so it reads as off. Opacity stays at 1 over the kiosk's dimmed disabled buttons,
+   which would leave the word too faint on the band. */
+.demo-band .demo-band__end:disabled {
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: default;
+  opacity: 1;
+}
+
+.demo-band--view-only {
+  padding: 0.35rem 0.85rem;
+}
+
+.companion .demo-band {
+  margin-top: 0;
+  font-size: 0.875rem;
+}
+
+.display-mode .demo-band {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.8125rem, 1.1vw, 1rem);
+}

@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+# Anchored: an unanchored `build/` also swallows docs/build/, the enclosure
+# section of the docs site.
+/build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# uv
+.uv/
+uv.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+shots/
+logs/
+credentials.env
+*.env
+!*.env.example
+
+# Local capture and analysis artifacts. Historical fixtures under
+# session_logs remain tracked; new logs can still be added with git add -f.
+session_logs/session_*.jsonl
+session_logs/*.csv
+session_logs/*.md
+session_logs/*.pkl
+session_logs/*.zip
+session_logs/*/
+
+# Test artifacts
+test_camera.jpg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# UI (Node.js)
+ui/node_modules/
+ui/dist/autoresearch-results.tsv
+
+# Simulator connector config (copy from config/sim.example.json)
+config/sim.json
+ui/playwright-report/
+ui/test-results/
+
+.superpowers/
+
+# Zensical docs site build output
+/site/
+.cache/
+
+#Markdown preview files
+.crossnote/config.js
+.crossnote/head.html
+.crossnote/parser.js
+.crossnote/style.less

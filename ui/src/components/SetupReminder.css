@@ -1,0 +1,165 @@
+/*
+ * The kiosk's setup window at start (SetupReminder.tsx). It lies like the club picker over the whole
+ * app, one layer above it (the picker is z-index 30, the modals 40), with the kiosk picker's header:
+ * the title left, the round 64 px close button right, 76 px tall.
+ */
+.setup-reminder {
+  position: absolute;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+    env(safe-area-inset-left, 0px);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.setup-reminder__header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 76px;
+  padding: 6px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.setup-reminder__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.setup-reminder__eyebrow {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.setup-reminder__title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.setup-reminder__close {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 1.6rem;
+}
+
+/* Picture left, as big as fits; the checklist and the buttons right. */
+.setup-reminder__body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 20px;
+  padding: 14px 20px 16px;
+}
+
+.setup-reminder__picture {
+  min-width: 0;
+  min-height: 0;
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The frame has the picture's own shape (16:10 for 640 x 400), so the crosshair and the ball mark,
+ * laid out on the box, map to the picture. */
+.setup-reminder__frame {
+  --setup-aspect: 1.6;
+  position: relative;
+  width: min(100cqw, 100cqh * var(--setup-aspect));
+  aspect-ratio: var(--setup-aspect);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-hatch);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setup-reminder__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.setup-reminder__placeholder {
+  margin: 0;
+  padding: 0 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.setup-reminder__side {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setup-reminder__steps {
+  margin: 0;
+  padding-left: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.setup-reminder__steps li::marker {
+  font-weight: 800;
+}
+
+.setup-reminder__marks {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-muted);
+}
+
+/* Bottom right of the column; kiosk touch height (56 px, as the footer and the Live toolbar). */
+.setup-reminder__actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.range-app .setup-reminder__actions .panel-action {
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+  min-height: 56px;
+  height: auto;
+  padding: 0 16px;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,84 @@
+name: OpenFlightCompanion
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.9"
+
+targets:
+  OpenFlightCompanion:
+    type: application
+    platform: iOS
+    sources:
+      - path: OpenFlightCompanion
+        excludes:
+          - Info.plist
+    # No entitlements: microphone, motion, location and Network framework need only
+    # Info.plist usage strings, and a free account cannot use anything more (design F16).
+    info:
+      path: OpenFlightCompanion/Info.plist
+      properties:
+        CFBundleDisplayName: OpenFlight
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        ITSAppUsesNonExemptEncryption: false
+        NSMicrophoneUsageDescription: "OpenFlight nimmt das Treffgeräusch auf, um den Zeitpunkt des Ballkontakts genau zu bestimmen."
+        NSLocationWhenInUseUsageDescription: "OpenFlight nutzt deinen Standort, um das Wetter an der Range abzurufen. Daraus berechnet der Launch-Monitor die Luftdichte für die Flugweite."
+        NSMotionUsageDescription: "OpenFlight liest den Luftdruck aus dem Barometer des iPhones und speichert ihn neben den Wetterdaten."
+        NSLocalNetworkUsageDescription: "OpenFlight verbindet sich im WLAN mit deinem Launch-Monitor."
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+        UIRequiresPersistentWiFi: true
+        # openflight://open?url=… hands the pairing page over from Safari (CompanionDeepLink).
+        CFBundleURLTypes:
+          - CFBundleURLName: com.example.openflight
+            CFBundleURLSchemes:
+              - openflight
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIViewControllerBasedStatusBarAppearance: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.openflight
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # The realtime capture ring is C11 atomics (Swift `Atomic` needs iOS 18; design §9.2).
+        SWIFT_OBJC_BRIDGING_HEADER: OpenFlightCompanion/Audio/OpenFlightCompanion-Bridging-Header.h
+        # Optimized in Debug too: the per-sample onset pipeline costs about 0.1 % of a core when
+        # optimized and about 50 % without, which a Simulator run with the microphone (and the
+        # synthetic-signal tests) would feel.
+        SWIFT_OPTIMIZATION_LEVEL: "-O"
+        TARGETED_DEVICE_FAMILY: "1"
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+
+  OpenFlightCompanionTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [OpenFlightCompanionTests]
+    dependencies:
+      - target: OpenFlightCompanion
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.openflight.tests
+        GENERATE_INFOPLIST_FILE: true
+        # The synthetic-signal generator is per-sample work too.
+        SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+schemes:
+  OpenFlightCompanion:
+    build:
+      targets:
+        OpenFlightCompanion: all
+        OpenFlightCompanionTests: [test]
+    test:
+      targets:
+        - OpenFlightCompanionTests
+      gatherCoverageData: false

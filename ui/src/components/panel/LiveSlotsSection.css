@@ -1,0 +1,60 @@
+/* The kiosk's "Live display" section (LiveSlotsSection): its tiles as a small map, then the value list.
+   Three classes deep so the menu sheet's own 44 px button rules (range.css) do not shrink the 56 px rows. */
+.live-slots__map {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.live-slots .live-slots__map .live-slots__slot,
+.live-slots .live-slots__options .live-slots__option {
+  min-height: 56px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9167rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  touch-action: none;
+}
+
+.live-slots__slot {
+  overflow-wrap: anywhere;
+  line-height: 1.15;
+}
+
+.live-slots .live-slots__map .live-slots__slot--large {
+  grid-column: span 3;
+  min-height: 72px;
+}
+
+.live-slots__slot--small {
+  grid-column: span 2;
+}
+
+.live-slots__options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.live-slots__option {
+  width: 100%;
+  text-align: left;
+}
+
+.live-slots__slot[aria-pressed='true'],
+.live-slots__option[aria-pressed='true'] {
+  background: var(--color-accent-block);
+  border-color: var(--color-accent-block);
+  color: var(--color-accent-fg);
+}
+
+.live-slots .live-slots__reset.panel-action {
+  align-self: flex-start;
+  min-height: 56px;
+}

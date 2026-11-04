@@ -1,0 +1,86 @@
+.analysis-page { height: 100dvh; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); display: flex; flex-direction: column; background: var(--color-bg); color: var(--color-text); }
+.analysis-page h1, .analysis-page h2, .analysis-page p { margin: 0; }
+.analysis-page h1 { font-size: 1.12rem; letter-spacing: -.025em; }
+.analysis-page h2 { font-size: .95rem; line-height: 1.35; }
+.analysis-page small, .analysis-note, .analysis-exports p { font-size: var(--font-caption); color: var(--color-text-muted); line-height: 1.45; }
+.analysis-page small { display: block; }
+.analysis-page button, .analysis-page select, .analysis-page input, .analysis-page nav a { font: inherit; font-size: .84rem; min-height: 56px; min-width: 56px; padding: .45rem .65rem; border: 1px solid var(--color-border); border-radius: .6rem; color: var(--color-text); background: var(--color-surface); }
+.analysis-page button, .analysis-page a { cursor: pointer; }
+.analysis-page button:disabled { opacity: .45; cursor: default; }
+.analysis-page :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+.analysis-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .65rem 1rem; border-bottom: 1px solid var(--color-border); flex-shrink: 0; }
+.analysis-header strong { font-size: var(--font-caption); color: var(--color-accent); }
+.analysis-header nav, .analysis-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.analysis-header a { display: flex; align-items: center; text-decoration: none; }
+.analysis-scroll { overflow-y: auto; min-height: 0; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; touch-action: none; }
+.analysis-scroll button, .analysis-scroll canvas { touch-action: none; }
+.analysis-intro, .analysis-table-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.analysis-intro p { font-size: .9rem; font-weight: 600; }
+.analysis-card { border: 1px solid var(--color-border); border-radius: .9rem; padding: .8rem; background: var(--color-surface); min-width: 0; }
+.analysis-filters { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .7rem; align-items: end; }
+.analysis-page label { display: flex; flex-direction: column; gap: .3rem; font-size: var(--font-caption); color: var(--color-text-muted); min-width: 0; }
+.analysis-page input, .analysis-page select { width: 100%; min-width: 0; }
+.analysis-kpis { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .6rem; }
+/* The summary numbers are a•space: number and unit stay on one line. Where the card is too narrow for the
+   widest value ("244,4 km/h", 7.63em) the number takes the size that needs (100cqi / 7.7: about 17 px on a
+   375 px phone, 25 px at 1024), elsewhere its clamp. Up to 359 px the summary takes one column (below). */
+.analysis-kpis > .analysis-card { container-type: inline-size; }
+.analysis-kpis strong { display: block; font-size: min(clamp(1.3rem, 2.8vw, 2rem), 100cqi / 7.7); line-height: 1.2; padding: .6rem 0; font-weight: 800; color: var(--color-accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.analysis-kpis h2 { min-height: 2.6em; overflow-wrap: anywhere; hyphens: auto; }
+.analysis-charts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
+.analysis-chart { position: relative; height: 280px; margin-top: .75rem; }
+.analysis-exports, .analysis-detail { display: flex; flex-direction: column; gap: .7rem; }
+.analysis-exports button { border-color: var(--color-accent); }
+.analysis-warning { border-left: 4px solid #e5a200; padding: .7rem; font-size: .85rem; }
+.analysis-shots table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: .84rem; margin-top: .75rem; }
+.analysis-shots th, .analysis-shots td { padding: .65rem .35rem; border-bottom: 1px solid var(--color-border-soft); text-align: left; overflow-wrap: anywhere; vertical-align: middle; }
+.analysis-shots th { font-size: var(--font-caption); }
+.analysis-shots tr[aria-selected=true] { background: var(--color-border-soft); }
+.analysis-shots td strong { font-size: 1.05rem; }
+.analysis-shots td button { width: 100%; }
+.analysis-pagination { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .8rem; font-size: .84rem; }
+.analysis-detail dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .9rem; margin: .5rem 0; }
+.analysis-detail dt { font-size: var(--font-caption); color: var(--color-text-muted); }
+.analysis-detail dd { margin: .25rem 0 0; font-size: 1.05rem; font-weight: 700; }
+.analysis-detail dd small { font-weight: 600; }
+.analysis-page .camera-replay { --color-text: #fff; --color-text-muted: #bcc5bc; --color-surface: #000; --color-accent: #00ff78; --color-border: #485248; }
+@media (max-width: 750px) {
+  .analysis-header { flex-wrap: wrap; }
+  .analysis-filters, .analysis-kpis, .analysis-detail dl { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .analysis-charts { grid-template-columns: 1fr; }
+  .analysis-intro, .analysis-table-header { flex-wrap: wrap; }
+  /* Exception: bold cells squeezed the club column ("Pitching" split); the phone table keeps its earlier type. */
+  .analysis-shots table { table-layout: auto; }
+  .analysis-shots td, .analysis-shots td button { font-weight: 400; }
+  /* The numbers keep Nexa Bold (Nexa sets 400 in its Light face); their captions stay light. */
+  .analysis-shots td:nth-child(3), .analysis-shots td:nth-child(4) { font-weight: 600; }
+  .analysis-shots td small { font-weight: 400; }
+  .analysis-shots th:nth-child(4), .analysis-shots td:nth-child(4) { display: none; }
+  /* Break between syllables, not anywhere ("Schlagd/etails", "Pitchin/g Wedge"). */
+  .analysis-shots th, .analysis-shots td { overflow-wrap: normal; hyphens: auto; }
+}
+/* The narrowest phones (up to 359): the summary takes one column, so its numbers keep their clamp
+   (23.4 px at 320; two columns left room for 13.7 px) with number and unit on one line. */
+@media (max-width: 359px) {
+  .analysis-kpis { grid-template-columns: minmax(0,1fr); }
+}
+/* The details button's icon stands in for its label on the narrowest phones only. */
+.analysis-detail-icon { display: none; }
+/* Portrait phones up to 419: with the widest real row ("24.04.26,", "Pitching", "≈ 244,4",
+ * "Schlag-details") "Pitching" broke between syllables on 375 px. Session, date, club and name keep
+ * whole words; the carry caption may still break between syllables. */
+@media (max-width: 419px) {
+  .analysis-shots td:nth-child(-n+2) { hyphens: manual; }
+}
+/* The narrowest phones (320): the five columns only fit with the details button as ▷ alone
+ * (its name stays in aria-label and title), so no name, club or date breaks inside a word. */
+@media (max-width: 359px) {
+  .analysis-detail-label { display: none; }
+  .analysis-detail-icon { display: inline; }
+  .analysis-shots td button { min-width: 44px; padding-inline: 0; }
+  .analysis-shots th, .analysis-shots td { padding-inline: .2rem; }
+}
+/* Touch screens: fields at 16 px or more, so iOS Safari does not zoom in on focus and stay zoomed. */
+@media (hover: none) and (pointer: coarse) {
+  .analysis-page select, .analysis-page input { font-size: max(16px, .84rem); }
+}

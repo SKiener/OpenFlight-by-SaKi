@@ -1,0 +1,47 @@
+export const recoveryEn = {
+  'debug.tuningError.busy': 'OPS recovery is running. Your change was not applied; the current settings are shown.',
+  'debug.tuningError.failed': 'The radar setting could not be applied. Check the connection.',
+  'debug.recovery.button': 'Restore OPS radar',
+  'debug.recovery.pending': 'Restoring OPS radar…',
+  'debug.recovery.hint': 'If OPS stops detecting shots. Do not hit during recovery. Settings and session are kept.',
+  'debug.recovery.commands_sent': 'Commands sent. A successful capture is not confirmed yet. Clap once, then test a shot.',
+  'debug.recovery.busy': 'A shot or another operation is still in progress. Wait briefly, then try again.',
+  'debug.recovery.unsupported': 'Recovery is only available for the real OPS radar in sound-trigger mode.',
+  'debug.recovery.demo': 'End the demo before restoring OPS.',
+  'debug.recovery.shutdown': 'OpenFlight is shutting down. Recovery was not started.',
+  'debug.recovery.failed': 'OPS recovery failed. Check the connection and retry. If it keeps failing, shut down safely before checking the wiring.',
+  'debug.recovery.disconnected': 'No server connection. Recovery was not started.',
+  'debug.recovery.timeout': 'No confirmation from the server. Recovery may still be running; wait and check the connection.',
+};
+
+export const recoveryDe: Record<keyof typeof recoveryEn, string> = {
+  'debug.tuningError.busy': 'OPS-Wiederherstellung läuft. Änderung nicht übernommen; angezeigt werden die bisherigen Einstellungen.',
+  'debug.tuningError.failed': 'Die Radareinstellung konnte nicht übernommen werden. Bitte die Verbindung prüfen.',
+  'debug.recovery.button': 'OPS-Radar wiederherstellen',
+  'debug.recovery.pending': 'OPS-Radar wird wiederhergestellt…',
+  'debug.recovery.hint': 'Wenn der OPS keine Schläge mehr erkennt. Währenddessen nicht schlagen. Einstellungen und Session bleiben erhalten.',
+  'debug.recovery.commands_sent': 'Befehle gesendet. Eine erfolgreiche Aufnahme ist noch nicht bestätigt. Einmal Klatschen, danach einen Schlag testen.',
+  'debug.recovery.busy': 'Ein Schlag oder ein anderer Vorgang läuft noch. Kurz warten und erneut versuchen.',
+  'debug.recovery.unsupported': 'Nur für den echten OPS-Radar mit Mikrofon-Auslösung verfügbar.',
+  'debug.recovery.demo': 'Bitte zuerst den Demo-Modus beenden.',
+  'debug.recovery.shutdown': 'OpenFlight wird heruntergefahren. Wiederherstellung nicht gestartet.',
+  'debug.recovery.failed': 'OPS-Wiederherstellung fehlgeschlagen. Verbindung prüfen und erneut versuchen. Bei wiederholtem Fehler sicher herunterfahren, bevor du die Verkabelung prüfst.',
+  'debug.recovery.disconnected': 'Keine Serververbindung. Wiederherstellung nicht gestartet.',
+  'debug.recovery.timeout': 'Keine Bestätigung vom Server. Die Wiederherstellung läuft möglicherweise noch; bitte warten und die Verbindung prüfen.',
+};
+
+export const recoveryEs: Record<keyof typeof recoveryEn, string> = {
+  'debug.tuningError.busy': 'Se está restableciendo OPS. No se aplicó el cambio; se muestran los ajustes actuales.',
+  'debug.tuningError.failed': 'No se pudo aplicar el ajuste del radar. Comprueba la conexión.',
+  'debug.recovery.button': 'Restablecer radar OPS',
+  'debug.recovery.pending': 'Restableciendo radar OPS…',
+  'debug.recovery.hint': 'Si OPS deja de detectar golpes. No golpees durante el proceso. Se conservan los ajustes y la sesión.',
+  'debug.recovery.commands_sent': 'Comandos enviados. Aún no se ha confirmado una captura correcta. Da una palmada y después prueba un golpe.',
+  'debug.recovery.busy': 'Hay un golpe u otra operación en curso. Espera y vuelve a intentarlo.',
+  'debug.recovery.unsupported': 'Solo disponible para el radar OPS real con disparo por sonido.',
+  'debug.recovery.demo': 'Finaliza la demostración antes de restablecer OPS.',
+  'debug.recovery.shutdown': 'OpenFlight se está apagando. No se inició el restablecimiento.',
+  'debug.recovery.failed': 'No se pudo restablecer OPS. Comprueba la conexión y reinténtalo. Si persiste, apaga el equipo de forma segura antes de revisar el cableado.',
+  'debug.recovery.disconnected': 'Sin conexión al servidor. No se inició el restablecimiento.',
+  'debug.recovery.timeout': 'Sin confirmación del servidor. El proceso puede seguir en curso; espera y comprueba la conexión.',
+};

@@ -1,0 +1,423 @@
+/* The scene's fog colour, so nothing flashes when the canvas appears. The app sets the insets to the px its
+   chrome covers at the top and the bottom; the bars here keep clear of it. */
+.virtual-range {
+  --virtual-range-edge: 0.75rem;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  /* The bars over the scene: dark and see-through at night, near-opaque white with black text by day. */
+  --virtual-range-panel: rgba(8, 14, 10, 0.66);
+  --virtual-range-text: #fff;
+  --virtual-range-text-muted: rgba(255, 255, 255, 0.78);
+  --virtual-range-line: rgba(255, 255, 255, 0.45);
+  --virtual-range-chip: rgba(255, 255, 255, 0.16);
+  /* Carry, training goal, picked target: green at night, plain black by day (yellow text fades on white). */
+  --virtual-range-highlight: var(--color-accent-block, #00ff78);
+  border-radius: var(--radius-lg, 1rem);
+  background: #c8d9e2;
+  color: var(--virtual-range-text);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.virtual-range__host {
+  position: absolute;
+  inset: 0;
+}
+
+[data-theme='sun'] .virtual-range {
+  --virtual-range-panel: rgba(255, 255, 255, 0.94);
+  --virtual-range-text: #000;
+  --virtual-range-text-muted: rgba(0, 0, 0, 0.82);
+  --virtual-range-line: rgba(0, 0, 0, 0.6);
+  --virtual-range-chip: rgba(0, 0, 0, 0.1);
+  --virtual-range-highlight: var(--color-accent, #000);
+}
+
+/* Mock mode's Simulate button sits above the bar, not on its ball speed; the doubled class beats panel.css. */
+.simulate-bubble.simulate-bubble--range {
+  right: 0.75rem;
+  bottom: calc(var(--virtual-range-inset-bottom, 0px) + 5rem);
+}
+
+.virtual-range__notice,
+.virtual-range__session,
+.virtual-range__bar,
+.virtual-range__hint,
+.virtual-range__training,
+.virtual-range__targets {
+  border-radius: 0.75rem;
+  background: var(--virtual-range-panel);
+}
+
+/* In the middle of the part the chrome leaves free. */
+.virtual-range__notice {
+  position: absolute;
+  top: calc(50% + (var(--virtual-range-inset-top, 0px) - var(--virtual-range-inset-bottom, 0px)) / 2);
+  left: 50%;
+  max-width: calc(100% - 3rem);
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-caption);
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* Just above the footer. Until the first shot the hint holds the bar's place, off the greens and their signs. */
+.virtual-range__bar,
+.virtual-range__hint {
+  position: absolute;
+  bottom: calc(var(--virtual-range-inset-bottom, 0px) + var(--virtual-range-edge));
+}
+
+.virtual-range__top {
+  position: absolute;
+  top: calc(var(--virtual-range-inset-top, 0px) + var(--virtual-range-edge));
+  right: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.virtual-range__top--live {
+  left: auto;
+}
+
+.virtual-range__session {
+  min-width: 0;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+  font-size: var(--font-caption);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.virtual-range__back,
+.virtual-range__mode,
+.virtual-range__target-button {
+  flex: none;
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 3rem;
+  background: var(--color-accent-block, #00ff78);
+  color: var(--color-accent-fg, #000000);
+  font: inherit;
+  font-size: var(--font-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* a•space is about 45 % wider than Arial and its digits are proportional ("4" is the widest). The bar is
+   sized for its widest realistic figures, built from 4s: carry "≈ 244", Total and target "244", ball
+   speed "244,4" (km/h; mph alike), with "Wirklich löschen?". At 1024 the club keeps "Driver" whole
+   (988 px): the figures give way (1.4rem and 1.1rem, were 1.95rem and 1.3rem), they stand 0.6rem
+   apart (was 1.5rem), the bar's ends 0.75rem (was 1rem). A longer club takes a second line before it
+   is cut ("Pitching / Wedge"). */
+.virtual-range__bar {
+  right: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.virtual-range__bar--processing {
+  justify-content: center;
+}
+
+.virtual-range__hint {
+  left: 50%;
+  max-width: calc(100% - 1.5rem);
+  margin: 0;
+  padding: 0.6rem 1.25rem;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.virtual-range__club {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 1.1rem;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+}
+
+.virtual-range__stat {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.virtual-range__label {
+  color: var(--virtual-range-text-muted);
+  font-size: var(--font-caption);
+}
+
+.virtual-range__value {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.virtual-range__stat--carry {
+  min-width: 5.5rem;
+}
+
+.virtual-range__stat--carry .virtual-range__value {
+  color: var(--virtual-range-highlight);
+}
+
+.virtual-range__stat--target .virtual-range__value,
+.virtual-range__stat--speed .virtual-range__value {
+  font-size: 1.1rem;
+}
+
+.virtual-range__value small {
+  margin-left: 0.25rem;
+  font-size: var(--font-caption);
+  font-weight: 600;
+}
+
+.virtual-range__delete {
+  flex: none;
+  min-width: max(44px, 2.3rem);
+  min-height: max(44px, 2.3rem);
+  /* a•space: 0.6rem a side (was 1rem) leaves the club its room. */
+  padding: 0 0.6rem;
+  border: 1px solid var(--virtual-range-line);
+  border-radius: 2.5rem;
+  background: transparent;
+  color: var(--virtual-range-text);
+  font: inherit;
+  font-size: var(--font-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.virtual-range__delete.confirm-delete--confirming,
+.virtual-range__delete.confirm-delete--busy,
+.virtual-range__delete.confirm-delete--failed {
+  width: min-content;
+  padding-inline: 0.5rem;
+  line-height: 1.1;
+  white-space: normal;
+}
+
+/* 800 wide (772 px): the widest figures beside "Pitching / Wedge" and "Wirklich löschen?". The figures
+   give up what that needs (1.35rem and 1rem, were 1.7rem and 1.3rem). */
+@media (max-width: 850px), (max-height: 500px) {
+  .virtual-range__value {
+    font-size: 1.35rem;
+  }
+
+  .virtual-range__stat--target .virtual-range__value,
+  .virtual-range__stat--speed .virtual-range__value {
+    font-size: 1rem;
+  }
+}
+
+/* The landscape kiosk: labels, club and Löschen are Nexa (the figures stay a•space), which gives
+   the bar back some of its spacing. Sized so that beside the widest figures and "Löschen" the
+   club still holds "Pitching" whole (8-10 px to spare): at 1024 the items stand 0.9rem apart
+   (Arial 1.5rem) and Löschen keeps 0.75rem a side (Arial 1rem); at 800 both are 1rem again. The
+   bar's ends stay 0.75rem (Arial 1rem, 0.85rem on 800x400). */
+@media (orientation: landscape) and (min-width: 800px) {
+  .virtual-range__bar {
+    gap: 0.9rem;
+  }
+
+  .virtual-range__delete {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 800px) and (max-width: 850px) {
+  .virtual-range__bar {
+    gap: 1rem;
+  }
+
+  .virtual-range__delete {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-height: 425px) {
+  .virtual-range {
+    --virtual-range-edge: 0.5rem;
+  }
+
+  .virtual-range__bar {
+    min-height: 3rem;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .virtual-range__stat--speed {
+    display: none;
+  }
+
+  .virtual-range__delete {
+    display: none;
+  }
+}
+
+.virtual-range__mode:disabled {
+  opacity: 0.6;
+}
+
+.virtual-range__training {
+  position: absolute;
+  top: calc(var(--virtual-range-inset-top, 0px) + var(--virtual-range-edge));
+  right: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.virtual-range__training-target {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.virtual-range__training-step,
+.virtual-range__training-end {
+  flex: none;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--virtual-range-chip);
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.virtual-range__training-end {
+  padding: 0 1rem;
+  font-size: var(--font-caption);
+}
+
+.virtual-range__training-goal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  min-width: 4.5rem;
+}
+
+.virtual-range__training-value {
+  color: var(--virtual-range-highlight);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.virtual-range__training-value small {
+  margin-left: 0.2rem;
+  font-size: var(--font-caption);
+  font-weight: 600;
+}
+
+.virtual-range__training-result {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  margin: 0;
+}
+
+/* In a•space the running figures ("Ø 83,6 yds lang · 0 % getroffen") no longer fit one line beside
+   the target and End: the result takes a second line between words instead of being cut. */
+.virtual-range__training-result strong,
+.virtual-range__training-result span {
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.virtual-range__training-result strong {
+  font-size: 0.9rem;
+}
+
+.virtual-range__training-result span {
+  color: var(--virtual-range-text-muted);
+  font-size: var(--font-caption);
+}
+
+.virtual-range__target {
+  position: relative;
+  flex: none;
+}
+
+.virtual-range__target-button {
+  font-variant-numeric: tabular-nums;
+}
+
+.virtual-range__targets {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 16;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(max-content, 1fr));
+  gap: 0.25rem;
+  width: max-content;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+}
+
+.virtual-range__target-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.virtual-range__target-row[aria-pressed='true'] {
+  background: var(--virtual-range-chip);
+}
+
+.virtual-range__target-label {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.virtual-range__target-check {
+  color: var(--virtual-range-highlight);
+}

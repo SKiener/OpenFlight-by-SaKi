@@ -1,0 +1,226 @@
+:root { --radius: .8rem; --radius-lg: 1rem; }
+[data-theme='dark'] {
+  --color-bg: #000000; --color-surface: #000000; --color-text: #fff;
+  --color-text-muted: #bcc5bc; --color-text-faint: #a4ada4;
+  --color-accent: #00ff78; --color-accent-block: #00ff78; --color-accent-fg: #000000;
+  --color-border: #485248; --color-border-soft: #394139; --color-border-emphasis: #00ff78;
+}
+/* The sun theme takes index.css's tokens unchanged: black on white, neon green (#00ff78) only as a filled block. */
+/* Safe areas (viewport-fit=cover): the side margin clears a landscape notch, the top a status bar. */
+.range-app { padding: env(safe-area-inset-top, 0px) max(clamp(12px, 2vw, 20px), env(safe-area-inset-right, 0px)) 0 max(clamp(12px, 2vw, 20px), env(safe-area-inset-left, 0px)); height: 100dvh; max-height: 100dvh; }
+.range-app button { cursor: pointer; }
+.range-app button:disabled { opacity: .45; cursor: default; }
+.range-app button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+.range-header { flex: none; height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--color-border); }
+.range-brand { display: flex; gap: 18px; align-items: center; font-size: 1rem; font-weight: 800; letter-spacing: -.05em; }
+.range-brand span { padding-left: 18px; border-left: 1px solid var(--color-border); font-weight: 600; font-size: var(--font-caption); letter-spacing: 0; color: var(--color-text-muted); }
+.range-header-actions { display: flex; align-items: center; gap: 12px; }
+.range-header button { display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--color-border); background: var(--color-surface); color: inherit; border-radius: 50px; min-height: 56px; min-width: 56px; padding: 0 14px; font-size: .84rem; font-weight: 600; white-space: nowrap; }
+.range-header .range-theme { width: 56px; padding: 0; }
+.range-header svg, .range-footer svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.range-header .range-connection { border: 0; background: transparent; padding: 0 10px; }
+.range-connection i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-warning); flex: none; }
+.range-connection i.online { background: #00c148; }
+.range-header .power-status--chrome { font-size: .84rem; padding: 0; letter-spacing: 0; }
+.range-disconnected { background: var(--color-surface); color: var(--color-danger); font-size: var(--font-caption); padding: 5px 0; flex: none; }
+.range-app .panel-app__main { padding-top: 10px; }
+.range-live { display: grid; flex: 1; min-height: 0; grid-template-rows: 56px minmax(0,1fr) 122px; gap: 12px; padding-bottom: 6px; }
+.range-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-width: 0; }
+.range-shot-heading { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.range-shot-heading h1 { margin: 0; font-size: 1.4rem; line-height: 1.1; white-space: nowrap; font-weight: 800; letter-spacing: -.025em; }
+.range-shot-heading > span { font-size: var(--font-caption); font-weight: 600; color: var(--color-text-muted); max-width: 9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.range-toolbar-actions { display: flex; align-items: center; gap: 10px; }
+.range-toolbar button, .range-back { min-height: 56px; min-width: 56px; border: 1px solid var(--color-border); background: var(--color-surface); color: inherit; font: inherit; font-size: .84rem; font-weight: 600; border-radius: 50px; padding: 0 18px; letter-spacing: 0; text-transform: none; white-space: nowrap; }
+.range-toolbar .panel-action { display: flex; gap: 12px; align-items: center; background: var(--color-surface); }
+.range-hero-grid, .range-secondary-grid { display: grid; gap: 12px; min-height: 0; }
+.range-hero-grid { grid-template-columns: 1.08fr 1fr; }
+/* Launch angle, start direction and spin share the row evenly. */
+.range-secondary-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.range-tile { min-width: 0; min-height: 0; container-type: size; }
+.range-tile .metric-card { display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; padding: 20px 24px; border: 1px solid var(--color-border); border-radius: 22px; gap: 6px; }
+.range-tile .metric-card__label { font-size: .94rem; letter-spacing: 0; line-height: 1.2; text-transform: none; color: var(--color-text); font-weight: 700; min-height: 0; white-space: normal; }
+.range-tile .metric-card__value-row { font-size: clamp(2.3rem,min(13.45vw,24.15vh,28.75cqi,49.45cqb),6.2rem); gap: .04em; min-height: 1em; flex: none; overflow: hidden; }
+/* a•space's "1" has almost no left side bearing: tighter than -0.01em and "01" touches at phone sizes. */
+.range-tile .metric-card__value { font-size: 1em; font-weight: 800; line-height: 1; flex-shrink: 0; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.range-tile .metric-card__unit { font-size: max(.8125rem, .24em); font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.range-tile .metric-card__meta { min-height: 0; gap: 3px; flex: none; }
+.range-tile .metric-card__confidence-label { font-size: var(--font-caption); font-weight: 600; line-height: 1.15; text-transform: none; letter-spacing: 0; white-space: normal; }
+/* Sun: the carry is the one filled block (yellow, black text); dark: a plain tile with a green value. */
+.range-tile--carry .metric-card { background: var(--color-accent-block); color: var(--color-accent-fg); border-color: var(--color-border); }
+.range-tile--carry .metric-card__label, .range-tile--carry .metric-card__value, .range-tile--carry .metric-card__unit, .range-tile--carry .metric-card__confidence-label, .range-tile--carry .metric-card__estimated { color: var(--color-accent-fg); }
+[data-theme='dark'] .range-tile--carry .metric-card { background: var(--color-surface); border-color: var(--color-border); }
+[data-theme='dark'] .range-tile--carry .metric-card__value, [data-theme='dark'] .range-tile--carry .metric-card__unit { color: #00ff78; }
+[data-theme='dark'] .range-tile--carry .metric-card__label { color: var(--color-text); }
+[data-theme='dark'] .range-tile--carry .metric-card__confidence-label, [data-theme='dark'] .range-tile--carry .metric-card__estimated { color: var(--color-text-muted); }
+.range-secondary-grid .metric-card { border-radius: 16px; padding: 12px 16px; gap: 4px; }
+.range-secondary-grid .metric-card__label { font-size: .84rem; color: var(--color-text); }
+.range-secondary-grid .metric-card__value-row { font-size: clamp(1.15rem,min(4.25vw,8.6vh,21.85cqi,41.4cqb),1.9rem); }
+.range-secondary-grid .metric-card__unit { font-size: max(.8125rem, .55em); font-weight: 700; }
+.range-secondary-grid .metric-card__confidence-label { font-size: var(--font-caption); }
+.range-secondary-grid .metric-card__confidence-dots { gap: 3px; }
+.range-secondary-grid .metric-card__confidence-dots .dot { width: 4px; height: 4px; }
+.range-empty { grid-row: 2/4; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid var(--color-border); border-radius: 22px; background: var(--color-surface); padding: 24px; }
+.range-empty h2 { font-size: 1.8rem; letter-spacing: -.045em; margin: 0 0 14px; }
+.range-empty p, .range-empty > span { color: var(--color-text-muted); font-size: var(--font-caption); }
+.range-footer { display: flex; gap: 14px; flex: none; padding: 10px 0 max(12px, env(safe-area-inset-bottom, 0px)); }
+.range-footer nav { display: flex; gap: 4px; flex: 1; min-width: 0; background: var(--color-surface); padding: 5px; border: 1px solid var(--color-border); border-radius: 50px; }
+.range-footer button { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; min-width: 56px; flex: 1; border: 0; border-radius: 50px; background: transparent; color: var(--color-text-muted); font: inherit; font-size: .84rem; font-weight: 600; white-space: nowrap; }
+.range-footer button[aria-pressed='true'], .range-footer button[aria-expanded='true'] { background: var(--color-accent-block); color: var(--color-accent-fg); }
+.range-footer .range-replay-button { flex: none; padding: 0 18px; color: var(--color-text); border: 1px solid var(--color-border); background: var(--color-surface); }
+.range-replay-button small { color: var(--color-accent); font-size: var(--font-caption); font-weight: 700; }
+.range-details { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.range-details-toolbar { flex: none; min-height: 56px; margin-bottom: 10px; }
+.range-details-toolbar > span { margin-right: auto; font-size: var(--font-caption); color: var(--color-text-muted); }
+/* Landscape kiosk, a•space: beside the legend the toolbar's buttons were squeezed, so "← Übersicht" and the club
+   ran their labels into their borders. The buttons keep their width; the legend takes the lines it needs. */
+@media (orientation: landscape) and (min-width: 800px) {
+  .range-details-toolbar > button, .range-details-toolbar > .segmented-control, .range-details-toolbar .panel-action { flex-shrink: 0; }
+  .range-details-toolbar > span { line-height: 1.15; }
+}
+.range-details > .panel > .panel-header { display: none; }
+/* The carry's notes as text: a touch screen never shows the tiles' tooltip. Short phones show the short form (phone.css, phoneLandscape.css). */
+.range-details-carry-notes { flex: none; margin: 8px 0 0; font-size: var(--font-caption); line-height: 1.2; color: var(--color-text-muted); }
+.range-details-carry-notes .carry-notes__short { display: none; }
+.range-details-carry-notes .carry-notes__legend > span { color: var(--color-accent); font-weight: 700; }
+.range-back { align-self: flex-start; margin: 0 0 6px; }
+.range-app .panel-header { background: transparent; padding: 6px 0 12px; }
+.range-app .panel-action { border-radius: 50px; min-height: 44px; }
+.range-app .range-toolbar .panel-action { min-height: 56px; }
+.range-app .menu-sheet { max-height: calc(100dvh - 28px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); overflow-y: auto; border: 1px solid var(--color-border); border-radius: 22px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); right: calc(14px + env(safe-area-inset-right, 0px)); left: auto; width: min(640px,calc(100% - 28px)); }
+.range-app .menu-sheet button, .range-app .menu-sheet select { min-height: 44px; }
+.range-app .menu-sheet, .range-app .menu-sheet * { touch-action: none; }
+.range-tools { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+.range-app .picker-overlay { border-radius: 22px; }
+/* Kiosk picker, read from 1-2 m: the title like the Live header, large tabs and Close, and labels as large as
+ * their tiles allow (useLabelFitFontSize shrinks a tab's labels together). Phones restore their own sizes
+ * (phone.css, phoneLandscape.css). 6 px above and below the 64 px Close keep the header at 76 px. */
+.range-app .picker-overlay__header { min-height: 76px; padding: 6px 20px; }
+.range-app .picker-overlay__title { font-size: 1.4rem; font-weight: 800; line-height: 1.1; letter-spacing: 0; text-transform: none; }
+.range-app .picker-overlay__close { width: 64px; height: 64px; border-radius: 50%; font-size: 1.6rem; }
+.range-app .picker-overlay__tabs { gap: 12px; padding: 12px 20px 0; }
+.range-app .picker-overlay__tabs .panel-action { min-height: 76px; font-size: 1.35rem; letter-spacing: .02em; }
+.range-app .picker-overlay__option { border-radius: 12px; font-size: min(4rem, calc(var(--picker-tile-h) * .42)); line-height: 1.05; }
+.range-app .session-history { border-radius: 22px; }
+.range-app .camera-replay__dialog { background: var(--color-surface); }
+.range-power-dialog { border: 1px solid var(--color-border); border-radius: 22px; color: var(--color-text); background: var(--color-surface); width: min(620px,calc(100vw - 30px)); max-height: calc(100dvh - 30px); padding: 24px; }
+.range-power-dialog::backdrop { background: var(--color-scrim); }
+.range-power-dialog header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.range-power-dialog h2 { font-size: 1.1rem; margin: 0; }
+.range-power-dialog p, .range-power-dialog dl { font-size: var(--font-caption); line-height: 1.5; }
+.range-power-dialog dl { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+.range-power-dialog dd { margin: 0; text-align: right; }
+.range-power-dialog button { min-height: 44px; background: var(--color-accent-block); color: var(--color-accent-fg); border-radius: 50px; border: 0; padding: 0 16px; font-size: var(--font-caption); }
+@media(max-width:850px), (max-height:500px) {
+  .range-header { height: 58px; }
+  .range-brand span { display: none; }
+  .range-header-actions { gap: 8px; }
+  .range-live { grid-template-rows: 44px minmax(0,1fr) 82px; gap: 8px; }
+  .range-hero-grid, .range-secondary-grid { gap: 8px; }
+  .range-tile .metric-card { padding: 12px 18px; border-radius: 18px; }
+  .range-secondary-grid .metric-card { padding: 8px 10px; border-radius: 14px; }
+  .range-footer { padding: 7px 0 max(9px, env(safe-area-inset-bottom, 0px)); gap: 8px; }
+  .range-footer .range-replay-button { padding: 0 14px; }
+  .range-footer button { gap: 4px; }
+  .range-footer svg { width: 24px; height: 24px; }
+  .range-toolbar-actions { gap: 6px; }
+  .range-toolbar button { padding: 0 12px; }
+  .range-shot-heading > span { max-width: 6rem; }
+}
+@media(max-height:425px) {
+  .range-app .panel-app__main { padding-top: 4px; }
+  .range-app .demo-band { margin-top: 0; }
+  .range-live { grid-template-rows: 44px minmax(0,1fr) 70px; gap: 6px; }
+  .range-tile .metric-card { padding: 8px 14px; gap: 3px; }
+  .range-tile .metric-card__value-row { font-size: clamp(1.38rem,min(12.65vw,20.7vh,27.6cqi,46cqb,calc(100cqb - 3.4rem)),5.2rem); }
+  .range-secondary-grid .metric-card { padding: 7px 10px; }
+  .range-secondary-grid .metric-card__value-row { font-size: clamp(1.15rem,min(3.9vw,6.9vh,20.7cqi,36.8cqb),1.9rem); }
+  .range-secondary-grid .metric-card__meta { min-height: 0; }
+  .range-footer button { min-height: 44px; }
+}
+/* The Range route (App: range-app--full): the scene fills the screen and the chrome lies over it like the range's
+   own bars (virtualRange.css): dark and see-through at night, near-opaque white with the sun tokens by day, so the
+   scene never shows through black text. No backdrop-filter: the Pi composites in software. On every other route
+   the top chrome is plain layout flow. */
+.range-app__top { display: contents; }
+.range-app--full .panel-app__main { position: absolute; inset: 0; padding: 0; }
+.range-app--full .virtual-range { border-radius: 0; }
+.range-app--full .range-app__top, .range-app--full .range-footer { position: absolute; left: 0; right: 0; z-index: 16; padding-left: inherit; padding-right: inherit; background: rgba(8, 14, 10, .66); }
+[data-theme='sun'] .range-app--full .range-app__top, [data-theme='sun'] .range-app--full .range-footer { background: rgba(255, 255, 255, .94); }
+.range-app--full .range-app__top { top: 0; display: flex; flex-direction: column; }
+.range-app--full .range-footer { bottom: 0; }
+[data-theme='dark'] .range-app--full .range-header, [data-theme='dark'] .range-app--full .range-disconnected, [data-theme='dark'] .range-app--full .demo-band, [data-theme='dark'] .range-app--full .range-footer {
+  --color-bg: #000; --color-text: #fff; --color-text-muted: #ccd3cc; --color-surface: rgba(255, 255, 255, .08); --color-border: rgba(255, 255, 255, .3);
+  --color-accent: #00ff78; --color-accent-block: #00ff78; --color-accent-fg: #000000; --color-danger: #ff9b7d;
+}
+.range-app--full .range-header { color: var(--color-text); }
+/* The amber tint is brighter than the bars: an offline End's grey word needs more light to stay 4.5:1. */
+[data-theme='dark'] .range-app--full .demo-band { --color-text-muted: #e2e7e2; }
+.range-app--full .demo-band { margin-bottom: .3rem; }
+@media(max-height:425px) {
+  .range-app--full .demo-band { margin-bottom: 0; }
+}
+/* "All metrics": Ball | Club page switch, styled as the toolbar's own pills (56 px kiosk, 44 px phone). */
+.range-details-toolbar .segmented-control { width: auto; flex: none; padding: 0; gap: 6px; background: transparent; border-radius: 0; }
+.range-details-toolbar .segmented-control__button { flex: none; text-transform: none; letter-spacing: 0; }
+.range-details-toolbar .segmented-control__button--active { background: var(--color-accent-block); color: var(--color-accent-fg); border-color: var(--color-accent-block); font-weight: 700; }
+/* Club page: the toolbar names the ≈ mark, so "calculated" stays readable where short tiles drop captions (800x400). */
+.range-details-legend > span { color: var(--color-accent); font-weight: 700; }
+/* Its copy under the grid, shown only where the toolbar has no room for it (phone.css, under 360 px). */
+.range-details-footnote { display: none; }
+/* ── The Pi's own screen (range-app--kiosk, App: isKioskHost), read from 1.5–2.5 m. Phones never get these rules.
+   One 56 px header row; the Live overview (KioskLiveOverview) carries the power button in its own row, so the
+   chrome's row is hidden there. Words are 22–28 px at 1024 wide (rem: html is 24 px there). */
+.range-app--kiosk .range-header--kiosk { height: auto; min-height: 56px; justify-content: flex-end; }
+.range-app--kiosk:has(.kiosk-live) .range-header--kiosk { display: none; }
+.range-app--kiosk .range-power-button--kiosk { display: flex; align-items: center; gap: .35rem; min-height: 56px; min-width: 56px; padding: 0 .6rem; border: 1px solid var(--color-border); border-radius: 50px; background: var(--color-surface); color: inherit; font: inherit; font-size: .9167rem; font-weight: 700; white-space: nowrap; }
+.range-app--kiosk .range-power-button--kiosk .power-status--chrome { font-size: .9167rem; font-weight: 700; padding: 0; letter-spacing: 0; }
+.range-power-button__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--color-warning); flex: none; }
+.range-power-button__dot.online { background: #00c148; }
+.range-app--kiosk .kiosk-live { grid-template-rows: 56px minmax(0,1fr); gap: 10px; }
+.range-app--kiosk .kiosk-live .range-empty { grid-row: 2/3; }
+.kiosk-live__header { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; }
+.kiosk-live__header h1 { margin: 0; font-size: 1.1667rem; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+.kiosk-live__actions { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.kiosk-live__actions > button, .range-app--kiosk .kiosk-live__actions .panel-action { min-height: 56px; min-width: 56px; padding: 0 .75rem; border: 1px solid var(--color-border); border-radius: 50px; background: var(--color-surface); color: inherit; font: inherit; font-size: .9167rem; font-weight: 700; letter-spacing: 0; text-transform: none; white-space: nowrap; }
+.range-app--kiosk .kiosk-live__actions .panel-action { display: flex; gap: .4rem; align-items: center; height: auto; }
+/* Two large tiles over three small ones; the large row is the taller. */
+.kiosk-live__grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); grid-template-rows: minmax(0,1.4fr) minmax(0,1fr); gap: 10px; min-height: 0; }
+.kiosk-tile { display: flex; flex-direction: column; min-width: 0; min-height: 0; margin: 0; padding: 10px 18px 6px; border: 1px solid var(--color-border); border-radius: 22px; background: var(--color-surface); color: var(--color-text); font: inherit; text-align: left; }
+.kiosk-tile--large { grid-column: span 3; }
+.kiosk-tile--small { grid-column: span 2; padding: 8px 14px 4px; border-radius: 16px; }
+.kiosk-tile--action { cursor: pointer; }
+.kiosk-tile__title { flex: none; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .3em; row-gap: 2px; font-size: 1.1667rem; font-weight: 700; line-height: 1.15; letter-spacing: 0; }
+.kiosk-tile--small .kiosk-tile__title { font-size: 1rem; }
+.kiosk-tile__label { min-width: 0; overflow-wrap: anywhere; }
+.kiosk-tile__approx, .kiosk-tile__unit { white-space: nowrap; }
+.kiosk-tile__badge { align-self: center; padding: .1em .5em; border-radius: 50px; background: var(--color-accent-block); color: var(--color-accent-fg); font-size: .75em; font-weight: 800; white-space: nowrap; }
+/* The value is the whole body: as tall as the free height allows (its digits about 70–80 % of it), then only
+   as narrow as its own width demands (useSharedFitFontSize 'each'). */
+.kiosk-tile__body { flex: 1; min-height: 0; display: flex; align-items: center; container-type: size; }
+.kiosk-tile__value-row { display: flex; width: 100%; font-size: clamp(1rem, 100cqb, 14rem); line-height: 1; }
+.kiosk-tile--class .kiosk-tile__value-row { font-size: clamp(1rem, 82cqb, 14rem); line-height: 1.15; }
+/* -0.02em: a•space's "1" has almost no left side bearing, so "01" touched at -0.04em (it keeps 0.011 em, 1-2 px here). */
+.kiosk-tile__value { flex: none; font-size: 1em; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* Impact: the face over its zone word, both centred. The word takes a share of the free height, never under the
+   title's 1rem (still fitted to its width, 'each'); the face takes all that is left. */
+.kiosk-tile--impact .kiosk-tile__body { flex-direction: column; align-items: stretch; justify-content: center; gap: .2rem; padding-top: .2rem; }
+.kiosk-tile__face { flex: 1 1 0; min-height: 0; display: flex; }
+.kiosk-tile--impact .kiosk-tile__value-row { flex: none; justify-content: center; font-size: clamp(1rem, 28cqb, 14rem); line-height: 1.1; }
+/* The carry stays the accent: a filled green block by day, a green number at night (as the Live tile). */
+.kiosk-tile--carry { background: var(--color-accent-block); color: var(--color-accent-fg); }
+[data-theme='dark'] .kiosk-tile--carry { background: var(--color-surface); color: var(--color-text); }
+[data-theme='dark'] .kiosk-tile--carry .kiosk-tile__value { color: #00ff78; }
+/* Footer: 22 px bold labels with matching icons; a button takes its label's width so "Ausrichten" fits. */
+.range-app--kiosk .range-footer button { font-size: .9167rem; font-weight: 700; gap: .35rem; }
+.range-app--kiosk .range-footer nav button { flex: 1 1 auto; padding: 0 .4rem; }
+.range-app--kiosk .range-footer svg { width: 1.25rem; height: 1.25rem; stroke-width: 2; }
+.range-app--kiosk .range-footer .range-replay-button { padding: 0 .75rem; }
+/* In Nexa the 800-1024 kiosk keeps the replay rate beside its label (the five tabs keep 8 px or more of slack each);
+   a landscape window under 800 wide puts the rate under its label so the nav keeps room for "Ausrichten". */
+@media (orientation: landscape) and (max-width: 799px) {
+  .range-app--kiosk .range-footer .range-replay-button { display: grid; grid-template-columns: auto auto; align-content: center; justify-content: center; column-gap: .35rem; line-height: 1.05; }
+  .range-app--kiosk .range-footer .range-replay-button svg { grid-row: span 2; align-self: center; }
+  .range-app--kiosk .range-footer .range-replay-button small { grid-column: 2; }
+}
+/* The kiosk's menu: every control at least 56 px high, like the rest of the kiosk chrome (phones keep 44 px). */
+.range-app--kiosk .menu-sheet button, .range-app--kiosk .menu-sheet select { min-height: 56px; }

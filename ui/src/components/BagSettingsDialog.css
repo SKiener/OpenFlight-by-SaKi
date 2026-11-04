@@ -1,0 +1,37 @@
+.bag-settings {
+  position: fixed; margin: auto; padding: 0;
+  /* Inside the safe area (viewport-fit=cover); the insets are 0 on the kiosk. */
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  width: calc(100vw - 1.5rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  height: calc(100dvh - 1.5rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  max-width: 48rem; max-height: none;
+  border: 1px solid var(--color-border); border-radius: var(--radius);
+  background: var(--color-bg); color: var(--color-text);
+}
+.bag-settings[open] { display: flex; flex-direction: column; }
+.bag-settings::backdrop { background: var(--color-scrim); }
+.bag-settings__header, .bag-settings__footer {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .75rem; padding: .7rem 1rem; flex-shrink: 0;
+}
+.bag-settings__header { border-bottom: 1px solid var(--color-border); }
+.bag-settings__footer { border-top: 1px solid var(--color-border); }
+.bag-settings h2 { margin: 0; font-size: 1.1rem; }
+.bag-settings h3 { margin: .7rem 0 .4rem; font-size: var(--font-caption); }
+.bag-settings p { margin: .25rem 0; font-size: var(--font-caption); }
+.bag-settings__scroll {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  padding: .6rem 1rem; touch-action: none; user-select: none;
+}
+.bag-settings__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .4rem; }
+.bag-settings__grid button {
+  min-height: 2.3rem; display: flex; align-items: center; gap: .45rem;
+  padding: .4rem .6rem; border: 1px solid var(--color-border); border-radius: .55rem;
+  background: var(--color-surface); color: var(--color-text); font: inherit;
+  font-size: var(--font-caption); font-weight: 600; cursor: pointer; touch-action: none;
+}
+.bag-settings__grid button[aria-pressed='true'] { border-color: var(--color-accent-block); background: var(--color-accent-block); color: var(--color-accent-fg); }
+.bag-settings__grid button:focus-visible { outline: 3px solid var(--color-text); outline-offset: 2px; }
+.bag-settings__grid button:disabled { opacity: .55; cursor: default; }
+.bag-settings__note { padding-top: .7rem; opacity: .7; }
+.bag-settings__footer .panel-action { white-space: nowrap; }

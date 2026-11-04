@@ -1,0 +1,580 @@
+/*
+ * Phone in landscape. phone.css rearranges the kiosk layout for a phone held
+ * upright; turned sideways a phone keeps the kiosk layout, which is built
+ * for 800-1024 x 400-600, on a 568-932 x 320-430 screen. These rules fix
+ * what breaks there. Every query stays clear of the kiosks: they are at
+ * least 800 wide and at least 400 high, and no wider than 2 : 1.
+ */
+
+/* Up to 760 wide (iPhone SE, SE 3, iPhone 15 in Safari): five footer buttons
+ * with icon beside label do not fit ("Ausrichten" ran into "Verlauf" and
+ * "Gerät"). Icon over label, like the portrait tab bar. */
+@media (orientation: landscape) and (max-width: 760px) {
+  .range-footer nav {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .range-footer button {
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 44px;
+    padding: 4px 6px;
+    /* Icon over label in a 320-430 px high screen: a tight slot (12 px). */
+    font-size: var(--font-caption-tight);
+    line-height: 1.1;
+  }
+
+  .range-footer svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .range-footer .range-replay-button {
+    padding: 4px 12px;
+  }
+
+  .range-replay-button small {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* The seven shot-list columns at the kiosk's 1.375rem values need about
+   * 510 px of track on a 700-760 px phone, which has 440-473; carry ran
+   * under the row buttons. Nexa's digits are proportional ("4" and "8" the
+   * widest): ball and carry get fixed tracks as wide as "244,4" (2.81em) and
+   * "≈244" (2.5em), and the values take the size the row leaves them at
+   * 700 px (1.0625rem: club speed "144,4" in its 1fr, "≈10.500" in spin's).
+   * "FLUGWEITE" over its narrower column: no tracking, and at the 12 px
+   * floor it breaks at its soft hyphen. */
+  .shots-panel__value {
+    font-size: 1.0625rem;
+  }
+
+  .shots-panel__row-main {
+    grid-template-columns: 52px 92px 3.0625rem 1fr 1fr 1.3fr 2.75rem;
+  }
+
+  .shots-panel__columns {
+    grid-template-columns: 52px 92px 3.0625rem 1fr 1fr 1.3fr 2.75rem 126px;
+    letter-spacing: 0;
+    hyphens: manual;
+  }
+
+  /* a•space, All metrics: back and club shrank below their label ("←
+   * Übersicht" 8 px, "Driver ⌄" 13 px past their pills) and pushed the
+   * toolbar 2-14 px past the screen. They keep their longest word; the ≈
+   * legend between them wraps instead. */
+  .range-app .range-toolbar.range-details-toolbar .range-back,
+  .range-app .range-toolbar.range-details-toolbar .panel-action {
+    min-width: min-content;
+  }
+
+  /* All metrics in a 5 x 2 grid (739 x 430, which keeps the kiosk layout):
+   * a German or Spanish title takes two lines in a•space ("Schläger-/tempo",
+   * "Path del / palo ≈"), 2-3 px more than a 92 px tile had between its
+   * bands. The bands sit a little closer. (Below 400 high the rule further
+   * down sets no gap at all; it wins as it comes later.) */
+  .live-panel__grid .metric-card--label-above {
+    gap: 0.25rem;
+  }
+}
+
+/* Up to 699 wide: the kiosk's seven shot-list columns need about 470 px of
+ * row; spin ran into the replay button and carry into Delete. Club speed and
+ * launch give way (as in portrait); they stay in the CSV and in a shot's
+ * details. The Live toolbar's buttons give way to the shot number. */
+@media (orientation: landscape) and (max-width: 699px) {
+  .shots-panel__columns > :nth-child(4),
+  .shots-panel__columns > :nth-child(5),
+  .shots-panel__row-main > :nth-child(4),
+  .shots-panel__row-main > :nth-child(5) {
+    display: none;
+  }
+
+  /* Ball, spin and carry ("244,4", "≈10.500", "≈244") need about 188 px at
+   * 1.125rem; at the kiosk's 10 px gaps a 568 px phone leaves them 192, so
+   * the columns sit closer. Ball and carry keep fixed tracks (as above),
+   * spin takes the rest. */
+  .shots-panel__value {
+    font-size: 1.125rem;
+  }
+
+  .shots-panel__row-main {
+    grid-template-columns: 52px 92px 3.25rem 1fr 2.9375rem;
+    column-gap: 6px;
+  }
+
+  .shots-panel__columns {
+    grid-template-columns: 52px 92px 3.25rem 1fr 2.9375rem 126px;
+    column-gap: 6px;
+  }
+
+  .shots-panel__row {
+    gap: 6px;
+  }
+
+  /* The Live toolbar (as in portrait): beside "Alle Messwerte" and the club
+   * the extra "Letzten Schlag löschen" button covered the end of
+   * "Schlag 124" on an iPhone SE. The heading keeps its width (its profile
+   * line is cut instead), and the buttons wrap their label onto a second
+   * line inside the same pill. */
+  .range-shot-heading {
+    flex: 1 1 auto;
+    min-width: auto;
+  }
+
+  .range-shot-heading > span {
+    width: 0;
+    min-width: 100%;
+  }
+
+  /* Profile and time go under "Schlag 124" (as in portrait): beside it they
+   * ran under the buttons and were cut mid-letter. */
+  .range-shot-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .range-shot-heading > span {
+    max-width: 100%;
+    font-size: var(--font-caption-tight);
+    line-height: 1.2;
+  }
+
+  .range-toolbar-actions {
+    min-width: 0;
+  }
+
+  .range-toolbar .range-details-button,
+  .range-toolbar .range-delete-last {
+    white-space: normal;
+    line-height: 1.1;
+    padding-inline: 8px;
+  }
+
+  .range-app .range-toolbar .panel-action {
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.1;
+    text-align: left;
+  }
+
+  .range-toolbar .range-back {
+    flex: none;
+  }
+
+  /* The pills shrank by their one-line width, below their longest word
+   * ("Messwerte", "Pitching"). Each pill keeps its longest word ("Messwerte"
+   * never breaks at its soft hyphen here). */
+  .range-toolbar:not(.range-details-toolbar) .range-details-button,
+  .range-toolbar:not(.range-details-toolbar) .range-delete-last,
+  .range-app .range-toolbar:not(.range-details-toolbar) .panel-action {
+    min-width: min-content;
+  }
+
+  .range-toolbar .range-details-button {
+    hyphens: none;
+  }
+}
+
+/* Below 400 high (every phone in landscape, never the 800 x 400 kiosk), and
+ * the big phones as home-screen apps (896 x 414, 926 x 428, 932 x 430): up to
+ * 440 high but wider than 2.1 : 1, where the kiosks are 2 : 1 (800 x 400) or
+ * less (800 x 480, 1024 x 600). */
+@media (orientation: landscape) and (max-height: 399px),
+  (orientation: landscape) and (max-height: 440px) and (min-aspect-ratio: 21/10) {
+  /* Stats: two rows of tiles 40-60 px high held 44 px numbers, which spilled
+   * over the footer and took its taps. Each tile keeps room for label and
+   * number, the number keeps to the tile, and the view scrolls if the tiles
+   * need more height than the screen has. */
+  .stats-panel__grid {
+    grid-template-rows: repeat(2, minmax(3.5rem, 1fr));
+  }
+
+  .stats-panel__grid .metric-card {
+    padding: 6px 18px;
+    container-type: size;
+  }
+
+  .stats-panel__grid .metric-card--label-above {
+    gap: 2px;
+  }
+
+  /* Club page titles with the ≈ mark ("Ø EINTREFFWINKEL ≈") in a third of 568 px. */
+  .stats-panel__grid--club .metric-card__label {
+    letter-spacing: 0.06em;
+  }
+
+  .stats-panel__grid .metric-card__meta {
+    display: none;
+  }
+
+  .stats-panel__grid .metric-card__value {
+    font-size: clamp(1.1rem, min(9.2vw, calc(100cqb - 1.6rem)), 3.75rem);
+  }
+
+  /* Whatever does not fit scrolls inside the main area instead of painting
+   * over the footer. */
+  .range-app .panel-app__main {
+    overflow-y: auto;
+  }
+
+  /* Live tiles: a label is never squeezed under its own text into the
+   * number, and the small tiles' numbers keep to the height left after label
+   * and caption (2.75rem), so the caption stays inside the tile. */
+  .range-tile .metric-card__label {
+    flex: none;
+  }
+
+  .range-secondary-grid .metric-card__value-row {
+    font-size: clamp(0.9rem, min(3.9vw, 6.9vh, 20.7cqi, 36.8cqb, calc(100cqb - 2.75rem)), 1.9rem);
+  }
+
+  /* Panel headers (Shots): beside "Cloud-Upload" and "CSV exportieren" the
+   * count was cut to "12 ERF…" and the club to "D.". The count and club wrap
+   * onto a second line instead, and the buttons wrap their labels inside
+   * their 44 px. */
+  .panel-header__subtitle,
+  .panel-header__club {
+    overflow: visible;
+    line-height: 1.2;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .panel-header__actions {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .panel-header__actions .panel-action {
+    padding-inline: 10px;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* Align: "HOCHGESCHWINDIGKEITSAUFNAHME" ran into the exposure chip, which
+   * wrapped to two lines, and header and margins left the picture 92 px of
+   * height on an iPhone SE. A slimmer header (eyebrow spaced as in portrait,
+   * the chip on one line, the time may wrap) and tighter margins give the
+   * picture the height. */
+  .camera-feed__header {
+    gap: var(--space-sm);
+    padding: 4px var(--space-sm);
+  }
+
+  .camera-feed__eyebrow {
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+  }
+
+  .camera-feed__exposure-quality {
+    white-space: nowrap;
+  }
+
+  .camera-feed__workspace {
+    gap: var(--space-sm);
+    padding: 6px;
+  }
+
+  /* "Aufnahme bleibt schlagbereit" covered a quarter of the small picture.
+   * A full frame (8 : 5) is limited by the column's height: the chip goes
+   * beside it, the preview column keeps a strip on the right for it, and the
+   * picture is sized in what is left. A strip frame (16 : 5) is limited by
+   * the column's width, where a side strip cut it by a quarter: the chip goes
+   * under it, in a band the column keeps below. */
+  .camera-feed--capture .camera-feed__preview-column {
+    --camera-status-width: 5.5rem;
+
+    padding-right: var(--camera-status-width);
+  }
+
+  /* The Align step chips go to the marks section beside the picture: a row
+   * above it took 30-40 % of the picture's height (iPhone SE: 120 -> 69 px). */
+  .camera-feed__steps--preview {
+    display: none;
+  }
+
+  .camera-feed__steps--settings {
+    display: flex;
+  }
+
+  /* The kiosk's body type ran "2 Objetivo" past its padding in the 91 px chips
+   * of a 568 x 320 phone: caption type here, as before the larger chips. */
+  .camera-feed__steps--settings .camera-feed__step,
+  .camera-feed__steps--settings .camera-feed__view-toggle {
+    font-size: var(--font-caption);
+  }
+
+  /* The band is as high as the chip (one 0.65rem line, 4 px padding above
+   * and below) and its 4 px gap: on an iPhone 15 the strip picture is
+   * limited by the height left over. */
+  .camera-feed--capture .camera-feed__preview-column--wide-frame {
+    padding-right: 0;
+    padding-bottom: calc(0.65rem * 1.2 + 12px);
+  }
+
+  .camera-feed--capture .camera-feed__stream {
+    overflow: visible;
+  }
+
+  .camera-feed--capture .camera-feed__video {
+    border-radius: inherit;
+  }
+
+  .camera-feed__overlay {
+    left: 100%;
+    right: auto;
+    width: var(--camera-status-width);
+    padding: 0 0 0 6px;
+    justify-content: flex-start;
+  }
+
+  .camera-feed__preview-column--wide-frame .camera-feed__overlay {
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: auto;
+    padding: 4px 0 0;
+    justify-content: center;
+  }
+
+  /* Tight slots on a landscape phone: 12 px (index.css --font-caption-tight). */
+  .camera-feed__status,
+  .camera-feed__exposure-quality,
+  .camera-feed__timestamp {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* In a•space "schlagbereit" alone was wider than the 5.5rem strip: no
+   * tracking, and the word breaks at its joint (withLabelBreaks) at the
+   * 12 px floor. */
+  .camera-feed__status {
+    padding: 4px 6px;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  /* All metrics: ten tiles of 108-170 x 55-90 px. The kiosk's labels
+   * ("SCHLÄGERTEMPO", "STARTRICHTUNG ≈") ran into the next tile and the
+   * numbers below the tile. The back button and club keep 44 px, the labels
+   * take the app's smallest type, and the ≈ mark goes under its word where
+   * the two do not fit side by side. The numbers keep to the height left
+   * after a two-line label (the empty caption row takes no gap). */
+  .range-app .range-details-toolbar .range-back,
+  .range-app .range-details-toolbar .panel-action {
+    min-height: 44px;
+  }
+
+  /* The 12 px labels (0.6875rem) wrap to two lines beside a 1rem number in a
+   * 50 px tile: the padding and the label's margin give them the room. */
+  .live-panel__grid .metric-card,
+  .live-panel__grid .metric-card--label-above {
+    gap: 0;
+    padding: 2px 0.3rem;
+  }
+
+  .live-panel__grid .metric-card__label {
+    /* The tile's width, so its row is as high as the wrapped label. */
+    width: 100%;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    gap: 0 3px;
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0;
+    line-height: 1.05;
+    white-space: normal;
+  }
+
+  .live-panel__grid .metric-card__estimated svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .live-panel__grid .metric-card__value-row {
+    font-size: clamp(1rem, min(10.35vw, 19.55vh, 55cqi, calc(100cqb - 1.5rem)), 5.75rem);
+  }
+
+  /* All metrics → Ball, eleven tiles in 5 x 3: on the smallest phones (568 x
+   * 320) a row is about 35 px, and a German title with its ≈ ("Eintreffwinkel
+   * ≈") takes two lines above the number. Each row keeps at least the height
+   * of a two-line title and a number (3rem); where three such rows do not fit,
+   * the tiles scroll inside the panel (drag on them, LivePanel; a tap still
+   * selects one) while the toolbar, the page and the footer stay put. Phones
+   * with room keep their 1fr rows and nothing scrolls. */
+  .range-details .live-panel__body {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .range-details .live-panel__grid--of-11 {
+    grid-template-rows: repeat(3, minmax(3rem, 1fr));
+  }
+
+  .range-details .live-panel__grid--of-11 .metric-card {
+    touch-action: none;
+  }
+
+  /* The club page's five cards in a row are about 110 px wide: the low point's
+   * caption ("ahead of the ball · ±2.1 cm · calculated · uncalibrated") took
+   * seven lines at 13 px and ran out of its card. Captions there take the
+   * 12 px floor without tracking. */
+  .club-data__grid .metric-card__confidence-label {
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0;
+  }
+}
+
+/* The big phones as home-screen apps (896 x 414): the type grows with the
+ * width, the small Live tiles keep their 70 px row (range.css, up to 425
+ * high), and the caption ran out of the tile. Slimmer padding gives label,
+ * number and caption their room. */
+@media (orientation: landscape) and (max-height: 440px) and (min-aspect-ratio: 21/10) {
+  .range-secondary-grid .metric-card {
+    padding-block: 4px;
+  }
+
+  /* The hero number keeps to the height its 13 px caption leaves it. */
+  .range-hero-grid .metric-card__value-row {
+    font-size: clamp(2rem, min(13.45vw, 24.15vh, 28.75cqi, 43cqb), 6.2rem);
+  }
+}
+
+/* Exception (iPhone SE landscape, All metrics): "Eintreffwinkel" does not fit
+ * a 97 px tile even at 12 px; the label keeps its earlier size here. */
+@media (orientation: landscape) and (max-width: 600px) {
+  .live-panel__grid .metric-card__label {
+    font-size: 0.5625rem;
+  }
+}
+
+/* Up to 360 high (iPhone SE, iPhone 15 in Safari): the hero tiles are 54-70
+ * px, room for label and number only; the caption row keeps its place at no
+ * height, and the number keeps to the height left after the label. */
+@media (orientation: landscape) and (max-height: 360px) {
+  .range-hero-grid .metric-card__meta > * {
+    display: none;
+  }
+
+  .range-hero-grid .metric-card {
+    padding-block: 4px;
+  }
+
+  .range-hero-grid .metric-card__value-row {
+    font-size: clamp(1rem, min(12.65vw, 20.7vh, 27.6cqi, 46cqb, calc(100cqb - 1.6rem)), 5.2rem);
+  }
+}
+
+/* Fingertip-sized controls on landscape phones (the same query as above; the
+ * kiosk's 32-40 px controls stay as they are). */
+@media (orientation: landscape) and (max-height: 399px),
+  (orientation: landscape) and (max-height: 440px) and (min-aspect-ratio: 21/10) {
+  /* Align: sliders, mode, view and manual buttons (1.8-2.4rem on the kiosk). */
+  .camera-settings input[type='range'],
+  .camera-settings__mode-controls button,
+  .camera-settings__view-controls button,
+  .camera-settings__manual-controls button {
+    min-height: 44px;
+  }
+
+  /* Stats club chips (32 px header chips on the kiosk). */
+  .stats-panel__chips {
+    --panel-control-height: 44px;
+  }
+
+  /* Club picker: the kiosk's 76 px header and 64 px tabs left three rows of
+   * 40 px options on an iPhone SE; slimmer chrome gives the options room. */
+  .range-app .picker-overlay__header {
+    min-height: 56px;
+    padding-block: 4px;
+  }
+
+  .range-app .picker-overlay__tabs {
+    padding-top: 6px;
+  }
+
+  .range-app .picker-overlay__tabs .panel-action {
+    min-height: 44px;
+    font-size: 0.94rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* range.css sizes title, Close and labels for a kiosk read from 1-2 m; a
+   * phone in the hand keeps its own (the labels' ceiling: panel.css). */
+  .range-app .picker-overlay__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .range-app .picker-overlay__close {
+    width: 56px;
+    height: 56px;
+    font-size: 1.25rem;
+  }
+
+  .range-app .picker-overlay__option {
+    font-size: var(--picker-label-max);
+    line-height: normal;
+  }
+
+  /* Profile name: the low-screen rule shrinks Close to 32 px; a phone keeps 44. */
+  .profile-name-modal__close {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Landscape phones (the query above): the Range details sheet's carry notes in
+ * their short form ("Kurve nicht berücksichtigt"), one line
+ * under tiles that have no height to spare. As under 360 px in portrait, the
+ * toolbar keeps to the phone's 44 px buttons (the Ball | Club pills were still
+ * the kiosk's 56 px), so the line comes out of the toolbar's band, not out of
+ * the tiles (their titles crowded at 568 x 320). */
+@media (orientation: landscape) and (max-height: 399px),
+  (orientation: landscape) and (max-height: 440px) and (min-aspect-ratio: 21/10) {
+  .range-app .range-details-toolbar {
+    min-height: 44px;
+    margin-bottom: 8px;
+  }
+
+  .range-app .range-details-toolbar .segmented-control__button {
+    min-height: 44px;
+  }
+
+  /* Back, Ball | Club, the ≈ legend and the club in one band: tight, the 12 px floor. */
+  .range-app .range-details-toolbar .segmented-control__button,
+  .range-app .range-details-toolbar > span,
+  .range-app .range-details-toolbar .range-back,
+  .range-app .range-details-toolbar .panel-action {
+    font-size: var(--font-caption-tight);
+  }
+
+  .range-details > .range-details-carry-notes {
+    margin: 2px 0 0;
+    line-height: 1;
+  }
+
+  .range-details-carry-notes .carry-notes__long {
+    display: none;
+  }
+
+  .range-details-carry-notes .carry-notes__short {
+    display: block;
+  }
+
+  /* A calculated ≈ legend already stands in the toolbar; typical spin alone
+   * has none there, so the line keeps "≈ mit typischem Spin". */
+  .range-details-carry-notes .carry-notes__legend--in-toolbar {
+    display: none;
+  }
+}

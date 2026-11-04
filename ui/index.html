@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="sun">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>OpenFlight</title>
+    <script>
+      (function () {
+        try {
+          // Same key and default as src/theme/theme.ts ('sun' unless 'dark' was chosen).
+          var stored = localStorage.getItem('openflight.theme.v2');
+          document.documentElement.dataset.theme = stored === 'sun' || stored === 'dark' ? stored : 'sun';
+          var locale = localStorage.getItem('openflight.locale:v1');
+          var langs = { en: 'en', de: 'de-DE', es: 'es' };
+          if (langs[locale]) document.documentElement.lang = langs[locale];
+        } catch (e) {
+          document.documentElement.dataset.theme = 'sun';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

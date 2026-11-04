@@ -1,0 +1,1411 @@
+/*
+ * Phone in portrait (a browser on the same network as the Pi). The kiosk
+ * layout is built for 800-1024 wide landscape screens; on a 320-430 px wide
+ * phone its five-column grids squeeze every tile. Same colours, type and
+ * hairline grid, rearranged: two columns, tighter chrome. Kiosks are
+ * landscape and at least 800 wide, so nothing here reaches them; a phone in
+ * landscape keeps the kiosk layout.
+ */
+
+@media (orientation: portrait) and (max-width: 680px) {
+  /* ------------------------------------------------------------- header -- */
+
+  /* Two header buttons (Shots) do not fit beside the profile and club, so
+   * they move to a second row instead of squeezing the identity to "2 RE…". */
+  .panel-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 16px;
+  }
+
+  /* The footer already marks the open panel, so the title gives its room to
+   * the profile and club. The LED stays as the status-menu button. */
+  .panel-header__title {
+    display: none;
+  }
+
+  /* Without the title the button is just the 9 px LED. Widen its hit area
+   * to about 44 px over the header padding, without moving anything. */
+  .panel-header__status {
+    position: relative;
+  }
+
+  .panel-header__status::before {
+    content: '';
+    position: absolute;
+    inset: 0 -18px;
+  }
+
+  .panel-header__identity {
+    flex: 1 1 10rem;
+    gap: 8px;
+  }
+
+  /* "24 RECORDED · 0/24 VALIDATED" and the club in a 320 px header. In
+   * a•space the two need 340 px there even without letter spacing: the
+   * counts wrap between words instead of ending in "…", and the club keeps
+   * its name. */
+  .panel-header__subtitle {
+    letter-spacing: 0;
+    white-space: normal;
+  }
+
+  .panel-header__club {
+    flex-shrink: 0;
+    letter-spacing: 0;
+  }
+
+  .panel-header__actions {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .panel-header__actions .panel-action {
+    padding: 0 10px;
+  }
+
+  /* ------------------------------------------------------------- footer -- */
+
+  .panel-footer {
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  /* Units are in the menu; the tabs need the width. */
+  .panel-footer__units {
+    display: none;
+  }
+
+  /* Six tabs scroll sideways; PanelFooter keeps the open one in view and
+   * the fading right edge shows that more tabs follow. */
+  .panel-footer__tabs {
+    flex: 1 1 auto;
+    max-width: 100%;
+    gap: 10px;
+    mask-image: linear-gradient(to right, #000 85%, transparent);
+  }
+
+  .panel-footer__tabs .nav__button {
+    padding: 0 4px;
+    gap: 6px;
+  }
+
+  .panel-footer__meta {
+    gap: 8px;
+  }
+
+  /* ---------------------------------------------------------- live grid -- */
+
+  /* "READY" / "PRONTO" sized by width, not height, so it stays on screen. */
+  .live-panel__empty-title {
+    font-size: clamp(2.5rem, min(16vh, 15vw), 7rem);
+  }
+
+  .live-panel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+  }
+
+  /* All values → Ball: eleven tiles in the same two columns, a sixth row with
+   * one empty cell. Each row keeps the height its title, number and a
+   * two-line caption or the experimental pill need (4.75rem), so no tile
+   * drops its caption; where six such rows do not fit (320-430 px phones),
+   * the tiles scroll inside the panel: drag on them (LivePanel's
+   * useDragScroll), a tap still selects one, and the toolbar, the page and
+   * the footer stay put. */
+  .live-panel__grid--of-11 {
+    grid-template-rows: repeat(6, minmax(4.75rem, 1fr));
+  }
+
+  .range-details .live-panel__body {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .range-details .live-panel__grid--of-11 .metric-card,
+  .range-details .club-data__grid .metric-card {
+    touch-action: none;
+  }
+
+  .live-panel__grid--of-11::after {
+    grid-column: auto / -1;
+  }
+
+  .live-panel__grid--of-5 {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+  }
+
+  /* The club page's five cards, two by three: a fifth-height row left the
+   * impact face no room on a 320 px phone. Its rows keep the ball page's
+   * minimum (above), so both pages size their numbers alike; on a 320 x 460
+   * phone that is a few pixels more than the panel and it scrolls the same
+   * way. */
+  .club-data__grid.live-panel__grid--of-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(4.75rem, 1fr));
+  }
+
+  /* The low point takes the last row: its caption ("vor dem Ball · ±2,1 cm ·
+   * berechnet · unkalibriert") took four lines in half a 320 px phone and ran
+   * out of its 84 px card. */
+  .club-data__grid.live-panel__grid--of-5 [data-metric='cd_low_point'] {
+    grid-column: span 2;
+  }
+
+  /* Tiles are a fifth of the height: tighter bands. */
+  .live-panel__grid .metric-card,
+  .live-panel__grid .metric-card--label-above {
+    gap: 2px;
+    padding-block: 0.25rem;
+  }
+
+  /* The kiosk ceiling follows the screen width (vw); a phone tile is about as
+   * wide as a kiosk tile, so size by the tile instead: its width, and the
+   * height left after the label and caption rows (2.6rem), so a two-row
+   * header does not push captions out. useSharedFitFontSize still shrinks
+   * every tile to the widest value. */
+  .live-panel__grid .metric-card__value-row {
+    font-size: clamp(1.25rem, min(46cqi, 50.6cqb, calc(100cqb - 2.9rem)), 3.75rem);
+  }
+
+  .live-panel__grid .metric-card--class .metric-card__value-row {
+    font-size: clamp(0.95rem, min(17.25cqi, 34.5cqb, calc(100cqb - 2.6rem)), 2rem);
+  }
+
+  /* Swing speed: the implement is a name, not a number. Kept on one line at
+   * the shared number size, "Rypstick 3 Weights + Counterweight" shrank every
+   * number in the column to about 20 px; it wraps at half the size instead. */
+  .live-panel__grid [data-metric='swing_implement'] .metric-card__value {
+    flex-shrink: 1;
+    min-width: 0;
+    font-size: 0.5em;
+    line-height: 1.1;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Tiles too short for label, value and caption (a 320 px phone: about
+   * 59 px of content) drop the confidence and shape captions rather than
+   * cutting them in half. 64 px keeps them on every larger phone, also with a
+   * two-row header. The meta row keeps its place at zero height. */
+  @container (max-height: 64px) {
+    .live-panel__grid .metric-card__meta {
+      min-height: 0;
+    }
+
+    .live-panel__grid .metric-card__meta > * {
+      display: none;
+    }
+
+  }
+
+  /* Experimental club tiles (TI radar) stack a status caption over the
+   * EXPERIMENTELL pill. In a tile up to 150 px high the two did not fit
+   * under the number: centred, they spilled up into the number and down out
+   * of the tile. The pill stays as the flag; the caption gives way. */
+  .live-panel__grid .metric-card:has(.metric-card__confidence--experimental) .metric-card__meta {
+    justify-content: flex-start;
+  }
+
+  @container (max-height: 150px) {
+    .live-panel__grid .metric-card:has(.metric-card__confidence--experimental) .metric-card__subtext {
+      display: none;
+    }
+  }
+
+  /* --------------------------------------------------------- stats grid -- */
+
+  /* Club chips at fingertip height (the kiosk's 32 px header chips), in a
+   * slimmer band so the tiles keep their height. */
+  .stats-panel__chips {
+    --panel-control-height: 44px;
+    padding: 6px 16px;
+  }
+
+  /* With the height for it, the Ball | Club switch takes its own row above
+   * the club chips, which then keep the full width (beside the switch a 320 px
+   * phone showed no club chip and a 393 px one half of the first). Below
+   * 500 px (320×460) the second row would leave the six tiles 35 px, too short
+   * for title and number, so the switch stays beside "All" there. */
+  @media (min-height: 500px) {
+    .stats-panel__chips {
+      flex-wrap: wrap;
+    }
+
+    .stats-panel__chips > .segmented-control {
+      margin-right: 0;
+    }
+
+    .stats-panel__club-filter {
+      flex-basis: 100%;
+    }
+  }
+
+  .stats-panel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .stats-panel__grid--of-4 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The club page's two tiles, one per row. */
+  .stats-panel__grid.stats-panel__grid--of-2 {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-panel__grid .metric-card {
+    padding: 10px 14px;
+    container-type: size;
+  }
+
+  /* German labels ("Ø SCHLÄGERTEMPO") outgrow a half-width tile at the
+   * kiosk's letter spacing. */
+  .stats-panel__grid .metric-card__label {
+    letter-spacing: 0.06em;
+  }
+
+  /* The kiosk sizes these by height (11vh), which is far too wide for a
+   * half-width phone tile: "143.8 mph" lost its unit. Under the Range header
+   * and footer a short phone's tile is low too, so the value also keeps to
+   * the tile height left after the label (1.6rem). */
+  .stats-panel__grid .metric-card__value {
+    /* Exception: the two-across stats keep their earlier ceiling ("139,0 mph" ran out at +15 %). */
+    font-size: clamp(1.25rem, min(13vw, 8vh, calc(100cqb - 1.6rem)), 3.25rem);
+  }
+
+  /* a•space: by the screen width (13vw) "168.4" and its unit needed 206 px of
+   * a 156 px tile on a 393 px phone. The value also keeps to the tile width
+   * (17cqi), and the unit takes the 13 px caption size, so the widest
+   * average, "244,4 km/h" (the "4" is a•space's widest digit), fits from a
+   * 320 px phone (at the 1.25rem floor) to a 430 px one. */
+  .stats-panel__grid .metric-card__value {
+    font-size: clamp(1.25rem, min(13vw, 17cqi, 8vh, calc(100cqb - 1.6rem)), 3.25rem);
+  }
+
+  .stats-panel__grid:not(.stats-panel__grid--club) .metric-card__unit {
+    font-size: var(--font-caption);
+  }
+
+  /* "Ø SCHLÄGERTEMPO" with that tracking needs 142 px at 13 px; up to 389 px
+   * a half-width tile has 132-147 px. There the titles lose their tracking
+   * and keep one line (130 px). (:where keeps the 320 px rule further down,
+   * 12 px with a little tracking, in charge there.) */
+  @media (orientation: portrait) and (max-width: 389px) {
+    .stats-panel__grid:where(:not(.stats-panel__grid--club)) .metric-card__label {
+      letter-spacing: 0;
+    }
+
+    /* The empty caption row (these tiles have no captions) keeps no height,
+     * so title and number keep theirs in a 65 px tile (320 x 460). */
+    .stats-panel__grid:not(.stats-panel__grid--club) .metric-card__meta {
+      min-height: 0;
+    }
+  }
+
+  /* ----------------------------------------------------------- profiles -- */
+
+  .profiles-panel__grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px 16px 16px;
+  }
+
+  /* --------------------------------------------------------- shots list -- */
+
+  /* Shot number over its club, then ball and carry. The list only holds the
+   * active profile's shots, so the profile name gives its room to the club
+   * (it was cut to "Profil…" and the club broke to "EISEN / 7"). Club speed,
+   * launch and spin stay in the landscape view and the CSV; their columns are
+   * hidden in the header and every row. */
+  .shots-panel__columns > :nth-child(2),
+  .shots-panel__columns > :nth-child(4),
+  .shots-panel__columns > :nth-child(5),
+  .shots-panel__columns > :nth-child(6),
+  .shots-panel__row-main > :nth-child(4),
+  .shots-panel__row-main > :nth-child(5),
+  .shots-panel__row-main > :nth-child(6),
+  .shots-panel__profile-name {
+    display: none;
+  }
+
+  /* Ball and carry are fixed tracks: Nexa's digits are proportional ("4" and
+   * "8" the widest), so ball is as wide as "244,4" / "244.4" (2.81em of the
+   * 1.125rem values: 3.25rem) and carry as its heading "FLUGWEITE" (61 px at
+   * the head's tracking; "≈244" is 2.5em). The actions column is replay plus
+   * delete. */
+  .shots-panel__row-main {
+    grid-template-columns: minmax(0, 1fr) 3.25rem 64px;
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: 1px 8px;
+  }
+
+  .shots-panel__row-main > :nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .shots-panel__row-main > :nth-child(2) {
+    grid-area: 2 / 1;
+  }
+
+  .shots-panel__row-main > :nth-child(3) {
+    grid-area: 1 / 2 / 3;
+  }
+
+  .shots-panel__row-main > :nth-child(7) {
+    grid-area: 1 / 3 / 3;
+  }
+
+  .shots-panel__columns {
+    grid-template-columns: minmax(0, 1fr) 3.25rem 64px 108px;
+    gap: 8px;
+    padding: 9px 12px 7px;
+    letter-spacing: 0.02em;
+    /* Exception: "FLUGWEITE" needs about 78 px at 12 px; its 64 px column keeps the earlier type. */
+    font-size: 0.5625rem;
+  }
+
+  /* Long club names wrap between words ("PITCHING / WEDGE"). */
+  .shots-panel__profile-club {
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+
+  .shots-panel__row {
+    gap: 8px;
+    padding: 0 12px;
+  }
+
+  .shots-panel__value {
+    font-size: 1.125rem;
+  }
+
+  .shots-panel__actions {
+    width: 108px;
+    gap: 6px;
+  }
+
+  .shots-panel__replay {
+    width: 44px;
+  }
+
+  /* "LÖSCHEN" is the longest delete label; without letter spacing it fits
+   * 58 px ("EXCLUIR", "BORRAR" and "DEL" too). */
+  .shots-panel__delete {
+    width: 58px;
+    padding-inline: 2px;
+    letter-spacing: 0;
+    /* Exception: "LÖSCHEN" needs 58 px at 12 px, the button 54 px inside its padding; it keeps its earlier type. */
+    font-size: 0.5625rem;
+  }
+
+  /* Up to 389 px a 64 px carry column leaves a club (360 px) too little room
+   * for "PITCHING" (69 px at 13 px with its tracking). Carry keeps the room
+   * "≈244" needs (3rem), "FLUGWEITE", already under the floor, breaks at its
+   * soft hyphen ("FLUG-/WEITE", labelBreaks.ts) above it, and the club gives
+   * up half its tracking. */
+  @media (orientation: portrait) and (max-width: 389px) {
+    .shots-panel__row-main {
+      grid-template-columns: minmax(0, 1fr) 3.25rem 3rem;
+    }
+
+    .shots-panel__columns {
+      grid-template-columns: minmax(0, 1fr) 3.25rem 3rem 108px;
+      hyphens: manual;
+    }
+
+    .shots-panel__profile-club {
+      letter-spacing: 0.04em;
+    }
+  }
+
+  .shots-panel__validation {
+    padding: 0 12px 12px;
+  }
+
+  .shots-panel__club-data {
+    padding: 0 12px 8px;
+  }
+
+  /* The shot editor's fields at fingertip height (34 px on the kiosk). */
+  .shots-panel__field input,
+  .shots-panel__field select,
+  .shots-panel__field--diff strong {
+    height: 44px;
+  }
+
+  /* -------------------------------------------------------------- picker -- */
+
+  /* Training-implement tabs ("SUPERSPEED", "THESTACK") wrap two by two. */
+  .picker-overlay__tabs {
+    flex-wrap: wrap;
+    padding: 10px 16px 0;
+  }
+
+  .picker-overlay__tabs .panel-action {
+    flex: 1 1 40%;
+    padding: 0 8px;
+    letter-spacing: 0.06em;
+  }
+
+  .picker-overlay__body {
+    padding: 12px 16px 16px;
+  }
+
+  /* The Range tabs are 64 px tall for the kiosk; on a phone two rows of them
+   * took the room the options need. */
+  .range-app .picker-overlay__tabs .panel-action {
+    min-height: 48px;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* range.css sizes title, Close and labels for a kiosk read from 1-2 m; a
+   * phone in the hand keeps its own (the labels' ceiling: panel.css). */
+  .range-app .picker-overlay__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .range-app .picker-overlay__close {
+    width: 56px;
+    height: 56px;
+    font-size: 1.25rem;
+  }
+
+  .range-app .picker-overlay__option {
+    font-size: var(--picker-label-max);
+    line-height: normal;
+  }
+
+  /* Long implement names get two columns; PickerOverlay supplies the matching
+   * row count, so tiles keep one size across tabs. !important beats the row
+   * count PickerOverlay sets inline. Seven rows of TheStack left a 320 px
+   * phone 37 px tiles, below a fingertip and too low for "Rypstick 3 Weights
+   * + Counterweight", so tiles keep at least 52 px and that tab scrolls. */
+  .picker-overlay--wide .picker-overlay__grid {
+    --picker-cols: 2;
+    --picker-rows: var(--picker-rows-narrow, 6) !important;
+    --picker-gap: 8px;
+    --picker-tile-h: max(
+      52px,
+      min(
+        calc((100cqw - var(--picker-gap)) / 4),
+        calc((100cqh - (var(--picker-rows) - 1) * var(--picker-gap)) / var(--picker-rows))
+      )
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* Names break between words only; useLabelFitFontSize gives them a third
+   * line or a smaller size before one would clip. */
+  .picker-overlay--wide .picker-overlay__option {
+    padding: 0 8px;
+    --picker-label-max: clamp(0.75rem, calc(var(--picker-tile-h) * 0.21), 1.0625rem);
+    line-height: 1.15;
+  }
+
+  /* ------------------------------------------------------------ dialogs -- */
+
+  /* Two buttons share a dialog's width; a long label ("SESSION LEEREN",
+   * "PROFIL UMBENENNEN") wraps inside its button instead of running over
+   * the border. */
+  .clear-session-modal__actions .panel-action,
+  .profile-name-modal__actions .panel-action {
+    padding-inline: 10px;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* The low-screen rule shrinks Close to 32 px; a phone keeps 44. */
+  .profile-name-modal__close {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* "UMBENENNEN" with the kiosk's 0.2em tracking was wider than a•space
+   * leaves beside Close on 320 px, and squeezed Close under 44 px. */
+  .profile-name-modal__title {
+    letter-spacing: 0.06em;
+  }
+
+  /* The on-screen keyboard keeps phone-sized keys at the bottom instead of
+   * stretching four rows of keys over the whole screen. */
+  .profile-name-modal__keyboard {
+    flex: 0 0 auto;
+    margin-top: auto;
+  }
+
+  .profile-name-modal__key-row {
+    flex: 0 0 auto;
+    height: 52px;
+  }
+
+  /* The shutdown question kept its 280 px minimum plus padding and touched
+   * the screen edges. */
+  .shutdown-dialog,
+  .shutdown-dialog--pending {
+    min-width: 0;
+    width: calc(100% - 32px);
+    max-width: 24rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .shutdown-dialog__confirm,
+  .shutdown-dialog__cancel {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0.5rem;
+  }
+
+  /* Session history: the buttons wrap under the title (Close was off the
+   * screen), and the table keeps shot, club, ball, carry and replay like the
+   * shot list, so club names no longer break inside a word ("Eise / n 7"). */
+  .session-history__header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .session-history__header > :first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* Close stays beside the title; the other buttons share the rows below. */
+  .session-history__actions {
+    display: contents;
+  }
+
+  .session-history__actions .panel-action {
+    order: 1;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-inline: 10px;
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0.06em;
+  }
+
+  .session-history__actions .panel-action:last-child {
+    order: 0;
+    flex: none;
+  }
+
+  .session-history th:nth-child(4),
+  .session-history td:nth-child(4),
+  .session-history th:nth-child(6),
+  .session-history td:nth-child(6),
+  .session-history th:nth-child(7),
+  .session-history td:nth-child(7),
+  .session-history__delete-cell,
+  .range-delete-last {
+    display: none;
+  }
+
+  .session-history td:nth-child(2) {
+    max-width: none;
+    overflow-wrap: normal;
+  }
+
+  /* My clubs: three across ("Pitching Wedge" ran over its button at four),
+   * and the note goes above a full-width Save. */
+  .bag-settings__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bag-settings__grid button {
+    min-height: 44px;
+  }
+
+  .bag-settings__footer {
+    flex-wrap: wrap;
+  }
+
+  .bag-settings__footer p {
+    flex: 1 1 100%;
+  }
+
+  .bag-settings__footer .panel-action {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* -------------------------------------------------------------- align -- */
+
+  /* One column (CameraFeed.css, portrait up to 700 wide): the picture comes
+   * first at full width, and the settings follow in the same scroller. */
+
+  /* The status chip goes under the title, so "HOCHGESCHWINDIGKEITSAUFNAHME"
+   * is not cut off behind it. */
+  .camera-feed__header {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  .camera-feed__header-status {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+
+  .camera-feed__eyebrow {
+    letter-spacing: 0.08em;
+  }
+
+  /* "Aufnahme bleibt schlagbereit" under the picture: a•space wrapped it to
+   * two lines, out of the one-line band the column keeps for it. Without
+   * the tracking and at the tight caption size it keeps to one line. */
+  .camera-feed__status {
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0;
+  }
+
+  /* A finger on the settings scrolls the column natively. On the kiosk the
+   * settings scroll themselves and claim the gesture for the drag scroller;
+   * in this single column they do not scroll, so a drag on them moved
+   * nothing. Sliders keep their own horizontal drag. */
+  .camera-feed .camera-settings,
+  .camera-feed .camera-settings button {
+    touch-action: pan-y;
+  }
+
+  /* Sliders and buttons at fingertip height (32 px on the kiosk). */
+  .camera-settings input[type='range'],
+  .camera-settings__mode-controls button,
+  .camera-settings__view-controls button,
+  .camera-settings__manual-controls button {
+    min-height: 44px;
+  }
+
+  /* ------------------------------------------------------- pair dialog -- */
+
+  /* The kiosk's QR-beside-details row kept its 500 px width: code, Wi-Fi and
+   * Close were off the screen to the right. QR above the details, and the
+   * panel scrolls. (The dialog is kiosk-only today.) */
+  .pair-dialog__panel {
+    grid-template-columns: minmax(0, 1fr);
+    overflow-y: auto;
+  }
+
+  .pair-dialog__content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pair-dialog__qr-column {
+    width: min(14rem, 100%);
+    margin-inline: auto;
+  }
+
+  /* The details column took the width of its longest word (the typed
+   * address, a host button): 337 px in a 246 px panel at 320 wide. It keeps
+   * to the panel; an address or host breaks where it must. */
+  .pair-dialog__details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pair-dialog__details p,
+  .pair-dialog__details .segmented-control__button {
+    overflow-wrap: anywhere;
+  }
+
+  .pair-dialog__actions {
+    flex-wrap: wrap;
+  }
+
+  .pair-dialog__actions .panel-action {
+    flex: 1 1 auto;
+  }
+
+  /* ---------------------------------------------------------- diagnose -- */
+
+  /* Three nested paddings (26 px, 13.5 px and a section's) left 223 px for
+   * the tabs on a 320 px phone: "Einstellungen" was cut off and the pending
+   * recovery label ran past its button. The kiosk's padding gives way. */
+  .panel-app__debug {
+    padding: 6px 0;
+  }
+
+  .debug-panel {
+    padding: 10px;
+  }
+
+  /* ----------------------------------------------------------- TI alert -- */
+
+  /* The TI radar alert lost its styles when App.css left the build; on a
+   * phone its five unstyled lines pushed the carry and ball-speed numbers
+   * out of their tiles. A red band as App.css drew it, the reason on two
+   * lines at most. */
+  .iwr-alert {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 6px 6px 6px 12px;
+    border-radius: 14px;
+    background: var(--color-danger);
+    color: var(--color-accent-fg);
+    font-size: var(--font-caption-tight);
+    line-height: 1.25;
+  }
+
+  .iwr-alert div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .iwr-alert span {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .iwr-alert button {
+    flex: none;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--color-accent-fg);
+    border-radius: 50px;
+    background: transparent;
+    color: var(--color-accent-fg);
+    font: inherit;
+    font-weight: 700;
+  }
+
+  /* -------------------------------------------------------------- debug -- */
+
+  .debug-tabs__tab {
+    min-height: 44px;
+  }
+
+  /* --------------------------------------------------------------- menu -- */
+
+  /* "System" without a simulator would be a heading over nothing. */
+  .menu-sheet__section:has(> .menu-sheet__section-title:only-child) {
+    display: none;
+  }
+
+  /* Units, theme and voice switches keep 44 px on a low phone too (the
+   * kiosk's low-screen rule makes them 38). */
+  .segmented-control__button {
+    min-height: 44px;
+  }
+
+  /* -------------------------------------------------------------- range -- */
+
+  /* The Range layout (RangeChrome, RangeLivePanel) is the app's own screen;
+   * the rules above reach the panels it opens from the menu. */
+
+  /* The theme switch is also in the menu, so it gives its room to the
+   * connection and power status. A long status wraps or ends in "…" instead
+   * of pushing the power button off the screen. */
+  .range-header {
+    height: 56px;
+    gap: 8px;
+  }
+
+  .range-header .range-theme {
+    display: none;
+  }
+
+  .range-header-actions {
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .range-header button {
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+  }
+
+  .range-header .range-connection {
+    /* Never narrower than its longest word: in a•space "verbunden" ran past
+     * the button on a 375 px phone; the power status gives way (ellipsis). */
+    min-width: min-content;
+    padding: 0 4px;
+    white-space: normal;
+    text-align: left;
+    line-height: 1.15;
+  }
+
+  .range-header .range-power-button {
+    min-width: 44px;
+    max-width: 8.5rem;
+  }
+
+  .range-power-button > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The Range header and footer take height the panels then miss: a panel
+   * header with one button keeps it beside the profile (Stats, Profiles);
+   * two still move to a second row (Shots). */
+  .range-app .panel-header__identity {
+    flex-basis: auto;
+  }
+
+  /* The shot heading keeps its room next to "All metrics" and the club. */
+  .range-toolbar,
+  .range-toolbar-actions {
+    gap: 6px;
+  }
+
+  /* Profile and time go under "Shot 12" instead of beside it, where the
+   * buttons left them a few letters ("Profil…"). The heading shrinks a little
+   * on a 320 px phone, so "Schlag 124" still fits. */
+  .range-shot-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .range-shot-heading h1 {
+    font-size: clamp(0.95rem, 5.2vw, 1.1rem);
+  }
+
+  .range-shot-heading > span {
+    max-width: 100%;
+    font-size: var(--font-caption-tight);
+    line-height: 1.2;
+  }
+
+  .range-toolbar button,
+  .range-app .range-toolbar .panel-action {
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+  }
+
+  /* With a long club ("Pitching Wedge", "Mini Driver") the buttons took the
+   * heading's room: "Alle Messwerte" covered the end of "Schlag 124", and in
+   * the details toolbar the labels ran past their pills. The heading keeps
+   * its width (its profile line is cut instead), and the buttons give way by
+   * wrapping their label onto a second line inside the same 44 px. */
+  .range-shot-heading {
+    flex: 1 1 auto;
+    min-width: auto;
+  }
+
+  .range-shot-heading > span {
+    width: 0;
+    min-width: 100%;
+  }
+
+  .range-toolbar-actions {
+    min-width: 0;
+  }
+
+  .range-toolbar .range-details-button {
+    white-space: normal;
+    line-height: 1.1;
+    padding-inline: 8px;
+  }
+
+  .range-app .range-toolbar .panel-action {
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.1;
+    text-align: left;
+  }
+
+  .range-toolbar .range-back {
+    flex: none;
+  }
+
+  /* "Messwerte" and "Pitching" are single words: each pill keeps its longest
+   * word (otherwise the pills shrink by their one-line width, below it), and
+   * "Messwerte" never breaks at its soft hyphen (labelBreaks.ts). */
+  .range-toolbar:not(.range-details-toolbar) .range-details-button,
+  .range-app .range-toolbar:not(.range-details-toolbar) .panel-action {
+    min-width: min-content;
+  }
+
+  .range-toolbar .range-details-button {
+    hyphens: none;
+  }
+
+  .range-details-toolbar > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Back, Ball | Club, the ≈ legend and the club share a phone's width: a tight slot, the 12 px floor. */
+  .range-details-toolbar .segmented-control__button,
+  .range-details-toolbar > span,
+  .range-app .range-details-toolbar .range-back,
+  .range-app .range-details-toolbar .panel-action {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* "All metrics" carries the Ball | Club switch: the back button keeps only its
+   * arrow (its name stays for screen readers), so back, switch and club fit 320 px. */
+  .range-toolbar .range-back {
+    min-width: 44px;
+    padding: 0;
+  }
+
+  /* The profile name gives way first (ellipsis), never the switch or the club. */
+  .range-details-toolbar > span:not(.range-details-legend) {
+    min-width: 0;
+    flex: 1 1 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The ≈ legend stays whole ("≈ berechnet"): it is the only place that spells
+   * out "calculated" where the short club tiles drop their captions. */
+  .range-details-toolbar > .range-details-legend {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* Next to a typical-spin carry the legend names both meanings of ≈ ("≈
+   * berechnet bzw. mit typischem Spin"): beside back, switch and club it ran
+   * 10-20 px past a 375-430 px phone even on two lines (the club shrank, not
+   * the legend), so it moves under the grid as it does under 360 px. */
+  .range-details-toolbar > .range-details-legend--both {
+    display: none;
+  }
+
+  .range-details > .range-details-footnote--both {
+    display: block;
+    flex: none;
+    margin: 2px 0 0;
+    font-size: var(--font-caption-tight);
+    line-height: 1;
+    color: var(--color-text-muted);
+  }
+
+  .range-details > .range-details-footnote--both > span {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .range-back__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  /* Carry and ball speed stay side by side as on the Pi; the three smaller
+   * tiles go two by two instead of three across: launch and start direction
+   * share a row and spin spans the one below.
+   * The hero pair gets most of the height, the small tiles the rest, at least
+   * two 74 px bands: a fixed 66 px band was too low for label, number and
+   * caption (the label ran into the number) while the hero tiles stood half
+   * empty on a tall phone. */
+  .range-live {
+    grid-template-rows: 44px minmax(0, 1.6fr) minmax(156px, 1fr);
+    gap: 8px;
+    min-height: 302px;
+  }
+
+  /* Under the TI alert or the offline banner a low phone (320 × 460 in
+   * Safari) has no room for all of that; the view then scrolls instead of
+   * squeezing carry and ball speed out of their tiles (the hero row keeps
+   * about 80 px above). */
+  .range-app .panel-app__main {
+    overflow-y: auto;
+  }
+
+  .range-secondary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+  }
+
+  .range-secondary-grid--of-3 > :last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Label, number and caption each keep their own line: a label is never
+   * squeezed under its text, and the number gets the height that is left. */
+  .range-tile .metric-card__label {
+    flex: none;
+  }
+
+  .range-secondary-grid .metric-card {
+    padding: 6px 10px;
+    gap: 2px;
+  }
+
+  .range-secondary-grid .metric-card__label {
+    line-height: 1.1;
+  }
+
+  .range-secondary-grid .metric-card__confidence-label {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* The kiosk sizes these numbers by the screen width (four across); a phone
+   * tile is half the screen wide (9vw is a fifth of it), and the number gets
+   * the height left after label, caption and padding (2.75rem). Width by vw,
+   * not cqi, so the spin tile spanning both columns keeps the same size. */
+  .range-secondary-grid .metric-card__value-row {
+    font-size: clamp(1rem, min(10.35vw, calc(100cqb - 2.75rem)), 2.3rem);
+  }
+
+  /* A caution pill ("experimentell", "Unbestätigt") stands taller than a
+   * plain caption: its margin, padding and border take another 0.5rem. */
+  .range-secondary-grid .metric-card:has(.metric-card__confidence--experimental) .metric-card__value-row {
+    font-size: clamp(1rem, min(10.35vw, calc(100cqb - 3.25rem)), 2.3rem);
+  }
+
+  /* A hero tile lower than label, number and a two-line caption (a 320 px
+   * phone under Safari's bars) shows label and number only; the caption row
+   * keeps its place at zero height. */
+  @container (max-height: 150px) {
+    .range-hero-grid .metric-card__meta > * {
+      display: none;
+    }
+  }
+
+  /* Five footer buttons in a phone's width: icon over label, like a tab bar.
+   * Should iOS report a home-indicator inset (home-screen app), the bar
+   * stays above it; in Safari the inset is 0. */
+  .range-footer {
+    gap: 6px;
+    padding: 6px 0 max(8px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .range-footer nav {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .range-footer button {
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 44px;
+    padding: 4px 6px;
+    /* Five tabs in a phone's width: a tight slot, so the 12 px floor. */
+    font-size: var(--font-caption-tight);
+    line-height: 1.1;
+  }
+
+  .range-footer svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .range-footer .range-replay-button {
+    padding: 4px 12px;
+  }
+
+  .range-replay-button small {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* The kiosk's own address opened on a portrait phone: the kiosk's 22 px
+   * footer labels outrank the size above, and in a•space the slow-motion
+   * button grew over the menu tab. The footer takes the phone's size. */
+  .range-app--kiosk .range-footer button {
+    font-size: var(--font-caption-tight);
+  }
+}
+
+/* "All metrics" on phones up to 419 px: in a•space back, Ball | Club, the ≈
+ * legend and the club ran 30-50 px past 375 and 393 px phones (the club shrank
+ * to "Dri"), so the legend moves under the grid there as well, as it always
+ * did under 360 px. */
+@media (orientation: portrait) and (max-width: 419px) {
+  /* "All metrics": back, Ball | Club and the club fill the toolbar, so the ≈
+   * legend moves under the grid instead of squeezing the club to "Dri…". The
+   * toolbar keeps to its 44 px buttons (not the kiosk's 56 px band), so the
+   * footnote's line comes out of the toolbar, not out of the tiles. */
+  .range-details-toolbar {
+    min-height: 44px;
+    margin-bottom: 4px;
+  }
+
+  /* The back button's own 6 px bottom margin made the band 50 px: the ball
+   * page's under-grid line (≈ legend and carry notes, two lines here) takes
+   * that room, not the tiles'. */
+  .range-details-toolbar > .range-back {
+    margin-bottom: 0;
+  }
+
+  .range-details-toolbar > .range-details-legend {
+    display: none;
+  }
+
+  .range-details > .range-details-footnote {
+    display: block;
+    flex: none;
+    margin: 2px 0 0;
+    font-size: var(--font-caption-tight);
+    line-height: 1;
+    color: var(--color-text-muted);
+  }
+
+  .range-details > .range-details-footnote > span {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+}
+
+/* Portrait screens wider than a phone (720 x 1280) keep the kiosk's All
+ * metrics toolbar. In a•space back and club shrank below their label ("←
+ * Übersicht" 12 px past its pill) and pushed the toolbar past the screen:
+ * they keep their longest word, the ≈ legend between them wraps instead. */
+@media (orientation: portrait) and (min-width: 681px) {
+  .range-app .range-details-toolbar .range-back,
+  .range-app .range-details-toolbar .panel-action {
+    min-width: min-content;
+  }
+}
+
+/* Narrowest phones (320, e.g. Display Zoom): a slimmer shot list, session
+ * history, club grid, stats tiles and Range header. */
+@media (orientation: portrait) and (max-width: 359px) {
+  /* The carry's notes in their short form, led by the ≈ legend ("≈ berechnet
+   * bzw. mit typischem Spin · Kurve nicht berücksichtigt"):
+   * one paragraph instead of the footnote and the sentence, which took three
+   * lines from the tiles. */
+  .range-details > .range-details-carry-notes {
+    margin: 2px 0 0;
+    line-height: 1;
+  }
+
+  .range-details > .range-details-footnote.range-details-footnote--in-notes {
+    display: none;
+  }
+
+  .range-details-carry-notes .carry-notes__long {
+    display: none;
+  }
+
+  .range-details-carry-notes .carry-notes__short {
+    display: block;
+  }
+
+  /* All metrics → Club, two by three: in its 84 px card the impact face,
+   * squeezed under title, word and caption, shrank below the word. The
+   * caption gives way there ("berechnet · unkalibriert" stays in the ≈
+   * legend under the grid and the mark's label). */
+  .club-data__grid [data-metric='cd_impact'] .metric-card__meta {
+    min-height: 0;
+  }
+
+  .club-data__grid [data-metric='cd_impact'] .metric-card__meta > * {
+    display: none;
+  }
+
+  /* All metrics: a 47 px tile has no room for a second title line, and in
+   * a•space "Eintreffwinkel ≈" (128 px of text, then the mark) needed 150 px
+   * of a 138 px title. The ≈ mark is 12 px with 3 px before it (as on a
+   * landscape phone) and the tile 0.2rem padding a side, so title and mark
+   * keep one line. */
+  .range-details .live-panel__grid:not(.club-data__grid) .metric-card {
+    padding-inline: 0.2rem;
+  }
+
+  .range-details .live-panel__grid:not(.club-data__grid) .metric-card__label {
+    gap: 0 3px;
+  }
+
+  .range-details .live-panel__grid:not(.club-data__grid) .metric-card__estimated svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Exception: on 320 px "PITCHING WEDGE" overflows its column even at 12 px; the club keeps its earlier type. */
+  .shots-panel__profile-club {
+    font-size: 0.5625rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Session history on 320×460: the wrapped buttons and the head left the
+   * sticky table head over the first replay button. Tight: the 12 px floor. */
+  .session-history p,
+  .session-history th {
+    font-size: var(--font-caption-tight);
+  }
+
+  /* Exception: at 12 px the buttons wrap into another row and the sticky head covers the first replay. */
+  .session-history__actions .panel-action {
+    font-size: 0.625rem;
+  }
+
+  /* Statistics on 320×460 (no room for a second chip row): a tighter switch
+   * and chips leave the club strip beside "All" part of its first chip and a
+   * drag target. */
+  .stats-panel__chips > .segmented-control {
+    gap: 4px;
+    margin-right: 0;
+  }
+
+  .stats-panel__chips > .segmented-control .segmented-control__button,
+  .stats-panel__chips .panel-chip {
+    padding: 0 6px;
+    letter-spacing: 0;
+    /* A tight slot: 12 px. */
+    font-size: var(--font-caption-tight);
+  }
+
+  /* a•space: switch and "Alle (8)" left the strip 33 px; the row's own
+   * padding gives it the rest (the screen keeps the Range layout's 8 px). */
+  .stats-panel__chips {
+    padding-inline: 8px;
+  }
+
+  /* Rows reach closer to the edge and the columns sit closer, so a club
+   * keeps 60 px ("PITCHING") beside ball and carry ("244,4" and "≈244" at
+   * the 1.125rem values). */
+  .shots-panel__row-main {
+    grid-template-columns: minmax(0, 1fr) 3.25rem 3rem;
+    column-gap: 6px;
+  }
+
+  .shots-panel__columns {
+    grid-template-columns: minmax(0, 1fr) 3.25rem 3rem 106px;
+    gap: 6px;
+    padding-inline: 4px;
+    letter-spacing: 0;
+  }
+
+  .shots-panel__row {
+    gap: 6px;
+    padding-inline: 4px;
+  }
+
+  .shots-panel__actions {
+    width: 106px;
+    gap: 4px;
+  }
+
+  .shots-panel__validation,
+  .shots-panel__club-data {
+    padding-inline: 4px;
+  }
+
+  /* Session history: the replay column shows only ▷ under its "Zeitlupe"
+   * heading, and the cells sit closer, so the table fits 320 px. */
+  .session-history th,
+  .session-history td {
+    padding-inline: 0.15rem;
+  }
+
+  .session-history__replay {
+    width: 44px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .session-history__replay::before {
+    content: '\25B7';
+    font-size: 0.875rem;
+  }
+
+  /* My clubs: two across; three left "Pitching Wedge" no room. */
+  .bag-settings__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Room for "Profile 1 · 11:13" under the shot heading. */
+  .range-toolbar,
+  .range-toolbar-actions {
+    gap: 4px;
+  }
+
+  .range-toolbar button,
+  .range-app .range-toolbar .panel-action {
+    padding: 0 10px;
+  }
+
+  /* a•space: beside "‹ Zurück" the menu's area name broke inside the word
+   * ("Kalibriere-n", "Auswert-ung"). The name (a•space) takes a little less
+   * size, so "Auswertung" keeps one line. */
+  .menu-sheet__area-title {
+    font-size: 0.95rem;
+  }
+
+  /* The Range layout's side margin, for the tighter columns above. */
+  .range-app {
+    padding-inline: 8px;
+  }
+
+  /* "Ø SCHLÄGERTEMPO" in a 150 px tile. */
+  .stats-panel__grid .metric-card {
+    padding-inline: 10px;
+  }
+
+  .stats-panel__grid .metric-card__label {
+    font-size: var(--font-caption-tight);
+    letter-spacing: 0.02em;
+  }
+
+  /* Footer: five 44 px tabs need 234 px of bar; the slow-motion button left
+   * it 229, and "Ausrichten" needed 52 px with its padding. The tabs give up
+   * side padding and a little type size, the slow-motion button some
+   * padding, so every label keeps inside its tab and every tab inside the
+   * bar. */
+  .range-footer {
+    gap: 4px;
+  }
+
+  .range-footer button {
+    padding-inline: 2px;
+    /* Exception: at 320 px "Ausrichten" leaves its tab even at 12 px; the earlier size stays. */
+    font-size: 0.58rem;
+  }
+
+  .range-footer .range-replay-button {
+    padding-inline: 6px;
+  }
+
+  /* The kiosk's own page (127.0.0.1) in a 320 px window kept the kiosk's
+   * 16.5 px footer: in a•space its "Zeitlupe 0,1×" button (115 px) covered
+   * "Gerät" (Menü öffnen) and took its taps. It gets the phone's tab bar. */
+  .range-app--kiosk .range-footer button,
+  .range-app--kiosk .range-footer nav button {
+    padding-inline: 2px;
+    font-size: 0.58rem;
+  }
+
+  .range-app--kiosk .range-footer .range-replay-button {
+    padding-inline: 6px;
+  }
+
+  /* The Range brand gives its room to the connection and power status. */
+  .range-brand {
+    display: none;
+  }
+
+  .range-header-actions {
+    margin-left: auto;
+  }
+}
+
+/* iOS Safari zooms into a focused field under 16 px and stays zoomed; the
+ * shot editor's fields are 0.8125rem (14.6 px on a phone). 16 px is Safari's
+ * threshold, so it is a px floor; larger screens keep their rem size. */
+@media (hover: none) and (pointer: coarse) {
+  .shots-panel__field input,
+  .shots-panel__field select {
+    font-size: max(16px, 0.8125rem);
+  }
+}
