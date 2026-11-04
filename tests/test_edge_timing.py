@@ -658,9 +658,12 @@ def test_real_gpiozero_sets_the_edge_ticks_before_when_pressed():
     try:
         seen = []
         button.when_pressed = lambda: seen.append(edge_ticks(button))
-        factory.ticks = lambda: 4242.5  # the next edge's ticks, distinct from any earlier
-        factory.pin(17).drive_high()
-        assert seen == [4242.5]
+        before = button._last_changed  # pylint: disable=protected-access
+        pin = factory.pin(17)
+        pin.drive_high()
+        # The mock pin stamps the edge with its own clock, not with factory.ticks.
+        assert seen == [pin._last_change]  # pylint: disable=protected-access
+        assert seen[0] != before
     finally:
         button.close()
         factory.reset()
